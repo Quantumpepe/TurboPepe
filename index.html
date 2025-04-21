@@ -122,26 +122,37 @@
       ✅ Price already rising 🚀
     </p><a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">Buy TBP on SushiSwap</a>
 <p id="price" style="font-size: 0.9rem; margin-top: 0.5rem;">💰 Current Price: Loading...</p>
+<p id="marketcap" style="font-size: 0.8rem; margin-top: 0.25rem;">🧮 Market Cap: Loading...</p>
 
 <script>
   async function fetchTBPPrice() {
-    try {
-      const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b");
-      const data = await res.json();
-      const price = data?.pair?.priceUsd;
+  try {
+    const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b");
+    const data = await res.json();
+    const price = data?.pair?.priceUsd;
 
-      if (price) {
-        document.getElementById("price").innerText = `💰 Current Price: $${Number(price).toFixed(12)}`;
-     } else {
-        document.getElementById("price").innerText = "💰 Current Price: Not yet available";
-      }
-    } catch (error) {
-      document.getElementById("price").innerText = "💰 Current Price: Unavailable";
+    if (price) {
+      const formattedPrice = Number(price).toFixed(12);
+      const marketCap = (Number(price) * 200000000000).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      document.getElementById("price").innerText = `💰 Current Price: $${formattedPrice}`;
+      document.getElementById("marketcap").innerText = `🧮 Market Cap: $${marketCap}`;
+    } else {
+      document.getElementById("price").innerText = "💰 Current Price: Not available";
+      document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
     }
+  } catch (error) {
+    document.getElementById("price").innerText = "💰 Current Price: Unavailable";
+    document.getElementById("marketcap").innerText = "🧮 Market Cap: Error";
   }
+}
 
-  fetchTBPPrice();
-  setInterval(fetchTBPPrice, 10000); // update every 10s
+fetchTBPPrice();
+setInterval(fetchTBPPrice, 10000);
+
 </script>
 
 
