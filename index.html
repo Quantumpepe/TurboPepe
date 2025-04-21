@@ -80,7 +80,7 @@
 <script>
   async function fetchTBPPrice() {
     try {
-      const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b");
+      const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x50c40e03552A42fbE41b2507d522F56d7325D1F2");
       const data = await res.json();
       const price = data.pair.priceUsd;
       document.getElementById("price").innerText = `💰 Current Price: ${parseFloat(price).toFixed(9)}`;
@@ -100,7 +100,7 @@
 
 <div class="section">
   <h2>📈 Chart</h2>
-  <a class="button" href="https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b"target="_blank">View on DEX Screener</a>
+  <a class="button" href="https://dexscreener.com/polygon/0x50c40e03552A42fbE41b2507d522F56d7325D1F2"target="_blank">View on DEX Screener</a>
 </div>
 
 <div class="section">
