@@ -82,16 +82,22 @@
     try {
       const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x50c40e03552A42fbE41b2507d522F56d7325D1F2");
       const data = await res.json();
-      const price = data.pair.priceUsd;
-      document.getElementById("price").innerText = `💰 Current Price: ${parseFloat(price).toFixed(9)}`;
+      const price = data?.pair?.priceUsd;
+
+      if (price) {
+        document.getElementById("price").innerText = `💰 Current Price: $${parseFloat(price).toFixed(9)}`;
+      } else {
+        document.getElementById("price").innerText = "💰 Current Price: Not yet available";
+      }
     } catch (error) {
       document.getElementById("price").innerText = "💰 Current Price: Unavailable";
     }
   }
 
   fetchTBPPrice();
-  setInterval(fetchTBPPrice, 15000); // update every 15s
+  setInterval(fetchTBPPrice, 10000); // update every 10s
 </script>
+
 
 <div class="section">
   <h2>📜 Contract Address</h2>
