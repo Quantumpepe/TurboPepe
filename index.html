@@ -75,6 +75,23 @@
       ✅ 0 tokens held by the dev <br>
       ✅ Price already rising 🚀
     </p><a class="button" href="https://www.sushi.com/swap?chain=polygon&token0=POL&token1=0x273Cd9EfBC0aA6925E6FEbcAA027B6b87A5BC2e3" target="_blank">Buy TBP on SushiSwap</a>
+<p id="price" style="font-size: 0.9rem; margin-top: 0.5rem;">💰 Current Price: Loading...</p>
+
+<script>
+  async function fetchTBPPrice() {
+    try {
+      const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b");
+      const data = await res.json();
+      const price = data.pair.priceUsd;
+      document.getElementById("price").innerText = `💰 Current Price: ${parseFloat(price).toFixed(9)}`;
+    } catch (error) {
+      document.getElementById("price").innerText = "💰 Current Price: Unavailable";
+    }
+  }
+
+  fetchTBPPrice();
+  setInterval(fetchTBPPrice, 15000); // update every 15s
+</script>
 
 <div class="section">
   <h2>📜 Contract Address</h2>
