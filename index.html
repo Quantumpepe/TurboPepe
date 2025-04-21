@@ -20,7 +20,13 @@
       height: auto;
    }
 
-   .center-header h1 {
+   .center-header .logo:hover {
+     filter: drop-shadow(0 0 10px #00ff99);
+     transform: scale(1.1);
+     transition: all 0.3s ease;
+  }
+
+    .center-header h1 {
      margin: 0;
      font-size: 1.5rem;
   }
@@ -97,6 +103,11 @@
   </style>
 </head>
 <body>
+ <marquee behavior="scroll" direction="left" scrollamount="6" style="color:#00ff99; font-size:0.8rem; margin-top:0; background:#000; padding:0.5rem 0; border-bottom:2px solid #00ff99;">
+  🐸 TurboPepe is just getting started... Meme season is here... 🚀
+</marquee>
+
+  
   <header class="center-header">
   <img src="turbopepe.png" alt="TurboPepe Logo" class="logo">
   <h1>TurboPepe (TBP) is LIVE!</h1>
