@@ -85,7 +85,8 @@
       const price = data?.pair?.priceUsd;
 
       if (price) {
-        document.getElementById("price").innerText = `💰 Current Price: $${parseFloat(price).toFixed(9)}`;
+        document.getElementById("price").innerText = `💰 Current Price: $${Number(price).toPrecision(10)}`;
+
       } else {
         document.getElementById("price").innerText = "💰 Current Price: Not yet available";
       }
