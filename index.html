@@ -44,16 +44,57 @@
     ul { list-style: none; padding: 0; font-size: .75rem; }
     footer { padding: 2rem; font-size: .7rem; }
     @media (min-width: 600px) { .button { width: auto; } }
-    /* AI Widget */
-    #aiq-panel {
-      position: fixed; right: 16px; bottom: 76px; width: 320px; background: #111827; color:#fff;
-      border-radius: 16px; display: none; padding: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.3); z-index: 9999;
+
+    /* === AI Widget (compact) === */
+    .aiq-fab {
+      position: fixed; right: 16px; bottom: 16px;
+      width: 46px; height: 46px; border-radius: 50%;
+      border: 2px solid #00ff99; background:#081a12; color:#00ff99;
+      display:flex; align-items:center; justify-content:center;
+      font-size: 22px; cursor:pointer; z-index:9999;
+      box-shadow: 0 0 14px rgba(0,255,153,0.35);
+      transition: transform .15s ease, box-shadow .15s ease;
     }
-    #aiq-log { height: 220px; overflow: auto; border: 1px solid #1f2937; border-radius: 10px; padding: 8px; background: #0b1220; text-align: left; }
-    .aiq-open {
-      position: fixed; right: 16px; bottom: 16px; background:#00ff99; color:#000; border:0; border-radius:12px;
-      padding: 10px 14px; cursor:pointer; z-index: 9999; font-weight: 700;
-      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    .aiq-fab:hover { transform: scale(1.05); box-shadow: 0 0 18px rgba(0,255,153,0.55); }
+
+    #aiq-panel {
+      position: fixed; right: 16px; bottom: 72px; width: 280px;
+      max-width: calc(100vw - 24px);
+      background: #0f172a; color:#e5e7eb;
+      border: 1px solid #1f2937; border-radius: 14px;
+      display: none; padding: 10px; z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px; line-height: 1.45;
+      text-align: left;
+    }
+    #aiq-header {
+      display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;
+    }
+    #aiq-header .title { font-weight:700; font-size:11px; color:#00ff99; }
+    #aiq-close {
+      background: transparent; border:0; color:#94a3b8; font-size:14px; cursor:pointer;
+    }
+    #aiq-log {
+      height: 160px; overflow:auto; border: 1px solid #1f2937; border-radius: 8px;
+      padding: 6px; background: #0b1220;
+    }
+    .aiq-msg { margin: 6px 0; }
+    .aiq-msg b { color:#00ff99; }
+    #aiq-input {
+      flex: 1; padding: 6px 8px; border-radius: 8px; border: 1px solid #334155;
+      background: #0b1220; color: #e5e7eb; font-size: 10px;
+    }
+    #aiq-send {
+      padding: 6px 10px; border-radius: 8px; background: #22c55e;
+      color: #0b1220; font-weight: 700; font-size: 10px; border: none; cursor:pointer;
+    }
+    #aiq-row { display:flex; gap:6px; margin-top:8px; }
+    #aiq-hint { font-size:9px; color:#9ca3af; margin-top:6px; }
+
+    @media (max-width: 420px){
+      #aiq-panel { bottom: 72px; right: 12px; width: calc(100vw - 24px); }
+      #aiq-log { height: 150px; }
     }
   </style>
 </head>
@@ -67,12 +108,11 @@
     <img src="turbopepe.png" alt="TurboPepe Logo" class="logo">
     <h1 style="margin:0; font-size:1.5rem;">TurboPepe (TBP) is LIVE!</h1>
 
-    <!-- AI Identity Row -->
+    <!-- AI Identity -->
     <div style="margin:12px 0 0; display:flex; gap:8px; justify-content:center; align-items:center; font-size:0.8rem; flex-wrap: wrap;">
       <span style="background:#001b12;border:1px solid #00ff99;color:#00ff99;padding:6px 10px;border-radius:999px;">
         🧠 TBP is an AI-Token — I post & explain myself
       </span>
-      <button id="aiq-open" class="aiq-open">Ask TBP (AI)</button>
     </div>
   </header>
 
@@ -106,17 +146,6 @@
     <p id="price" style="font-size:0.9rem; margin-top: 0.5rem;">💰 Current Price: Loading...</p>
     <p id="marketcap" style="font-size:0.8rem; margin-top: 0.25rem;">🧮 Market Cap: Loading...</p>
     <p id="supplyline" style="font-size:0.75rem; margin-top:0.25rem; color:#00ff99;"></p>
-
-    <!-- AI Panel -->
-    <div id="aiq-panel">
-      <div style="font-weight:700; margin-bottom:8px;">TBP Assistant</div>
-      <div id="aiq-log"></div>
-      <div style="display:flex; gap:6px; margin-top:8px;">
-        <input id="aiq-input" placeholder="Ask me anything…" style="flex:1;padding:8px;border-radius:10px;border:1px solid #334155;background:#0b1220;color:#e5e7eb">
-        <button id="aiq-send" style="padding:8px 12px;border-radius:10px;background:#22c55e;color:#0b1220;font-weight:700">Send</button>
-      </div>
-      <div style="font-size:.7rem;color:#9ca3af;margin-top:6px;">Tip: price/chart • how to buy • security • goal</div>
-    </div>
 
     <div class="section">
       <h2>📜 Contract Address</h2>
@@ -203,7 +232,7 @@
         </ul>
 
         <h3>✅ Final Note</h3>
-        <p>TBP isn’t just another meme token — it’s an **AI-token** that explains itself and grows with its community.</p>
+        <p>TBP isn’t just another meme token — it’s an <strong>AI-token</strong> that explains itself and grows with its community.</p>
       </div>
     </div>
 
@@ -221,12 +250,28 @@
       <a class="button" href="https://t.me/turbopepe25" target="_blank">Telegram</a>
       <a class="button" href="https://x.com/TurboPepe2025" target="_blank">Twitter</a>
     </div>
-
   </div>
 
   <footer>
-    TurboPepe © 2025 – Powered by memes & Polygon turbopepeai@gmail.com 🐸
+    TurboPepe © 2025 – Powered by memes & Polygon 🐸
   </footer>
+
+  <!-- Floating AI Button -->
+  <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI">🐸</button>
+
+  <!-- AI Panel -->
+  <div id="aiq-panel" role="dialog" aria-modal="true" aria-label="TBP Assistant">
+    <div id="aiq-header">
+      <div class="title">TBP Assistant</div>
+      <button id="aiq-close" title="Close">✕</button>
+    </div>
+    <div id="aiq-log"></div>
+    <div id="aiq-row">
+      <input id="aiq-input" placeholder="Ask me anything…">
+      <button id="aiq-send">Send</button>
+    </div>
+    <div id="aiq-hint">Tip: price/chart • how to buy • security • goal</div>
+  </div>
 
   <!-- Pricing / Market Cap & AI scripts -->
   <script>
@@ -236,10 +281,9 @@
     const BURNED     = 10_000_000_000;   // burned (10B)
     const OWNER      = 14_000_000_000;   // owner balance (~14B)
     const LP_HELD    = 130_000_000_000;  // LP tokens (~130B)
-    // Circulating calc: exclude burned and (optional) owner for conservative MC
-    const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER); // strict circulating
+    // Circulating calc: exclude burned and owner for conservative MC
+    const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
 
-    // Supply line text
     function setSupplyLine() {
       const el = document.getElementById("supplyline");
       el.innerHTML = `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned &nbsp;•&nbsp; 💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP &nbsp;•&nbsp; 👤 Owner ~<strong>${OWNER.toLocaleString()} TBP</strong> &nbsp;•&nbsp; Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
@@ -271,7 +315,7 @@
     fetchTBPPrice();
     setInterval(fetchTBPPrice, 10000);
 
-    // ======= AI Widget (FAQ + Advisor-ready) =======
+    // ======= AI Widget (FAQ + Advisor) =======
     const FAQ = [
       { q:/price|chart|kurs/i, a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
       { q:/buy|kauf|how .*buy/i, a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
@@ -281,46 +325,58 @@
       { q:/nft|tbp gold/i, a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
     ];
     function faqAnswer(t){ for(const f of FAQ){ if(f.q.test(t)) return f.a; } return null; }
+
     function addMsg(sender, text){
       const log = document.getElementById('aiq-log');
       const d = document.createElement('div');
-      d.style.margin = '6px 0';
+      d.className = 'aiq-msg';
       d.innerHTML = `<b>${sender}:</b> ${text}`;
       log.appendChild(d);
       log.scrollTop = log.scrollHeight;
     }
+
     async function askAdvisor(text){
-  try{
-    const r = await fetch("https://tbp-advisor.onrender.com/ask", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        question: text,
-        context: [],
-        need_image: false
-      })
-    });
-    const j = await r.json();
-    return j.answer || null;
-  }catch(e){
-    return null;
-  }
-}
+      try{
+        const r = await fetch("https://tbp-advisor.onrender.com/ask", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({
+            question: text,
+            context: [],
+            need_image: false
+          })
+        });
+        const j = await r.json();
+        return j.answer || null;
+      }catch(e){
+        return null;
+      }
+    }
 
     async function aiSend(){
       const inp = document.getElementById('aiq-input');
       const q = (inp.value||'').trim(); if(!q) return;
       addMsg('You', q); inp.value='';
       const hit = faqAnswer(q);
-      if (hit) return addMsg('TBP', hit);
+      if (hit) { addMsg('TBP', hit); return; }
       const adv = await askAdvisor(q);
       addMsg('TBP', adv || "I’m collecting data… check the widget meanwhile. 🐸");
     }
-    document.getElementById('aiq-open').onclick = () => {
-      const p = document.getElementById('aiq-panel');
-      p.style.display = (p.style.display === 'none' || !p.style.display) ? 'block' : 'none';
-    };
-    document.getElementById('aiq-send').onclick = aiSend;
+
+    const fab   = document.getElementById('aiq-fab');
+    const panel = document.getElementById('aiq-panel');
+    const closeBtn = document.getElementById('aiq-close');
+    const sendBtn  = document.getElementById('aiq-send');
+    const input    = document.getElementById('aiq-input');
+
+    fab.addEventListener('click', ()=> {
+      panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+      if (panel.style.display === 'block') { input.focus(); }
+    });
+    closeBtn.addEventListener('click', ()=> { panel.style.display = 'none'; });
+    sendBtn.addEventListener('click', aiSend);
+    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ aiSend(); }});
   </script>
 </body>
 </html>
+
