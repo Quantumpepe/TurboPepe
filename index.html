@@ -290,11 +290,23 @@
       log.scrollTop = log.scrollHeight;
     }
     async function askAdvisor(text){
-      // TODO (später): an deinen Advisor-Endpoint posten, z.B.:
-      // const r = await fetch('https://YOUR-RENDER-ADVISOR/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:text})});
-      // const j = await r.json(); return j.answer;
-      return null; // vorerst kein Backend – nur FAQ
-    }
+  try{
+    const r = await fetch("https://tbp-advisor.onrender.com/ask", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        question: text,
+        context: [],
+        need_image: false
+      })
+    });
+    const j = await r.json();
+    return j.answer || null;
+  }catch(e){
+    return null;
+  }
+}
+
     async function aiSend(){
       const inp = document.getElementById('aiq-input');
       const q = (inp.value||'').trim(); if(!q) return;
