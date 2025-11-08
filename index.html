@@ -45,145 +45,62 @@
     footer { padding: 2rem; font-size: .7rem; }
     @media (min-width: 600px) { .button { width: auto; } }
 
- /* === AI Widget (50% larger + mobile responsive) === */
-.aiq-fab {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 2px solid #00ff99;
-  background: #081a12;
-  color: #00ff99;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 0 18px rgba(0,255,153,0.45);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-.aiq-fab:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 24px rgba(0,255,153,0.6);
-}
+    /* === AI Widget (50% larger + mobile responsive) === */
+    .aiq-fab {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 2px solid #00ff99; background:#081a12; color:#00ff99;
+      display:flex; align-items:center; justify-content:center;
+      font-size: 26px; cursor:pointer; z-index:9999;
+      box-shadow: 0 0 18px rgba(0,255,153,0.45);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .aiq-fab:hover { transform: scale(1.08); box-shadow: 0 0 24px rgba(0,255,153,0.6); }
 
-#aiq-panel {
-  position: fixed;
-  right: 20px;
-  bottom: 90px;
-  width: 420px; /* 1.5x bigger */
-  max-width: calc(100vw - 30px);
-  background: #0f172a;
-  color: #e5e7eb;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
-  display: none;
-  padding: 14px;
-  z-index: 9999;
-  box-shadow: 0 8px 30px rgba(0,0,0,.45);
-  font-family: 'Press Start 2P', monospace;
-  font-size: 11px;
-  line-height: 1.55;
-  text-align: left;
-}
-#aiq-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-#aiq-header .title {
-  font-weight: 700;
-  font-size: 12px;
-  color: #00ff99;
-}
-#aiq-close {
-  background: transparent;
-  border: 0;
-  color: #94a3b8;
-  font-size: 16px;
-  cursor: pointer;
-}
-#aiq-log {
-  height: 240px;
-  overflow: auto;
-  border: 1px solid #1f2937;
-  border-radius: 10px;
-  padding: 8px;
-  background: #0b1220;
-}
-.aiq-msg { margin: 8px 0; }
-.aiq-msg b { color: #00ff99; }
+    #aiq-panel {
+      position: fixed; right: 20px; bottom: 90px; width: 420px; /* 1.5x bigger */
+      max-width: calc(100vw - 30px);
+      background: #0f172a; color:#e5e7eb;
+      border: 1px solid #1f2937; border-radius: 16px;
+      display: none; padding: 14px; z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0,0,0,.45);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px; line-height: 1.55; text-align: left;
+    }
+    #aiq-header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+    #aiq-header .title { font-weight:700; font-size:12px; color:#00ff99; }
+    #aiq-close { background: transparent; border:0; color:#94a3b8; font-size:16px; cursor:pointer; }
+    #aiq-log {
+      height: 240px; overflow:auto; border: 1px solid #1f2937; border-radius: 10px;
+      padding: 8px; background: #0b1220;
+    }
+    .aiq-msg { margin: 8px 0; }
+    .aiq-msg b { color:#00ff99; }
+    #aiq-input {
+      flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #334155;
+      background: #0b1220; color: #e5e7eb; font-size: 11px;
+    }
+    #aiq-send {
+      padding: 8px 12px; border-radius: 8px; background: #22c55e;
+      color: #0b1020; font-weight: 700; font-size: 11px; border: none; cursor:pointer;
+    }
+    #aiq-row { display:flex; gap:8px; margin-top:10px; }
+    #aiq-hint { font-size:10px; color:#9ca3af; margin-top:8px; }
 
-#aiq-input {
-  flex: 1;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: #0b1220;
-  color: #e5e7eb;
-  font-size: 11px;
-}
-#aiq-send {
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #22c55e;
-  color: #0b1220;
-  font-weight: 700;
-  font-size: 11px;
-  border: none;
-  cursor: pointer;
-}
-#aiq-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-#aiq-hint {
-  font-size: 10px;
-  color: #9ca3af;
-  margin-top: 8px;
-}
-
-/* === Mobile Optimization === */
-@media (max-width: 600px) {
-  .aiq-fab {
-    right: 14px;
-    bottom: 14px;
-    width: 54px;
-    height: 54px;
-    font-size: 24px;
-  }
-
-  #aiq-panel {
-    bottom: 80px;
-    right: 10px;
-    width: calc(100vw - 20px);
-    height: 70vh;              /* adaptive vertical space */
-    padding: 12px;
-    border-radius: 14px;
-  }
-
-  #aiq-log {
-    height: calc(70vh - 120px);
-    font-size: 10px;
-  }
-
-  #aiq-input {
-    font-size: 10px;
-  }
-  #aiq-send {
-    font-size: 10px;
-  }
-  #aiq-hint {
-    font-size: 9px;
-  }
-}
-
+    /* Mobile Optimization */
+    @media (max-width: 600px) {
+      .aiq-fab { right:14px; bottom:14px; width:54px; height:54px; font-size:24px; }
+      #aiq-panel {
+        bottom: 80px; right: 10px;
+        width: calc(100vw - 20px); height: 70vh;
+        padding: 12px; border-radius: 14px;
+      }
+      #aiq-log { height: calc(70vh - 120px); font-size:10px; }
+      #aiq-input, #aiq-send { font-size:10px; }
+      #aiq-hint { font-size:9px; }
+    }
   </style>
 </head>
 <body>
@@ -226,7 +143,7 @@
     <a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">Buy TBP on SushiSwap</a>
 
     <div style="text-align:center; margin-top:20px;">
-      <h3 style="color:#fff; font-family:sans-serif; margin:0 0 8px;">TurboPepe-AI Staking comin son !</h3>
+      <h3 style="color:#fff; font-family:sans-serif; margin:0 0 8px;">TurboPepe-AI Staking coming soon!</h3>
       <p style="color:#ccc; margin:0 0 12px;">Earn <strong>5%–10%</strong> rewards.</p>
       <a href="https://app.manifold.xyz/c/turbopepe-gold" target="_blank" class="button">Claim TurboPepe Gold NFT</a>
     </div>
@@ -341,7 +258,7 @@
   </div>
 
   <footer>
-    TurboPepe © 2025 – Powered by memes & Polygon  turbopepeai@gmail.com 🐸
+    TurboPepe © 2025 – Powered by memes & Polygon • turbopepeai@gmail.com 🐸
   </footer>
 
   <!-- Floating AI Button -->
@@ -364,31 +281,35 @@
   <!-- Pricing / Market Cap & AI scripts -->
   <script>
     // ======= CONFIG =======
-    const DEX_PAIR = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
+    const DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
     const MAX_SUPPLY = 190_000_000_000;  // total TBP (190B)
     const BURNED     = 10_000_000_000;   // burned (10B)
     const OWNER      = 14_000_000_000;   // owner balance (~14B)
     const LP_HELD    = 130_000_000_000;  // LP tokens (~130B)
-    // Circulating calc: exclude burned and owner for conservative MC
-    const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
+    const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER); // conservative circulating
 
     function setSupplyLine() {
       const el = document.getElementById("supplyline");
-      el.innerHTML = `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned &nbsp;•&nbsp; 💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP &nbsp;•&nbsp; 👤 Owner ~<strong>${OWNER.toLocaleString()} TBP</strong> &nbsp;•&nbsp; Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
+      el.innerHTML =
+        `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned &nbsp;•&nbsp; `
+        + `💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP &nbsp;•&nbsp; `
+        + `👤 Owner ~<strong>${OWN
+ER.toLocaleString()} TBP</strong> &nbsp;•&nbsp; `
+        + `Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
     }
 
     async function fetchTBPPrice() {
       try {
-        const res = await fetch(`https://api.dexscreener.com/latest/dex/pairs/polygon/${DEX_PAIR}`);
+        const res = await fetch(\`https://api.dexscreener.com/latest/dex/pairs/polygon/\${DEX_PAIR}\`);
         const data = await res.json();
         const price = Number(data?.pair?.priceUsd);
         if (Number.isFinite(price)) {
           const fdv  = price * MAX_SUPPLY;
           const circ = price * CIRC_SUPPLY;
           document.getElementById("price").innerText =
-            `💰 Current Price: $${price.toFixed(12)}`;
+            \`💰 Current Price: $\${price.toFixed(12)}\`;
           document.getElementById("marketcap").innerText =
-            `🧮 MC (circulating est.): $${circ.toLocaleString(undefined,{maximumFractionDigits:2})} | FDV: $${fdv.toLocaleString(undefined,{maximumFractionDigits:2})}`;
+            \`🧮 MC (circulating est.): $\${circ.toLocaleString(undefined,{maximumFractionDigits:2})} | FDV: $\${fdv.toLocaleString(undefined,{maximumFractionDigits:2})}\`;
         } else {
           document.getElementById("price").innerText = "💰 Current Price: N/A";
           document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
@@ -403,16 +324,19 @@
     fetchTBPPrice();
     setInterval(fetchTBPPrice, 10000);
 
-    // ======= AI Widget (FAQ + Advisor) =======
+    // ======= AI Widget (FAQ + Advisor + Typing + Context) =======
     const FAQ = [
-      { q:/price|chart|kurs/i, a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
-      { q:/buy|kauf|how .*buy/i, a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
-      { q:/tokenomics|supply|burn|owner|lp/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops)." },
-      { q:/ai|what .*tbp|who .*you/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep the pool in check. 🧠🐸" },
-      { q:/cmc|coingecko|listing/i, a:"Goal: CMC listing — focus on transparency, activity & community." },
-      { q:/nft|tbp gold/i, a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
+      { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
+      { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
+      { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops)." },
+      { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep the pool in check. 🧠🐸" },
+      { q:/cmc|coingecko|listing|listung/i, a:"Goal: CMC listing — focus on transparency, activity & community." },
+      { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
     ];
     function faqAnswer(t){ for(const f of FAQ){ if(f.q.test(t)) return f.a; } return null; }
+
+    // rolling context (last 8 turns)
+    const aiqCtx = [];
 
     function addMsg(sender, text){
       const log = document.getElementById('aiq-log');
@@ -423,32 +347,68 @@
       log.scrollTop = log.scrollHeight;
     }
 
-    async function askAdvisor(text){
-      try{
-        const r = await fetch("https://tbp-advisor.onrender.com/ask", {
-          method: "POST",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify({
-            question: text,
-            context: [],
-            need_image: false
-          })
-        });
-        const j = await r.json();
-        return j.answer || null;
-      }catch(e){
-        return null;
+    // typing indicator
+    let typingEl = null;
+    function showTyping(){
+      const log = document.getElementById('aiq-log');
+      typingEl = document.createElement('div');
+      typingEl.className = 'aiq-msg';
+      typingEl.innerHTML = `<b>TBP:</b> <span id="aiq-dots">…</span>`;
+      log.appendChild(typingEl);
+      log.scrollTop = log.scrollHeight;
+      let n=0;
+      typingEl._int = setInterval(()=>{
+        n=(n+1)%4;
+        const dots = n===0 ? '…' : '.'.repeat(n);
+        const el = document.getElementById('aiq-dots');
+        if (el) el.textContent = dots;
+      }, 300);
+    }
+    function hideTyping(){
+      if(typingEl){
+        clearInterval(typingEl._int);
+        typingEl.remove();
+        typingEl = null;
       }
+    }
+
+    async function askAdvisor(text){
+      const payload = { question: text, context: aiqCtx.slice(-8), need_image: false };
+      const r = await fetch("https://tbp-advisor.onrender.com/ask", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+      const j = await r.json();
+      return j && j.answer ? j.answer : null;
     }
 
     async function aiSend(){
       const inp = document.getElementById('aiq-input');
-      const q = (inp.value||'').trim(); if(!q) return;
-      addMsg('You', q); inp.value='';
+      const q = (inp.value||'').trim();
+      if(!q) return;
+      addMsg('You', q);
+      aiqCtx.push("You: " + q);
+      inp.value='';
+
       const hit = faqAnswer(q);
-      if (hit) { addMsg('TBP', hit); return; }
-      const adv = await askAdvisor(q);
-      addMsg('TBP', adv || "I’m collecting data… check the widget meanwhile. 🐸");
+      if (hit){
+        addMsg('TBP', hit);
+        aiqCtx.push("TBP: " + hit);
+        return;
+      }
+
+      showTyping();
+      try{
+        const adv = await askAdvisor(q);
+        hideTyping();
+        const msg = adv || "I’m collecting data… check the widget meanwhile. 🐸";
+        addMsg('TBP', msg);
+        aiqCtx.push("TBP: " + msg);
+      }catch(e){
+        hideTyping();
+        addMsg('TBP', "Network hiccup — try again in a moment 🐸");
+      }
     }
 
     const fab   = document.getElementById('aiq-fab');
@@ -467,4 +427,3 @@
   </script>
 </body>
 </html>
-
