@@ -280,150 +280,170 @@
 
   <!-- Pricing / Market Cap & AI scripts -->
   <script>
-    // ======= CONFIG =======
-    const DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
-    const MAX_SUPPLY = 190_000_000_000;  // total TBP (190B)
-    const BURNED     = 10_000_000_000;   // burned (10B)
-    const OWNER      = 14_000_000_000;   // owner balance (~14B)
-    const LP_HELD    = 130_000_000_000;  // LP tokens (~130B)
-    const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER); // conservative circulating
+  // ============ CONFIG ============
+  const DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
+  const MAX_SUPPLY = 190000000000;  // 190B (keine Unterstriche)
+  const BURNED     = 10000000000;   // 10B
+  const OWNER      = 14000000000;   // 14B
+  const LP_HELD    = 130000000000;  // 130B
+  const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
 
-    function setSupplyLine() {
-  const el = document.getElementById("supplyline");
-  el.innerHTML =
-    `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned&nbsp;•&nbsp;` +
-    `💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP&nbsp;•&nbsp;` +
-    `👤 Owner ~<strong>${OWNER.toLocaleString()} TBP</strong>&nbsp;•&nbsp;` +
-    `Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
-}
+  console.log("[TBP-AI] booting…");
 
+  // ============ SUPPLY LINE ============
+  function setSupplyLine() {
+    var el = document.getElementById("supplyline");
+    if (!el) return;
+    el.innerHTML =
+      '🔥 <strong>' + BURNED.toLocaleString() + ' TBP</strong> burned&nbsp;•&nbsp;' +
+      '💧 ~<strong>' + LP_HELD.toLocaleString() + ' TBP</strong> in LP&nbsp;•&nbsp;' +
+      '👤 Owner ~<strong>' + OWNER.toLocaleString() + ' TBP</strong>&nbsp;•&nbsp;' +
+      'Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
+  }
 
-    async function fetchTBPPrice() {
-      try {
-        const res = await fetch(\`https://api.dexscreener.com/latest/dex/pairs/polygon/\${DEX_PAIR}\`);
-        const data = await res.json();
-        const price = Number(data?.pair?.priceUsd);
-        if (Number.isFinite(price)) {
-          const fdv  = price * MAX_SUPPLY;
-          const circ = price * CIRC_SUPPLY;
-          document.getElementById("price").innerText =
-            \`💰 Current Price: $\${price.toFixed(12)}\`;
-          document.getElementById("marketcap").innerText =
-            \`🧮 MC (circulating est.): $\${circ.toLocaleString(undefined,{maximumFractionDigits:2})} | FDV: $\${fdv.toLocaleString(undefined,{maximumFractionDigits:2})}\`;
-        } else {
-          document.getElementById("price").innerText = "💰 Current Price: N/A";
-          document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
-        }
-      } catch (e) {
-        document.getElementById("price").innerText = "💰 Current Price: Unavailable";
-        document.getElementById("marketcap").innerText = "🧮 Market Cap: Error";
+  // ============ PRICE & MC ============
+  async function fetchTBPPrice() {
+    try {
+      var url = "https://api.dexscreener.com/latest/dex/pairs/polygon/" + DEX_PAIR;
+      var res = await fetch(url);
+      var data = await res.json();
+      var pair = data && data.pair ? data.pair : (data.pairs && data.pairs[0] ? data.pairs[0] : null);
+      var price = pair && pair.priceUsd ? Number(pair.priceUsd) : NaN;
+
+      if (isFinite(price)) {
+        var fdv  = price * MAX_SUPPLY;
+        var circ = price * CIRC_SUPPLY;
+        document.getElementById("price").innerText     = "💰 Current Price: $" + price.toFixed(12);
+        document.getElementById("marketcap").innerText = "🧮 MC (circulating est.): $" +
+          circ.toLocaleString(undefined,{maximumFractionDigits:2}) +
+          " | FDV: $" + fdv.toLocaleString(undefined,{maximumFractionDigits:2});
+      } else {
+        document.getElementById("price").innerText     = "💰 Current Price: N/A";
+        document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
       }
+    } catch (e) {
+      console.error("[TBP-AI] price error:", e);
+      document.getElementById("price").innerText     = "💰 Current Price: Unavailable";
+      document.getElementById("marketcap").innerText = "🧮 Market Cap: Error";
     }
+  }
 
-    setSupplyLine();
-    fetchTBPPrice();
-    setInterval(fetchTBPPrice, 10000);
+  setSupplyLine();
+  fetchTBPPrice();
+  setInterval(fetchTBPPrice, 10000);
 
-    // ======= AI Widget (FAQ + Advisor + Typing + Context) =======
-    const FAQ = [
-      { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
-      { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
-      { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops)." },
-      { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep the pool in check. 🧠🐸" },
-      { q:/cmc|coingecko|listing|listung/i, a:"Goal: CMC listing — focus on transparency, activity & community." },
-      { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
-    ];
-    function faqAnswer(t){ for(const f of FAQ){ if(f.q.test(t)) return f.a; } return null; }
+  // ============ AI WIDGET ============
+  var FAQ = [
+    { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
+    { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
+    { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops)." },
+    { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep the pool in check. 🧠🐸" },
+    { q:/cmc|coingecko|listing|listung/i, a:"Goal: CMC listing — focus on transparency, activity & community." },
+    { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
+  ];
+  function faqAnswer(t){ for (var i=0;i<FAQ.length;i++){ if (FAQ[i].q.test(t)) return FAQ[i].a; } return null; }
 
-    // rolling context (last 8 turns)
-    const aiqCtx = [];
+  // rolling context (last 8 turns)
+  var aiqCtx = [];
 
-    function addMsg(sender, text){
-      const log = document.getElementById('aiq-log');
-      const d = document.createElement('div');
-      d.className = 'aiq-msg';
-      d.innerHTML = `<b>${sender}:</b> ${text}`;
-      log.appendChild(d);
-      log.scrollTop = log.scrollHeight;
-    }
+  function addMsg(sender, text){
+    var log = document.getElementById('aiq-log');
+    var d = document.createElement('div');
+    d.className = 'aiq-msg';
+    d.innerHTML = "<b>" + sender + ":</b> " + text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+  }
 
-    // typing indicator
-    let typingEl = null;
-    function showTyping(){
-      const log = document.getElementById('aiq-log');
-      typingEl = document.createElement('div');
-      typingEl.className = 'aiq-msg';
-      typingEl.innerHTML = `<b>TBP:</b> <span id="aiq-dots">…</span>`;
-      log.appendChild(typingEl);
-      log.scrollTop = log.scrollHeight;
-      let n=0;
-      typingEl._int = setInterval(()=>{
-        n=(n+1)%4;
-        const dots = n===0 ? '…' : '.'.repeat(n);
-        const el = document.getElementById('aiq-dots');
-        if (el) el.textContent = dots;
-      }, 300);
-    }
-    function hideTyping(){
-      if(typingEl){
-        clearInterval(typingEl._int);
-        typingEl.remove();
-        typingEl = null;
-      }
-    }
+  // typing indicator
+  var typingEl = null, typingInt = null;
+  function showTyping(){
+    var log = document.getElementById('aiq-log');
+    typingEl = document.createElement('div');
+    typingEl.className = 'aiq-msg';
+    typingEl.innerHTML = '<b>TBP:</b> <span id="aiq-dots">…</span>';
+    log.appendChild(typingEl);
+    log.scrollTop = log.scrollHeight;
+    var n=0;
+    typingInt = setInterval(function(){
+      n=(n+1)%4;
+      var dots = (n===0 ? '…' : Array(n+1).join('.'));
+      var el = document.getElementById('aiq-dots');
+      if (el) el.textContent = dots;
+    }, 300);
+  }
+  function hideTyping(){
+    if (typingInt) clearInterval(typingInt);
+    typingInt = null;
+    if (typingEl) typingEl.remove();
+    typingEl = null;
+  }
 
-    async function askAdvisor(text){
-      const payload = { question: text, context: aiqCtx.slice(-8), need_image: false };
-      const r = await fetch("https://tbp-advisor.onrender.com/ask", {
+  async function askAdvisor(text){
+    try{
+      var payload = { question: text, context: aiqCtx.slice(-8), need_image: false };
+      var r = await fetch("https://tbp-advisor.onrender.com/ask", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
+        headers: { "Content-Type":"application/json" },
         body: JSON.stringify(payload)
       });
-      const j = await r.json();
-      return j && j.answer ? j.answer : null;
+      var j = await r.json();
+      return (j && j.answer) ? j.answer : null;
+    }catch(e){
+      console.error("[TBP-AI] advisor error:", e);
+      return null;
+    }
+  }
+
+  async function aiSend(){
+    var inp = document.getElementById('aiq-input');
+    var q = (inp.value || '').trim();
+    if (!q) return;
+    addMsg('You', q);
+    aiqCtx.push("You: " + q);
+    inp.value = '';
+
+    var hit = faqAnswer(q);
+    if (hit){
+      addMsg('TBP', hit);
+      aiqCtx.push("TBP: " + hit);
+      return;
     }
 
-    async function aiSend(){
-      const inp = document.getElementById('aiq-input');
-      const q = (inp.value||'').trim();
-      if(!q) return;
-      addMsg('You', q);
-      aiqCtx.push("You: " + q);
-      inp.value='';
-
-      const hit = faqAnswer(q);
-      if (hit){
-        addMsg('TBP', hit);
-        aiqCtx.push("TBP: " + hit);
-        return;
-      }
-
-      showTyping();
-      try{
-        const adv = await askAdvisor(q);
-        hideTyping();
-        const msg = adv || "I’m collecting data… check the widget meanwhile. 🐸";
-        addMsg('TBP', msg);
-        aiqCtx.push("TBP: " + msg);
-      }catch(e){
-        hideTyping();
-        addMsg('TBP', "Network hiccup — try again in a moment 🐸");
-      }
+    showTyping();
+    try{
+      var adv = await askAdvisor(q);
+      hideTyping();
+      var msg = adv || "I’m collecting data… check the widget meanwhile. 🐸";
+      addMsg('TBP', msg);
+      aiqCtx.push("TBP: " + msg);
+    }catch(e){
+      hideTyping();
+      addMsg('TBP', "Network hiccup — try again in a moment 🐸");
     }
+  }
 
-    const fab   = document.getElementById('aiq-fab');
-    const panel = document.getElementById('aiq-panel');
-    const closeBtn = document.getElementById('aiq-close');
-    const sendBtn  = document.getElementById('aiq-send');
-    const input    = document.getElementById('aiq-input');
+  // DOM references
+  var fab     = document.getElementById('aiq-fab');
+  var panel   = document.getElementById('aiq-panel');
+  var closeBtn= document.getElementById('aiq-close');
+  var sendBtn = document.getElementById('aiq-send');
+  var input   = document.getElementById('aiq-input');
 
-    fab.addEventListener('click', ()=> {
+  if (!fab || !panel || !closeBtn || !sendBtn || !input) {
+    console.error("[TBP-AI] Missing DOM elements for AI widget.");
+  } else {
+    fab.addEventListener('click', function(){
       panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-      if (panel.style.display === 'block') { input.focus(); }
+      if (panel.style.display === 'block') input.focus();
     });
-    closeBtn.addEventListener('click', ()=> { panel.style.display = 'none'; });
+    closeBtn.addEventListener('click', function(){ panel.style.display = 'none'; });
     sendBtn.addEventListener('click', aiSend);
-    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ aiSend(); }});
-  </script>
+    input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ aiSend(); }});
+  }
+
+  console.log("[TBP-AI] ready.");
+</script>
+
 </body>
 </html>
