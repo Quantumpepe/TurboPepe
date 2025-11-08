@@ -1,36 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TurboPepe (TBP)</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    .center-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .center-header .logo {
-      width: 70px;
-      height: auto;
-   }
-
-   .center-header .logo:hover {
-     filter: drop-shadow(0 0 10px #00ff99);
-     transform: scale(1.1);
-     transition: all 0.3s ease;
-  }
-
-    .center-header h1 {
-     margin: 0;
-     font-size: 1.5rem;
-  }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Press Start 2P', monospace;
@@ -42,264 +18,297 @@
     header {
       padding: 1rem;
       font-size: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
     }
-    header {
-     padding: 1rem;
-     font-size: 1.2rem;
-     display: flex;
-     align-items: center;
-     justify-content: flex-start;
-     gap: 1rem;
-   }
-
-   .logo {
-     width: 50px;
-     height: auto;
-   }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    .logo { width: 70px; height: auto; }
+    .logo:hover { filter: drop-shadow(0 0 10px #00ff99); transform: scale(1.1); transition: all .3s ease; }
+    .container { max-width: 900px; margin: 0 auto; }
     .button {
-      background: #00ff99;
-      color: #000;
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 0.5rem;
-      text-decoration: none;
-      display: inline-block;
-      width: 100%;
-      max-width: 300px;
+      background: #00ff99; color: #000; padding: 1rem; font-size: 1rem;
+      border: none; border-radius: 10px; cursor: pointer; margin: .5rem;
+      text-decoration: none; display: inline-block; width: 100%; max-width: 320px;
     }
-    .section {
-      margin-top: 2rem;
+    .section { margin-top: 2rem; }
+    .card {
+      background: rgba(0,255,153,.08);
+      border: 1px solid rgba(0,255,153,.25);
+      padding: 1rem; border-radius: 12px;
     }
     .contract, .tokenomics {
-      background: rgba(0, 255, 153, 0.1);
-      padding: 1rem;
-      border-radius: 8px;
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      word-wrap: break-word;
+      background: rgba(0,255,153,0.1);
+      padding: 1rem; border-radius: 8px; margin-top: 1rem; font-size: .75rem; word-wrap: break-word;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      font-size: 0.75rem;
+    ul { list-style: none; padding: 0; font-size: .75rem; }
+    footer { padding: 2rem; font-size: .7rem; }
+    @media (min-width: 600px) { .button { width: auto; } }
+    /* AI Widget */
+    #aiq-panel {
+      position: fixed; right: 16px; bottom: 76px; width: 320px; background: #111827; color:#fff;
+      border-radius: 16px; display: none; padding: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.3); z-index: 9999;
     }
-    footer {
-      padding: 2rem;
-      font-size: 0.7rem;
-    }
-    @media (min-width: 600px) {
-      .button {
-        width: auto;
-      }
+    #aiq-log { height: 220px; overflow: auto; border: 1px solid #1f2937; border-radius: 10px; padding: 8px; background: #0b1220; text-align: left; }
+    .aiq-open {
+      position: fixed; right: 16px; bottom: 16px; background:#00ff99; color:#000; border:0; border-radius:12px;
+      padding: 10px 14px; cursor:pointer; z-index: 9999; font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
     }
   </style>
 </head>
 <body>
- <marquee behavior="scroll" direction="left" scrollamount="6" style="color:#00ff99; font-size:0.8rem; margin-top:0; background:#000; padding:0.5rem 0; border-bottom:2px solid #00ff99;">
-  🐸 TurboPepe is just getting started... Meme season is here... 🚀
-</marquee>
 
-  
-  <header class="center-header">
-  <img src="turbopepe.png" alt="TurboPepe Logo" class="logo">
-  <h1>TurboPepe (TBP) is LIVE!</h1>
-</header>
+  <marquee behavior="scroll" direction="left" scrollamount="6" style="color:#00ff99; font-size:0.8rem; margin-top:0; background:#000; padding:0.5rem 0; border-bottom:2px solid #00ff99;">
+    🐸 TurboPepe is just getting started... Meme season is here... 🚀
+  </marquee>
 
-</header>
+  <header>
+    <img src="turbopepe.png" alt="TurboPepe Logo" class="logo">
+    <h1 style="margin:0; font-size:1.5rem;">TurboPepe (TBP) is LIVE!</h1>
+
+    <!-- AI Identity Row -->
+    <div style="margin:12px 0 0; display:flex; gap:8px; justify-content:center; align-items:center; font-size:0.8rem; flex-wrap: wrap;">
+      <span style="background:#001b12;border:1px solid #00ff99;color:#00ff99;padding:6px 10px;border-radius:999px;">
+        🧠 TBP is an AI-Token — I post & explain myself
+      </span>
+      <button id="aiq-open" class="aiq-open">Ask TBP (AI)</button>
+    </div>
+  </header>
+
+  <div class="container">
 
     <p>
-      The fairest meme-launch of the year: <br>
-      ✅ 100% tokens to LP <br>
-      ✅ 0 tokens held by the dev <br>
-      ✅ Price already rising 🚀
-      <div class="section" style="text-align: center; margin-top: 25px;">
-  <h2 style="color: #00ff99;">Liquidity Burned!</h2>
-  <p style="color: white;">TurboPepe's LP has been burned – it’s locked forever!</p>
-  <img src="file_00000000c09c6246a5115ad056026505.png" alt="TurboPepe burning LP" style="max-width: 90%; height: auto; border-radius: 12px; box-shadow: 0 0 20px lime;">
-  <p style="margin-top: 10px;">
-    <a href="https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a" 
-       target="_blank" 
-       style="color: #00ff99; text-decoration: underline; font-weight: bold;">
-      View Burn on PolygonScan
-    </a>
-  </p>
-</div>
-    </p><a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">Buy TBP on SushiSwap</a>
-  <div style="text-align: center; margin-top: 20px;">
-  <h3 style="color: #fff; font-family: sans-serif;">TurboPepe Staking is Live!</h3>
-  <p style="color: #ccc;">Earn <strong>5%-10% rewards</strong> – staking runs from <strong>June 3rd to July 3rd</strong></p>
-  
+      The fairest meme-launch of the year:<br>
+      ✅ 100% transparency<br>
+      ✅ No taxes<br>
+      ✅ AI-assisted community growth 🚀
+    </p>
+
+    <div class="section card" style="text-align:center; margin-top:25px;">
+      <h2 style="color:#00ff99; margin:0 0 8px;">Liquidity Burned!</h2>
+      <p style="color:#fff; margin:0 0 12px;">TurboPepe's LP has been burned – it’s locked forever!</p>
+      <img src="file_00000000c09c6246a5115ad056026505.png" alt="TurboPepe burning LP" style="max-width: 90%; height: auto; border-radius: 12px; box-shadow: 0 0 20px lime;">
+      <p style="margin-top: 10px;">
+        <a href="https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a" target="_blank"
+           style="color:#00ff99; text-decoration: underline; font-weight: bold;">View Burn on PolygonScan</a>
+      </p>
+    </div>
+
+    <a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">Buy TBP on SushiSwap</a>
+
+    <div style="text-align:center; margin-top:20px;">
+      <h3 style="color:#fff; font-family:sans-serif; margin:0 0 8px;">TurboPepe Staking is Live!</h3>
+      <p style="color:#ccc; margin:0 0 12px;">Earn <strong>5%–10%</strong> rewards.</p>
       <a href="https://app.manifold.xyz/c/turbopepe-gold" target="_blank" class="button">Claim TurboPepe Gold NFT</a>
+    </div>
 
-    </button>
-  </a>
-</div>
-<p id="price" style="font-size: 0.9rem; margin-top: 0.5rem;">💰 Current Price: Loading...</p>
-<p id="marketcap" style="font-size: 0.8rem; margin-top: 0.25rem;">🧮 Market Cap: Loading...</p>
-<p style="font-size: 0.75rem; margin-top: 0.25rem; color: #00ff99;">
-  🔥 <strong>10,000,000,000 TBP</strong> burned – Circulating Supply: <strong>190,000,000,000 TBP</strong>
-</p>
+    <p id="price" style="font-size:0.9rem; margin-top: 0.5rem;">💰 Current Price: Loading...</p>
+    <p id="marketcap" style="font-size:0.8rem; margin-top: 0.25rem;">🧮 Market Cap: Loading...</p>
+    <p id="supplyline" style="font-size:0.75rem; margin-top:0.25rem; color:#00ff99;"></p>
 
-<script>
-  async function fetchTBPPrice() {
-  try {
-    const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b");
-    const data = await res.json();
-    const price = data?.pair?.priceUsd;
+    <!-- AI Panel -->
+    <div id="aiq-panel">
+      <div style="font-weight:700; margin-bottom:8px;">TBP Assistant</div>
+      <div id="aiq-log"></div>
+      <div style="display:flex; gap:6px; margin-top:8px;">
+        <input id="aiq-input" placeholder="Ask me anything…" style="flex:1;padding:8px;border-radius:10px;border:1px solid #334155;background:#0b1220;color:#e5e7eb">
+        <button id="aiq-send" style="padding:8px 12px;border-radius:10px;background:#22c55e;color:#0b1220;font-weight:700">Send</button>
+      </div>
+      <div style="font-size:.7rem;color:#9ca3af;margin-top:6px;">Tip: price/chart • how to buy • security • goal</div>
+    </div>
 
-    if (price) {
-      const formattedPrice = Number(price).toFixed(12);
-      const marketCap = (Number(price) * 200000000000).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+    <div class="section">
+      <h2>📜 Contract Address</h2>
+      <div class="contract">0x50c40e03552A42fbE41b2507d522F56d7325D1F2</div>
+    </div>
 
-      document.getElementById("price").innerText = `💰 Current Price: $${formattedPrice}`;
-      document.getElementById("marketcap").innerText = `🧮 Market Cap: $${marketCap}`;
-    } else {
-      document.getElementById("price").innerText = "💰 Current Price: Not available";
-      document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
-    }
-  } catch (error) {
-    document.getElementById("price").innerText = "💰 Current Price: Unavailable";
-    document.getElementById("marketcap").innerText = "🧮 Market Cap: Error";
-  }
-}
+    <div class="section">
+      <h2>📈 Chart</h2>
+      <div style="margin-top: 1rem;">
+        <iframe src="https://www.geckoterminal.com/en/polygon_pos/pools/0x945c73101e11cc9e529c839d1d75648d04047b0b?embed=1"
+                height="400" width="100%" frameborder="0" style="border-radius: 10px;"></iframe>
 
-fetchTBPPrice();
-setInterval(fetchTBPPrice, 10000);
+        <div style="margin-top: 1rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+          <a href="https://www.dextools.io/app/en/polygon/pair-explorer/0x945c73101e11cc9e529c839d1d75648d04047b0b"
+             target="_blank"
+             style="padding: 0.5rem 1rem; background: #00ffcc; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold;">
+            View on DEXTools
+          </a>
+          <a href="https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b"
+             target="_blank"
+             style="padding: 0.5rem 1rem; background: #00ffcc; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold;">
+            View on DexScreener
+          </a>
+        </div>
+      </div>
+    </div>
 
-</script>
+    <div class="section">
+      <h2>📊 Tokenomics</h2>
+      <div class="tokenomics">
+        Total Supply: 190,000,000,000 TBP<br>
+        Burned: 10,000,000,000 TBP<br>
+        Liquidity (SushiSwap): ~130,000,000,000 TBP<br>
+        Owner (transparent): ~14,000,000,000 TBP (for listings/ops)<br>
+        Fair launch – No presale, no tax. Chain: Polygon (POL)
+      </div>
+    </div>
 
+    <div class="section" id="whitepaper" style="padding: 40px; background-color: #101010; color: white;">
+      <h2 style="text-align:center; font-size:2rem; margin:0 0 12px;">📜 Whitepaper</h2>
+      <div style="max-width: 900px; margin: 20px auto; background: #1a1a1a; padding: 20px; border-radius: 12px; height: 400px; overflow-y: auto; font-size: 1rem; line-height: 1.6; text-align:left;">
+        <p><strong>TurboPepe (TBP)</strong> is a meme-powered community token on Polygon with transparent tokenomics and a real AI layer. TBP’s AI posts autonomously, answers community questions, and monitors on-chain stats.</p>
 
-<div class="section">
-  <h2>📜 Contract Address</h2>
-  <div class="contract">0x50c40e03552A42fbE41b2507d522F56d7325D1F2</div>
-</div>
+        <h3>🚀 Vision</h3>
+        <p>Build a high-speed, AI-driven meme brand powered by its community and transparent on-chain mechanics.</p>
 
-<div class="section">
-  <h2>📈 Chart</h2>
-<div style="margin-top: 1rem;">
-  <iframe src="https://www.geckoterminal.com/en/polygon_pos/pools/0x945c73101e11cc9e529c839d1d75648d04047b0b?embed=1"
-          height="400" width="100%" frameborder="0" style="border-radius: 10px;"></iframe>
+        <h3>📊 Tokenomics (recap)</h3>
+        <ul>
+          <li><strong>Name:</strong> TurboPepe</li>
+          <li><strong>Symbol:</strong> TBP</li>
+          <li><strong>Total Supply:</strong> 190,000,000,000 TBP</li>
+          <li><strong>Burned:</strong> 10,000,000,000 TBP</li>
+          <li><strong>Liquidity:</strong> ~130,000,000,000 TBP on SushiSwap</li>
+          <li><strong>Owner (transparent):</strong> ~14,000,000,000 TBP (listings/ops)</li>
+          <li><strong>Taxes:</strong> 0% Buy/Sell</li>
+          <li><strong>Chain:</strong> Polygon (POL)</li>
+        </ul>
 
-  <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
-    <a href="https://www.dextools.io/app/en/polygon/pair-explorer/0x945c73101e11cc9e529c839d1d75648d04047b0b?t=1746121267436" target="_blank"
-       style="padding: 0.5rem 1rem; background: #00ffcc; color: black; text-decoration: none; border-radius: 6px; font-weight: bold;">
-       View on DEXTools
-    </a>
+        <h3>🛣️ Roadmap</h3>
+        <p><strong>Phase 1: AI & DEX</strong></p>
+        <ul>
+          <li>DEX listings (SushiSwap, Trackers)</li>
+          <li>AI Assistant live on Website & Telegram</li>
+          <li>Public supply stats & LP lock evidence</li>
+        </ul>
+        <p><strong>Phase 2: Community & CMC</strong></p>
+        <ul>
+          <li>TBP Gold NFT (300 × 300 POL) → promo fund</li>
+          <li>CoinGecko & CoinMarketCap listing</li>
+          <li>Daily AI posting cadence (X & TG)</li>
+        </ul>
+        <p><strong>Phase 3: Utility</strong></p>
+        <ul>
+          <li>Escrow payments (“locked until release”)</li>
+          <li>In-app wallet & chat</li>
+          <li>Further integrations & partnerships</li>
+        </ul>
 
-    <a href="https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b" target="_blank"
-       style="padding: 0.5rem 1rem; background: #00ffcc; color: black; text-decoration: none; border-radius: 6px; font-weight: bold;">
-       View on DexScreener
-    </a>
+        <h3>🔐 Security</h3>
+        <ul>
+          <li>Verified contracts</li>
+          <li>LP burned/locked (on-chain proof linked)</li>
+          <li>Transparent owner balance & intent</li>
+        </ul>
+
+        <h3>✅ Final Note</h3>
+        <p>TBP isn’t just another meme token — it’s an **AI-token** that explains itself and grows with its community.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🧠 What is TurboPepe?</h2>
+      <p style="font-size:.8rem; line-height:1.6;">
+        TurboPepe ($TBP) is a community-driven meme token with a real AI layer.<br><br>
+        The AI posts, explains, and keeps our on-chain stats in check.<br>
+        No taxes. No empty promises. Just fair vibes, fast moves, and full transparency. 🐸🚀
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Join the Community</h2>
+      <a class="button" href="https://t.me/turbopepe25" target="_blank">Telegram</a>
+      <a class="button" href="https://x.com/TurboPepe2025" target="_blank">Twitter</a>
+    </div>
+
   </div>
-</div>
 
-
-<div class="section">
-  <h2>📊 Tokenomics</h2>
-  <div class="tokenomics">
-    Total Supply: 200,000,000,000 TBP<br>
-    100% to LP<br>
-    0% to team<br>
-    Fair launch – No presale, no tax.
-  </div>
-</div>
-
-<div class="section">
-  <div class="section" id="whitepaper" style="padding: 40px; background-color: #101010; color: white;">
-  <h2 style="text-align: center; font-size: 2rem;">📜 Whitepaper</h2>
-  <div style="max-width: 900px; margin: 20px auto; background: #1a1a1a; padding: 20px; border-radius: 12px; height: 400px; overflow-y: scroll; font-size: 1rem; line-height: 1.6;">
-    <p><strong>TurboPepe (TBP)</strong> is a meme-powered community token launched fairly on the Polygon blockchain. With zero developer allocation and 100% of tokens added to the liquidity pool, TBP is a transparent and decentralized project aiming for viral growth and strong meme culture.</p>
-
-    <h3>🚀 Vision</h3>
-    <p>To build a high-speed, meme-fueled crypto brand powered entirely by its community, with no presale, no taxes, and no central ownership.</p>
-
-    <h3>📊 Tokenomics</h3>
-    <ul>
-      <li><strong>Name:</strong> TurboPepe</li>
-      <li><strong>Symbol:</strong> TBP</li>
-      <li><strong>Total Supply:</strong> 200,000,000,000 TBP</li>
-      <li><strong>Presale:</strong> None</li>
-      <li><strong>Team Tokens:</strong> 0%</li>
-      <li><strong>Liquidity:</strong> 100% added to LP</li>
-      <li><strong>Taxes:</strong> 0% Buy/Sell</li>
-      <li><strong>Chain:</strong> Polygon</li>
-      <li><strong>LP Lock:</strong> Community vote (target: $200K liquidity)</li>
-    </ul>
-
-    <h3>🛣️ Roadmap</h3>
-    <p><strong>Phase 1: Launch</strong></p>
-    <ul>
-      <li>Fair launch on SushiSwap</li>
-      <li>Chart listings (DEXTools, GeckoTerminal, DexScreener)</li>
-      <li>Website and socials live</li>
-       <li>$1M Market Cap goal</li>
-    </ul>
-    <p><strong>Phase 2: Community & Hype</strong></p>
-    <ul>
-      <li>Meme marketing</li>
-      <li>Influencer onboarding</li>
-      <li>LP lock when $200K liquidity reached</li>
-      <li>CoinGecko & CoinMarketCap listing</li>
-    </ul>
-    <p><strong>Phase 3: Expansion</strong></p>
-    <ul>
-      <li>More CEX listings</li>
-      <li>TurboMerch</li>
-      <li>$5M Market Cap goal</li>
-    </ul>
-
-    <h3>👥 Community</h3>
-    <p>All decisions are made by the community through polls and active participation on Telegram. TBP is fueled by its holders and meme energy.</p>
-
-    <h3>🔐 Security</h3>
-    <ul>
-      <li>Verified smart contract</li>
-      <li>Renounced or locked LP (via community vote)</li>
-      <li>Open-source and transparent</li>
-    </ul>
-
-    <h3>✅ Final Note</h3>
-    <p>TurboPepe is not just another meme token. It represents a movement for fair, fun, and fast community-driven growth in Web3.</p>
-
-    <p style="text-align:center; font-style: italic;">Let's meme it to the moon. 🚀</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>🧠 What is TurboPepe?</h2>
-  <p style="font-size: 0.8rem; line-height: 1.6;">
-    TurboPepe ($TBP) is not just another meme token. <br><br>
-
-    It's a community-driven experiment in pure meme energy, launched with zero presale, zero team tokens, and 100% of the supply added to liquidity. <br><br>
-
-    No taxes. No dev wallets. No empty promises. <br>
-    Just a fair launch, a powerful name, and unstoppable meme momentum. <br><br>
-
-    Whether you're here to hold, trade, or just vibe – TurboPepe is fueled by you. <br>
-    We're going fast. We're going fun. We're going full turbo. 🐸🚀
-  </p>
-</div>
-
-<div class="section">
-  <h2>Join the Community</h2>
-  <a class="button" href="https://t.me/turbopepe25" target="_blank">Telegram</a>
-  <a class="button" href="https://x.com/TurboPepe2025" target="_blank">Twitter</a>
-
-</div>
-
-  </div>  <footer>
+  <footer>
     TurboPepe © 2025 – Powered by memes & Polygon 🐸
   </footer>
+
+  <!-- Pricing / Market Cap & AI scripts -->
+  <script>
+    // ======= CONFIG =======
+    const DEX_PAIR = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
+    const MAX_SUPPLY = 190_000_000_000;  // total TBP (190B)
+    const BURNED     = 10_000_000_000;   // burned (10B)
+    const OWNER      = 14_000_000_000;   // owner balance (~14B)
+    const LP_HELD    = 130_000_000_000;  // LP tokens (~130B)
+    // Circulating calc: exclude burned and (optional) owner for conservative MC
+    const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER); // strict circulating
+
+    // Supply line text
+    function setSupplyLine() {
+      const el = document.getElementById("supplyline");
+      el.innerHTML = `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned &nbsp;•&nbsp; 💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP &nbsp;•&nbsp; 👤 Owner ~<strong>${OWNER.toLocaleString()} TBP</strong> &nbsp;•&nbsp; Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
+    }
+
+    async function fetchTBPPrice() {
+      try {
+        const res = await fetch(`https://api.dexscreener.com/latest/dex/pairs/polygon/${DEX_PAIR}`);
+        const data = await res.json();
+        const price = Number(data?.pair?.priceUsd);
+        if (Number.isFinite(price)) {
+          const fdv  = price * MAX_SUPPLY;
+          const circ = price * CIRC_SUPPLY;
+          document.getElementById("price").innerText =
+            `💰 Current Price: $${price.toFixed(12)}`;
+          document.getElementById("marketcap").innerText =
+            `🧮 MC (circulating est.): $${circ.toLocaleString(undefined,{maximumFractionDigits:2})} | FDV: $${fdv.toLocaleString(undefined,{maximumFractionDigits:2})}`;
+        } else {
+          document.getElementById("price").innerText = "💰 Current Price: N/A";
+          document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
+        }
+      } catch (e) {
+        document.getElementById("price").innerText = "💰 Current Price: Unavailable";
+        document.getElementById("marketcap").innerText = "🧮 Market Cap: Error";
+      }
+    }
+
+    setSupplyLine();
+    fetchTBPPrice();
+    setInterval(fetchTBPPrice, 10000);
+
+    // ======= AI Widget (FAQ + Advisor-ready) =======
+    const FAQ = [
+      { q:/price|chart|kurs/i, a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
+      { q:/buy|kauf|how .*buy/i, a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
+      { q:/tokenomics|supply|burn|owner|lp/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops)." },
+      { q:/ai|what .*tbp|who .*you/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep the pool in check. 🧠🐸" },
+      { q:/cmc|coingecko|listing/i, a:"Goal: CMC listing — focus on transparency, activity & community." },
+      { q:/nft|tbp gold/i, a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
+    ];
+    function faqAnswer(t){ for(const f of FAQ){ if(f.q.test(t)) return f.a; } return null; }
+    function addMsg(sender, text){
+      const log = document.getElementById('aiq-log');
+      const d = document.createElement('div');
+      d.style.margin = '6px 0';
+      d.innerHTML = `<b>${sender}:</b> ${text}`;
+      log.appendChild(d);
+      log.scrollTop = log.scrollHeight;
+    }
+    async function askAdvisor(text){
+      // TODO (später): an deinen Advisor-Endpoint posten, z.B.:
+      // const r = await fetch('https://YOUR-RENDER-ADVISOR/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:text})});
+      // const j = await r.json(); return j.answer;
+      return null; // vorerst kein Backend – nur FAQ
+    }
+    async function aiSend(){
+      const inp = document.getElementById('aiq-input');
+      const q = (inp.value||'').trim(); if(!q) return;
+      addMsg('You', q); inp.value='';
+      const hit = faqAnswer(q);
+      if (hit) return addMsg('TBP', hit);
+      const adv = await askAdvisor(q);
+      addMsg('TBP', adv || "I’m collecting data… check the widget meanwhile. 🐸");
+    }
+    document.getElementById('aiq-open').onclick = () => {
+      const p = document.getElementById('aiq-panel');
+      p.style.display = (p.style.display === 'none' || !p.style.display) ? 'block' : 'none';
+    };
+    document.getElementById('aiq-send').onclick = aiSend;
+  </script>
 </body>
 </html>
