@@ -289,14 +289,14 @@
     const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER); // conservative circulating
 
     function setSupplyLine() {
-      const el = document.getElementById("supplyline");
-      el.innerHTML =
-        `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned &nbsp;•&nbsp; `
-        + `💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP &nbsp;•&nbsp; `
-        + `👤 Owner ~<strong>${OWN
-ER.toLocaleString()} TBP</strong> &nbsp;•&nbsp; `
-        + `Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
-    }
+  const el = document.getElementById("supplyline");
+  el.innerHTML =
+    `🔥 <strong>${BURNED.toLocaleString()} TBP</strong> burned&nbsp;•&nbsp;` +
+    `💧 ~<strong>${LP_HELD.toLocaleString()} TBP</strong> in LP&nbsp;•&nbsp;` +
+    `👤 Owner ~<strong>${OWNER.toLocaleString()} TBP</strong>&nbsp;•&nbsp;` +
+    `Total: <strong>${MAX_SUPPLY.toLocaleString()} TBP</strong>`;
+}
+
 
     async function fetchTBPPrice() {
       try {
