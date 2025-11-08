@@ -279,18 +279,20 @@
   </div>
 
   <!-- Pricing / Market Cap & AI scripts -->
-  <script>
-  // ============ CONFIG ============
-  const DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
-  const MAX_SUPPLY = 190000000000;  // 190B (keine Unterstriche)
-  const BURNED     = 10000000000;   // 10B
-  const OWNER      = 14000000000;   // 14B
-  const LP_HELD    = 130000000000;  // 130B
-  const CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
+ <script>
+  'use strict';
+
+  // ================== CONFIG ==================
+  var DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
+  var MAX_SUPPLY = 190000000000;  // 190B
+  var BURNED     = 10000000000;   // 10B
+  var OWNER      = 14000000000;   // 14B
+  var LP_HELD    = 130000000000;  // 130B
+  var CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
 
   console.log("[TBP-AI] booting…");
 
-  // ============ SUPPLY LINE ============
+  // ================== SUPPLY LINE ==================
   function setSupplyLine() {
     var el = document.getElementById("supplyline");
     if (!el) return;
@@ -301,29 +303,32 @@
       'Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
   }
 
-  // ============ PRICE & MC ============
+  // ================== PRICE & MC ==================
   async function fetchTBPPrice() {
     try {
       var url = "https://api.dexscreener.com/latest/dex/pairs/polygon/" + DEX_PAIR;
       var res = await fetch(url);
       var data = await res.json();
-      var pair = data && data.pair ? data.pair : (data.pairs && data.pairs[0] ? data.pairs[0] : null);
+      // dexscreener liefert entweder {pair:{...}} oder {pairs:[...]}
+      var pair = (data && data.pair) ? data.pair : ((data && data.pairs && data.pairs[0]) ? data.pairs[0] : null);
       var price = pair && pair.priceUsd ? Number(pair.priceUsd) : NaN;
 
       if (isFinite(price)) {
         var fdv  = price * MAX_SUPPLY;
         var circ = price * CIRC_SUPPLY;
-        document.getElementById("price").innerText     = "💰 Current Price: $" + price.toFixed(12);
-        document.getElementById("marketcap").innerText = "🧮 MC (circulating est.): $" +
+        document.getElementById("price").innerText =
+          "💰 Current Price: $" + price.toFixed(12);
+        document.getElementById("marketcap").innerText =
+          "🧮 MC (circulating est.): $" +
           circ.toLocaleString(undefined,{maximumFractionDigits:2}) +
           " | FDV: $" + fdv.toLocaleString(undefined,{maximumFractionDigits:2});
       } else {
-        document.getElementById("price").innerText     = "💰 Current Price: N/A";
+        document.getElementById("price").innerText = "💰 Current Price: N/A";
         document.getElementById("marketcap").innerText = "🧮 Market Cap: Unknown";
       }
     } catch (e) {
       console.error("[TBP-AI] price error:", e);
-      document.getElementById("price").innerText     = "💰 Current Price: Unavailable";
+      document.getElementById("price").innerText = "💰 Current Price: Unavailable";
       document.getElementById("marketcap").innerText = "🧮 Market Cap: Error";
     }
   }
@@ -332,30 +337,18 @@
   fetchTBPPrice();
   setInterval(fetchTBPPrice, 10000);
 
-  // ============ AI WIDGET ============
-  var FAQ = [
-    { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
-    { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open Sushi → swap for TBP → confirm. ✅" },
-    { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops)." },
-    { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep the pool in check. 🧠🐸" },
-    { q:/cmc|coingecko|listing|listung/i, a:"Goal: CMC listing — focus on transparency, activity & community." },
-    { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
-  ];
-  function faqAnswer(t){ for (var i=0;i<FAQ.length;i++){ if (FAQ[i].q.test(t)) return FAQ[i].a; } return null; }
-
-  // rolling context (last 8 turns)
-  var aiqCtx = [];
+  // ================== AI WIDGET – UI HELPERS ==================
+  var aiqCtx = []; // rolling context
 
   function addMsg(sender, text){
     var log = document.getElementById('aiq-log');
     var d = document.createElement('div');
     d.className = 'aiq-msg';
-    d.innerHTML = "<b>" + sender + ":</b> " + text;
+    d.innerHTML = "<b>" + sender + ":</b> " + (text || "");
     log.appendChild(d);
     log.scrollTop = log.scrollHeight;
   }
 
-  // typing indicator
   var typingEl = null, typingInt = null;
   function showTyping(){
     var log = document.getElementById('aiq-log');
@@ -379,13 +372,60 @@
     typingEl = null;
   }
 
-  async function askAdvisor(text){
+  // ================== FAQ ==================
+  var FAQ = [
+    { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
+    { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
+    { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
+    { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep on-chain stats visible. 🧠🐸" },
+    { q:/cmc|coingecko|listing|listung/i, a:"Goal: CoinGecko & CMC listing — focus on transparency, activity & community growth." },
+    { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
+  ];
+  function faqAnswer(t){ for (var i=0;i<FAQ.length;i++){ if (FAQ[i].q.test(t)) return FAQ[i].a; } return null; }
+
+  // ================== SMARTER ADVISOR ==================
+  async function askAdvisor(userText){
+    // Simple DE/EN detection
+    var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(userText);
+    var style = isDE
+      ? "Antworte knapp, freundlich, mit leichtem Humor. Keine leeren Versprechen. Nutze echte TBP-Daten."
+      : "Reply concise, friendly, with light humor. No empty promises. Ground in real TBP data.";
+
+    // Telemetry from DOM
+    function grab(id){ var el=document.getElementById(id); return el? (el.innerText||"") : ""; }
+    var priceLine = grab("price");
+    var mcLine    = grab("marketcap");
+    var mPrice = priceLine.match(/([\d.]+)$/);
+    var mMC    = mcLine.match(/MC.*?\$([\d.,]+)/i);
+    var mFDV   = mcLine.match(/FDV:\s*\$([\d.,]+)/i);
+
+    var system =
+      "[STYLE]\n" + style + "\n\n" +
+      "ROLE: You are the official assistant for TurboPepe-AI (TBP).\n" +
+      "Facts (must be correct):\n" +
+      "- Chain: Polygon (POL)\n" +
+      "- Contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2\n" +
+      "- Sushi/Pool: 0x945c73101e11cc9e529c839d1d75648d04047b0b\n" +
+      "- Total supply: 190,000,000,000 TBP; Burned: 10,000,000,000; LP: ~130,000,000,000; Owner: ~14,000,000,000 (listings/ops)\n" +
+      "- NFT: TBP Gold (300 NFTs × 300 POL)\n" +
+      "- Socials: TG https://t.me/turbopepe25 • X https://x.com/TurboPepe2025\n\n" +
+      "Live telemetry (if present):\n" +
+      "- Price: $" + (mPrice? mPrice[1] : "n/a") + "\n" +
+      "- MC (circ est.): $" + (mMC? mMC[1] : "n/a") + "\n" +
+      "- FDV: $" + (mFDV? mFDV[1] : "n/a") + "\n\n" +
+      "[SAFETY] No financial advice. If unsure, say you are unsure and point to on-chain links.";
+
+    var finalQuestion = system + "\n\n[USER]\n" + userText;
+
     try{
-      var payload = { question: text, context: aiqCtx.slice(-8), need_image: false };
       var r = await fetch("https://tbp-advisor.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type":"application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          question: finalQuestion,
+          context: aiqCtx.slice(-8),
+          need_image: false
+        })
       });
       var j = await r.json();
       return (j && j.answer) ? j.answer : null;
@@ -395,10 +435,12 @@
     }
   }
 
+  // ================== SEND FLOW ==================
   async function aiSend(){
     var inp = document.getElementById('aiq-input');
     var q = (inp.value || '').trim();
     if (!q) return;
+
     addMsg('You', q);
     aiqCtx.push("You: " + q);
     inp.value = '';
@@ -414,7 +456,10 @@
     try{
       var adv = await askAdvisor(q);
       hideTyping();
-      var msg = adv || "I’m collecting data… check the widget meanwhile. 🐸";
+      var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(q);
+      var msg = adv || (isDE
+        ? "Ich sammle gerade Daten… schau währenddessen ins Chart-Widget. 🐸"
+        : "Collecting data… check the chart widget meanwhile. 🐸");
       addMsg('TBP', msg);
       aiqCtx.push("TBP: " + msg);
     }catch(e){
@@ -423,7 +468,7 @@
     }
   }
 
-  // DOM references
+  // ================== WIRE UI ==================
   var fab     = document.getElementById('aiq-fab');
   var panel   = document.getElementById('aiq-panel');
   var closeBtn= document.getElementById('aiq-close');
