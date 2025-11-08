@@ -379,36 +379,162 @@
     typingEl = null;
   }
 
-  async function askAdvisor(text){
-    try{
-      var payload = { question: text, context: aiqCtx.slice(-8), need_image: false };
-      var r = await fetch("https://tbp-advisor.onrender.com/ask", {
-        method: "POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify(payload)
-      });
-      var j = await r.json();
-      return (j && j.answer) ? j.answer : null;
-    }catch(e){
-      console.error("[TBP-AI] advisor error:", e);
-      return null;
-    }
+  // --- TBP Knowledge Base (feste Fakten zum Grounding) ---
+const TBP_KB = {
+  name: "TurboPepe-AI (TBP)",
+  chain: "Polygon (POL)",
+  contract: "0x50c40e03552A42fbE41b2507d522F56d7325D1F2",
+  pool: "0x945c73101e11cc9e529c839d1d75648d04047b0b",
+  supply_total: 190000000000,   // 190B
+  supply_burned: 10000000000,   // 10B
+  supply_lp: 130000000000,      // 130B
+  owner_tokens: 14000000000,    // 14B (Listings/Ops)
+  nft: "TBP Gold coming soon (300 NFTs × 300 POL)",
+  socials: {
+    tg: "https://t.me/turbopepe25",
+    x:  "https://x.com/TurboPepe2025"
+  },
+  goals: [
+    "DEX Wachstum & Transparenz",
+    "Listing auf CoinGecko & CMC",
+    "Community-getriebene Meme-Power",
+    "Langfristig AI-Utility (Escrow, Chat, Wallet)"
+  ]
+};
+
+// Sprache erkennen (sehr simpel, aber effektiv)
+function detectLang(text) {
+  const deHits = /[äöüß]|(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b/i.test(text);
+  return deHits ? "de" : "en";
+}
+
+// Stil/Persona + Few-shots zusammenbauen
+function buildPrompt(userText, tele) {
+  const lang = detectLang(userText);
+  const style = (lang === "de")
+    ? "Antworte knapp, freundlich, mit leichtem Humor. Keine Übertreibungen. Wo möglich: Bulletpoints. Nutze echte TBP-Daten."
+    : "Reply concise, friendly, with light humor. No hype. Use bullet points where helpful. Ground in real TBP data.";
+
+  const kb = `
+You are the official assistant for ${TBP_KB.name}.
+Facts (must be correct):
+- Chain: ${TBP_KB.chain}
+- Contract: ${TBP_KB.contract}
+- Sushi/Pool: ${TBP_KB.pool}
+- Total supply: ${TBP_KB.supply_total.toLocaleString()} TBP
+- Burned: ${TBP_KB.supply_burned.toLocaleString()} TBP
+- Liquidity (LP): ~${TBP_KB.supply_lp.toLocaleString()} TBP
+- Owner (transparent): ~${TBP_KB.owner_tokens.toLocaleString()} TBP (listings/ops)
+- NFT: ${TBP_KB.nft}
+- Socials: TG ${TBP_KB.socials.tg} • X ${TBP_KB.socials.x}
+- Goals: ${TBP_KB.goals.join("; ")}
+
+Live telemetry (optional, if provided):
+${tele ? `- Price: $${tele.price}
+- MC (circulating est.): $${tele.mc}
+- FDV: $${tele.fdv}` : "- (none)"}
+`;
+
+  const shots = (lang === "de")
+    ? [
+        {u:"Was ist TBP?", a:"• Meme-Token mit echter AI-Schicht\n• Chain: Polygon (POL)\n• Vertrag: "+TBP_KB.contract+"\n• 0% Tax, faire Transparenz\n• Ziel: CMC-Listing & Community-Wachstum"},
+        {u:"Wie kaufe ich?", a:"1) Wallet verbinden\n2) SushiSwap öffnen (POL)\n3) TBP auswählen & swap bestätigen\n4) Contract prüfen: "+TBP_KB.contract},
+        {u:"Tokenomics?", a:"• Total: 190B • Burned: 10B • LP: ~130B • Owner: ~14B (Listings/Ops)\n• Keine Presale-Steuern, Fokus Transparenz"}
+      ]
+    : [
+        {u:"What is TBP?", a:"• Meme token with a real AI layer\n• Chain: Polygon (POL)\n• Contract: "+TBP_KB.contract+"\n• 0% tax, transparent launch\n• Goal: CMC listing & community growth"},
+        {u:"How to buy?", a:"1) Connect wallet\n2) Open SushiSwap (POL)\n3) Select TBP & swap\n4) Verify contract: "+TBP_KB.contract},
+        {u:"Tokenomics?", a:"• Total: 190B • Burned: 10B • LP: ~130B • Owner: ~14B (listings/ops)\n• No presale tax, transparency focus"}
+      ];
+
+  const shotsText = shots.map(s => `User: ${s.u}\nAssistant: ${s.a}`).join("\n\n");
+
+  const system = `[STYLE]\n${style}\n\n[ROLE]\n${kb}\n\n[SAFETY]\nNo promises. No financial advice. If unsure, say so and point to on-chain links.`;
+
+  // Wir „verpacken“ System + Shots im Question-Feld (falls Backend kein system-Feld hat)
+  const finalQuestion =
+`${system}
+
+[FEW-SHOTS]
+${shotsText}
+
+[USER]
+${userText}
+`;
+
+  return { question: finalQuestion, lang };
+}
+
+// askAdvisor: jetzt mit Persona, KB, Shots, Telemetrie + Kontext
+async function askAdvisor(userText){
+  // Telemetrie aus DOM ziehen (falls verfügbar)
+  function parseNum(t){ if(!t) return null; const m=t.replace(/[^\d.]/g,''); return m? Number(m):null; }
+  const priceEl = document.getElementById("price")?.innerText || "";
+  const mcEl    = document.getElementById("marketcap")?.innerText || "";
+  const priceMatch = priceEl.match(/([\d.]+)$/);
+  const mcMatch    = mcEl.match(/MC.*?\$([\d.,]+)/i);
+  const fdvMatch   = mcEl.match(/FDV:\s*\$([\d.,]+)/i);
+
+  const tele = {
+    price: priceMatch ? priceMatch[1] : null,
+    mc:    mcMatch ? mcMatch[1] : null,
+    fdv:   fdvMatch ? fdvMatch[1] : null
+  };
+
+  const { question, lang } = buildPrompt(userText, tele);
+
+  try{
+    const r = await fetch("https://tbp-advisor.onrender.com/ask", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        question,               // Persona + KB + Shots + User
+        context: aiqCtx.slice(-8), // kurzer Verlauf
+        need_image: false,
+        hint_lang: lang         // falls Backend das nutzt
+      })
+    });
+    const j = await r.json();
+    return (j && j.answer) ? j.answer : null;
+  }catch(e){
+    console.error("[TBP-AI] advisor error:", e);
+    return null;
+  }
+}
+
+// aiSend bleibt gleich, aber kleine Politur für fallback
+async function aiSend(){
+  var inp = document.getElementById('aiq-input');
+  var q = (inp.value || '').trim();
+  if (!q) return;
+  addMsg('You', q);
+  aiqCtx.push("You: " + q);
+  inp.value = '';
+
+  var hit = faqAnswer(q);
+  if (hit){
+    addMsg('TBP', hit);
+    aiqCtx.push("TBP: " + hit);
+    return;
   }
 
-  async function aiSend(){
-    var inp = document.getElementById('aiq-input');
-    var q = (inp.value || '').trim();
-    if (!q) return;
-    addMsg('You', q);
-    aiqCtx.push("You: " + q);
-    inp.value = '';
+  showTyping();
+  try{
+    var adv = await askAdvisor(q);
+    hideTyping();
+    var msg = adv || (detectLang(q)==="de"
+      ? "Ich sammle gerade Daten… wir sehen uns im Chart-Widget. 🐸"
+      : "Collecting data… check the chart widget meanwhile. 🐸");
+    addMsg('TBP', msg);
+    aiqCtx.push("TBP: " + msg);
+  }catch(e){
+    hideTyping();
+    addMsg('TBP', detectLang(q)==="de"
+      ? "Netzwerk-Hiccup — bitte gleich nochmal versuchen 🐸"
+      : "Network hiccup — try again in a moment 🐸");
+  }
+}
 
-    var hit = faqAnswer(q);
-    if (hit){
-      addMsg('TBP', hit);
-      aiqCtx.push("TBP: " + hit);
-      return;
-    }
 
     showTyping();
     try{
