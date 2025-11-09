@@ -334,6 +334,22 @@
     if (!isFinite(price)) throw new Error("Dex price missing");
     return price;
   }
+ // Präzise Preisformatierung für sehr kleine Zahlen
+const fmtPriceUSD = (n) => {
+  if (!isFinite(n)) return "N/A";
+  if (n >= 0.01) {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 6
+    }).format(n);
+  }
+
+  // Sehr klein: feste 12 Nachkommastellen und Nullen trimmen
+  const s = n.toFixed(12).replace(/0+$/, '').replace(/\.$/, '');
+  return `$${s}`;
+};
+
 
   async function fetchTBPPrice() {
     const priceEl = document.getElementById("price");
@@ -347,7 +363,8 @@
       const fdv  = price * MAX_SUPPLY;
       const circ = price * CIRC_SUPPLY;
 
-      if (priceEl) priceEl.textContent = `💰 Current Price: ${fmtUSD(price, {maximumFractionDigits: 8})}`;
+      priceEl.textContent = `💰 Current Price: ${fmtPriceUSD(price)}`;
+
       if (mcEl)    mcEl.textContent    = `🧮 MC (circulating est.): ${fmtUSD(circ)} | FDV: ${fmtUSD(fdv)}`;
     } catch (e) {
       console.error("[TBP-AI] price error:", e);
