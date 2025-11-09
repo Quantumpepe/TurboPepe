@@ -384,45 +384,18 @@
   function faqAnswer(t){ for (var i=0;i<FAQ.length;i++){ if (FAQ[i].q.test(t)) return FAQ[i].a; } return null; }
 
   // ================== SMARTER ADVISOR ==================
-  async function askAdvisor(userText){
-  // Minisprache & Telemetrie
-  function grab(id){ var el=document.getElementById(id); return el? (el.innerText||"") : ""; }
-  var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(userText);
-  var priceLine = grab("price");
-  var mcLine    = grab("marketcap");
-
-  // Feste TBP-Fakten zum Grounding
-  var facts = {
-    name: "TurboPepe-AI (TBP)",
-    chain: "Polygon (POL)",
-    contract: "0x50c40e03552A42fbE41b2507d522F56d7325D1F2",
-    pool: "0x945c73101e11cc9e529c839d1d75648d04047b0b",
-    supply_total: 190000000000,
-    supply_burned: 10000000000,
-    supply_lp: 130000000000,
-    owner_tokens: 14000000000,
-    nft: "TBP Gold (300 NFTs × 300 POL)",
-    tg: "https://t.me/turbopepe25",
-    x:  "https://x.com/TurboPepe2025"
-  };
-
-  const payload = {
-    question: userText,
-    context: aiqCtx.slice(-8),
-    need_image: false,
-    user_lang: isDE ? "de" : "en",
-    facts,
-    telemetry: { priceLine, mcLine }
-  };
-
+  async function askAdvisor(text){
   const r = await fetch("https://tbp-advisor.onrender.com/ask", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify(payload)
+    body: JSON.stringify({ question: text, context: [], need_image: false })
   });
-  const j = await r.json();
-  return (j && j.answer) ? j.answer : null;
+  let body;
+  try { body = await r.json(); } catch { body = { error: await r.text() }; }
+  if(!r.ok || body.error){ throw new Error(body.error || `HTTP ${r.status}`); }
+  return body.answer || null;
 }
+
 
 
   async function aiSend(){
