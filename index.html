@@ -382,14 +382,18 @@ const fmtPriceUSD = (n) => {
   // ================== AI WIDGET – UI HELPERS ==================
   var aiqCtx = []; // rolling context
 
-  function addMsg(sender, text){
-    var log = document.getElementById('aiq-log');
-    var d = document.createElement('div');
-    d.className = 'aiq-msg';
-    d.innerHTML = "<b>" + sender + ":</b> " + (text || "");
-    log.appendChild(d);
-    log.scrollTop = log.scrollHeight;
-  }
+  function addMsg(sender, text) {
+  var log = document.getElementById('aiq-log');
+  var d = document.createElement('div');
+  d.className = 'aiq-msg';
+
+  // ✅ FIX 2 – HTML aktivieren + klickbare Links + Zeilenumbrüche
+  d.innerHTML = "<b>" + sender + ":</b> " + (text || "").replace(/\n/g, "<br>");
+
+  log.appendChild(d);
+  log.scrollTop = log.scrollHeight;
+}
+
 
   var typingEl = null, typingInt = null;
   function showTyping(){
