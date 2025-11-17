@@ -18,7 +18,6 @@
       position: relative;
     }
 
-    /* Futuristic grid background */
     body::before {
       content: "";
       position: fixed;
@@ -58,7 +57,6 @@
       text-shadow: 0 0 8px rgba(0,255,153,0.7);
     }
 
-    /* HERO / HEADER */
     header {
       padding: 1.5rem 0 1rem;
       display: flex;
@@ -222,20 +220,26 @@
       padding:.6rem;
       font-size:0.55rem;
       text-align:left;
+      line-height:1.5;
     }
 
     .stat-label {
       color:#9ae6b4;
-      margin-bottom:.2rem;
+      margin-bottom:.1rem;
       font-size:0.5rem;
     }
 
     .stat-value {
       font-size:0.6rem;
       color:#eafff6;
+      line-height:1.6;
     }
 
-    /* SECTIONS */
+    .stat-value .stat-num {
+      display:block;
+      margin-top:2px;
+    }
+
     main {
       margin-top: 1rem;
       display: flex;
@@ -291,7 +295,8 @@
       padding: 0.8rem;
       border-radius: 0.7rem;
       margin-top: 0.5rem;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
+      line-height: 1.8;
       word-wrap: break-word;
       border: 1px solid rgba(0,255,153,0.4);
     }
@@ -304,7 +309,6 @@
       margin-top:.2rem;
     }
 
-    /* Liquidity burn block */
     .burn-media {
       text-align:center;
     }
@@ -325,7 +329,6 @@
       font-size:0.7rem;
     }
 
-    /* Chart */
     iframe {
       border-radius: 12px;
     }
@@ -354,7 +357,6 @@
       box-shadow: 0 0 26px rgba(0,255,204,0.9);
     }
 
-    /* Whitepaper section */
     #whitepaper {
       background: transparent;
       padding: 0;
@@ -394,7 +396,6 @@
       margin-bottom: 0.3rem;
     }
 
-    /* Simple helpers */
     .muted {
       color:#9ca3af;
       font-size:0.65rem;
@@ -415,7 +416,6 @@
       color:#9ca3af;
     }
 
-    /* COMMUNITY buttons */
     .community-row {
       display:flex;
       flex-wrap:wrap;
@@ -424,7 +424,6 @@
       margin-top:.7rem;
     }
 
-    /* Floating AI Button (mostly original, slightly tuned to fit new style) */
     .aiq-fab {
       position: fixed;
       right: 20px;
@@ -538,37 +537,76 @@
       margin-top:8px;
     }
 
-    /* Mobile Optimization */
-    @media (max-width: 600px) {
-      .app-shell {
-        padding: 0 0.8rem 2.8rem;
-      }
-      .aiq-fab {
-        right:14px;
-        bottom:14px;
-        width:54px;
-        height:54px;
-        font-size:24px;
-      }
-      #aiq-panel {
-        bottom: 80px;
-        right: 10px;
-        width: calc(100vw - 20px);
-        height: 70vh;
-        padding: 12px;
-        border-radius: 14px;
-      }
-      #aiq-log {
-        height: calc(70vh - 120px);
-        font-size:10px;
-      }
-      #aiq-input, #aiq-send {
-        font-size:10px;
-      }
-      #aiq-hint {
-        font-size:9px;
-      }
-    }
+   @media (max-width: 600px) {
+  /* etwas weniger Rand auf Handy */
+  .app-shell {
+    padding: 0 0.4rem 2.4rem;
+  }
+
+  /* Karten innen etwas kompakter */
+  .section-inner {
+    padding: 0.7rem;
+  }
+
+  /* Überschriften kleiner */
+  .section-title {
+    font-size: 0.9rem;
+  }
+
+  /* Stats oben untereinander statt nebeneinander */
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contract + Tokenomics: kleinere Schrift + saubere Zeilenumbrüche */
+  .contract,
+  .tokenomics {
+    font-size: 0.58rem;
+    line-height: 1.6;
+    padding: 0.55rem;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+
+  /* Whitepaper etwas kleiner + flacher */
+  .whitepaper-body {
+    font-size: 0.65rem;
+    height: 320px;
+  }
+
+  /* AI-Fab & Panel wie vorher, nur leicht angepasst */
+  .aiq-fab {
+    right: 14px;
+    bottom: 14px;
+    width: 54px;
+    height: 54px;
+    font-size: 24px;
+  }
+
+  #aiq-panel {
+    bottom: 80px;
+    right: 10px;
+    width: calc(100vw - 20px);
+    height: 70vh;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  #aiq-log {
+    height: calc(70vh - 120px);
+    font-size: 10px;
+  }
+
+  #aiq-input,
+  #aiq-send {
+    font-size: 10px;
+  }
+
+  #aiq-hint {
+    font-size: 9px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -619,11 +657,17 @@
           <div class="hero-stats">
             <div class="stat-card">
               <div class="stat-label">Price</div>
-              <div class="stat-value" id="price">💰 Current Price: Loading...</div>
+              <div class="stat-value" id="price">
+                💰 Current Price:
+                <span class="stat-num">Loading...</span>
+              </div>
             </div>
             <div class="stat-card">
               <div class="stat-label">Market Cap</div>
-              <div class="stat-value" id="marketcap">🧮 Market Cap: Loading...</div>
+              <div class="stat-value" id="marketcap">
+                🧮 MC (circulating est.):
+                <span class="stat-num">Loading...</span>
+              </div>
             </div>
             <div class="stat-card">
               <div class="stat-label">Supply & LP</div>
@@ -635,7 +679,6 @@
     </header>
 
     <main>
-      <!-- Liquidity / Burn + Staking Teaser -->
       <section class="section">
         <div class="section-inner section-split">
           <div class="card">
@@ -670,7 +713,6 @@
         </div>
       </section>
 
-      <!-- Contract + Chart -->
       <section class="section">
         <div class="section-inner">
           <div class="section-split">
@@ -718,7 +760,6 @@
         </div>
       </section>
 
-      <!-- Whitepaper -->
       <section class="section" id="whitepaper">
         <div class="section-inner">
           <h2>📜 Whitepaper</h2>
@@ -757,7 +798,6 @@
 
             <p><strong>Phase 2: Community &amp; CMC</strong></p>
             <ul>
-              
               <li>CoinGecko &amp; CoinMarketCap listing</li>
               <li>Daily AI posting cadence (X &amp; TG)</li>
             </ul>
@@ -785,7 +825,6 @@
         </div>
       </section>
 
-      <!-- What is TBP -->
       <section class="section">
         <div class="section-inner">
           <h2 class="section-title">🧠 What is TurboPepe?</h2>
@@ -797,7 +836,6 @@
         </div>
       </section>
 
-      <!-- Community -->
       <section class="section">
         <div class="section-inner center">
           <h2 class="section-title" style="text-align:center;">Join the Community</h2>
@@ -817,10 +855,8 @@
     </footer>
   </div>
 
-  <!-- Floating AI Button -->
   <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI">🐸</button>
 
-  <!-- AI Panel -->
   <div id="aiq-panel" role="dialog" aria-modal="true" aria-label="TBP Assistant">
     <div id="aiq-header">
       <div class="title">TBP Assistant</div>
@@ -834,21 +870,18 @@
     <div id="aiq-hint">Tip: price/chart • how to buy • security • goal</div>
   </div>
 
-  <!-- Pricing / Market Cap & AI scripts (unverändert inhaltlich) -->
   <script>
     'use strict';
 
-    // ================== CONFIG ==================
-    var DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
-    var MAX_SUPPLY = 190000000000;  // 190B
-    var BURNED     = 10000000000;   // 10B
-    var OWNER      = 14000000000;   // 14B
-    var LP_HELD    = 130000000000;  // 130B
+    var DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b";
+    var MAX_SUPPLY = 190000000000;
+    var BURNED     = 10000000000;
+    var OWNER      = 14000000000;
+    var LP_HELD    = 130000000000;
     var CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
 
     console.log("[TBP-AI] booting…");
 
-    // ================== SUPPLY LINE ==================
     function setSupplyLine() {
       var el = document.getElementById("supplyline");
       if (!el) return;
@@ -859,8 +892,6 @@
         'Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
     }
 
-    // ================== PRICE & MC ==================
-    // Erst GeckoTerminal, Fallback Dexscreener
     const PAIR = DEX_PAIR;
 
     const fmtUSD = (n, opts={}) =>
@@ -875,7 +906,6 @@
         : "N/A");
 
     async function fetchFromGecko() {
-      // Doku: https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/{pool}
       const url = `https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/${PAIR}`;
       const r = await fetch(url, { headers: { "accept": "application/json" }});
       if (!r.ok) throw new Error(`Gecko ${r.status}`);
@@ -897,7 +927,6 @@
       return price;
     }
 
-    // Präzise Preisformatierung für sehr kleine Zahlen
     const fmtPriceUSD = (n) => {
       if (!isFinite(n)) return "N/A";
       if (n >= 0.01) {
@@ -907,7 +936,6 @@
           maximumFractionDigits: 6
         }).format(n);
       }
-      // Sehr klein: feste 12 Nachkommastellen und Nullen trimmen
       const s = n.toFixed(12).replace(/0+$/, '').replace(/\.$/, '');
       return `$${s}`;
     };
@@ -916,40 +944,47 @@
       const priceEl = document.getElementById("price");
       const mcEl    = document.getElementById("marketcap");
       try {
-        // 1) GeckoTerminal zuerst
         let price = await fetchFromGecko().catch(() => null);
-        // 2) Fallback Dexscreener
         if (!price) price = await fetchFromDexscreener();
 
         const fdv  = price * MAX_SUPPLY;
         const circ = price * CIRC_SUPPLY;
 
-        priceEl.textContent = `💰 Current Price: ${fmtPriceUSD(price)}`;
+        if (priceEl) {
+          priceEl.innerHTML =
+            '💰 Current Price:<span class="stat-num">' + fmtPriceUSD(price) + '</span>';
+        }
 
-        if (mcEl) mcEl.textContent = `🧮 MC (circulating est.): ${fmtUSD(circ)} | FDV: ${fmtUSD(fdv)}`;
+        if (mcEl) {
+          mcEl.innerHTML =
+            '🧮 MC (circulating est.):' +
+            '<span class="stat-num">' + fmtUSD(circ) + '</span>' +
+            '<span class="stat-num">FDV: ' + fmtUSD(fdv) + '</span>';
+        }
       } catch (e) {
         console.error("[TBP-AI] price error:", e);
-        if (priceEl) priceEl.textContent = "💰 Current Price: Unavailable";
-        if (mcEl)    mcEl.textContent    = "🧮 Market Cap: Error";
+        if (priceEl) {
+          priceEl.innerHTML =
+            '💰 Current Price:<span class="stat-num">Unavailable</span>';
+        }
+        if (mcEl) {
+          mcEl.innerHTML =
+            '🧮 Market Cap:<span class="stat-num">Error</span>';
+        }
       }
     }
 
     setSupplyLine();
     fetchTBPPrice();
-    // alle 10s aktualisieren
     setInterval(fetchTBPPrice, 10000);
 
-    // ================== AI WIDGET – UI HELPERS ==================
-    var aiqCtx = []; // rolling context
+    var aiqCtx = [];
 
     function addMsg(sender, text) {
       var log = document.getElementById('aiq-log');
       var d = document.createElement('div');
       d.className = 'aiq-msg';
-
-      // HTML + Zeilenumbrüche
       d.innerHTML = "<b>" + sender + ":</b> " + (text || "").replace(/\n/g, "<br>");
-
       log.appendChild(d);
       log.scrollTop = log.scrollHeight;
     }
@@ -977,7 +1012,6 @@
       typingEl = null;
     }
 
-    // ================== FAQ ==================
     var FAQ = [
       { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
       { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
@@ -993,7 +1027,6 @@
       return null;
     }
 
-    // ================== SMARTER ADVISOR ==================
     async function askAdvisor(text){
       const r = await fetch("https://tbp-advisor.onrender.com/ask", {
         method: "POST",
@@ -1015,7 +1048,6 @@
       aiqCtx.push("You: " + q);
       inp.value = '';
 
-      // 1) IMMER erst den Advisor fragen
       showTyping();
       let adv = null;
       try {
@@ -1023,7 +1055,6 @@
       } catch(e) {}
       hideTyping();
 
-      // 2) Wenn AI nichts liefert → erst dann FAQ probieren
       if (!adv) {
         var hit = faqAnswer(q);
         if (hit){
@@ -1033,7 +1064,6 @@
         }
       }
 
-      // 3) Antwort ausgeben (deutlich variabler Text)
       var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(q);
       var msg = adv || (isDE
         ? "Ich sammle gerade Daten… schau währenddessen ins Chart-Widget. 🐸"
@@ -1042,7 +1072,6 @@
       aiqCtx.push("TBP: " + msg);
     }
 
-    // ================== WIRE UI ==================
     var fab     = document.getElementById('aiq-fab');
     var panel   = document.getElementById('aiq-panel');
     var closeBtn= document.getElementById('aiq-close');
