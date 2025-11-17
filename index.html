@@ -8,11 +8,22 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --accent: #38bdf8;      /* cyan/blau Akzent */
+      --accent-soft: #0ea5e9;
+      --bg-deep: #020617;     /* sehr dunkles blau/schwarz */
+      --bg-card: #020817;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.7);
+    }
+
     body {
       margin: 0;
       font-family: 'Press Start 2P', monospace;
-      color: #e5ffe5;
-      background: radial-gradient(circle at top, #00ff99 0, #001007 20%, #020617 55%, #000 100%);
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.45) 0, #020617 35%, #000 100%);
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
@@ -23,8 +34,8 @@
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 255, 153, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 153, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
       background-size: 40px 40px;
       opacity: 0.8;
       pointer-events: none;
@@ -35,8 +46,9 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 10% 20%, rgba(0,255,153,0.14) 0, transparent 45%),
-                  radial-gradient(circle at 80% 80%, rgba(0,255,204,0.1) 0, transparent 50%);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(56,189,248,0.25) 0, transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(129,140,248,0.18) 0, transparent 55%);
       pointer-events: none;
       z-index: -1;
     }
@@ -48,13 +60,14 @@
     }
 
     marquee {
-      color:#00ff99;
-      font-size:0.75rem;
-      margin-top:0;
-      background:#000;
-      padding:0.5rem 0;
-      border-bottom:2px solid #00ff99;
-      text-shadow: 0 0 8px rgba(0,255,153,0.7);
+      color: var(--accent);
+      font-size: 0.75rem;
+      margin-top: 0;
+      background: #020617;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid var(--accent);
+      text-shadow: 0 0 8px rgba(56,189,248,0.7);
+      white-space: nowrap;
     }
 
     header {
@@ -84,54 +97,54 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: .8rem;
+      gap: 0.8rem;
     }
 
     .logo {
       width: 110px;
       height: auto;
-      filter: drop-shadow(0 0 25px rgba(0,255,153,0.8));
+      filter: drop-shadow(0 0 24px rgba(56,189,248,0.95));
       transition: transform .35s ease, filter .35s ease;
     }
 
     .logo:hover {
-      transform: scale(1.1) rotate(-2deg);
-      filter: drop-shadow(0 0 40px rgba(0,255,204,0.95));
+      transform: scale(1.08) rotate(-1.5deg);
+      filter: drop-shadow(0 0 36px rgba(129,140,248,1));
     }
 
     h1 {
-      margin:0;
-      font-size:1.55rem;
+      margin: 0;
+      font-size: 1.55rem;
       letter-spacing: 1px;
-      color:#eafff2;
-      text-shadow: 0 0 10px rgba(0,255,153,0.7);
+      color: #f9fafb;
+      text-shadow: 0 0 12px rgba(56,189,248,0.75);
     }
 
     .subtitle {
       font-size: 0.65rem;
-      color:#a5ffcf;
-      line-height:1.8;
+      color: #cbd5f5;
+      line-height: 1.8;
     }
 
     .hero-chip-row {
-      margin-top: .2rem;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap: .5rem;
+      margin-top: 0.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .chip {
-      background: radial-gradient(circle at top, rgba(0,255,153,0.25), rgba(0,0,0,0.9));
-      border: 1px solid rgba(0,255,153,0.55);
-      color:#e5ffe5;
+      background: radial-gradient(circle at top, rgba(56,189,248,0.22), rgba(15,23,42,0.98));
+      border: 1px solid rgba(148,163,184,0.8);
+      color: var(--text-main);
       padding: 6px 12px;
       border-radius: 999px;
       font-size: 0.6rem;
       display: inline-flex;
       align-items: center;
-      gap: .3rem;
-      box-shadow: 0 0 14px rgba(0,255,153,0.4);
+      gap: 0.3rem;
+      box-shadow: 0 0 18px rgba(56,189,248,0.45);
     }
 
     .chip span {
@@ -139,39 +152,39 @@
     }
 
     .hero-right {
-      background: linear-gradient(145deg, rgba(3,20,10,0.95), rgba(1,8,4,0.95));
+      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
       border-radius: 1rem;
-      border: 1px solid rgba(0,255,153,0.5);
-      box-shadow: 0 0 40px rgba(0,255,153,0.25);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 0 40px rgba(15,23,42,0.9);
       padding: 1rem 1.1rem;
-      display:flex;
-      flex-direction:column;
-      gap: .8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
     }
 
     .hero-right h2 {
       font-size: 0.9rem;
-      margin:0;
-      color:#c9ffe3;
+      margin: 0;
+      color: #e5e7eb;
     }
 
     .hero-right p {
       font-size: 0.6rem;
-      line-height:1.7;
-      color:#d1fae5;
-      margin:0;
+      line-height: 1.7;
+      color: #d1fae5;
+      margin: 0;
     }
 
     .hero-buttons {
-      display:flex;
-      flex-wrap:wrap;
-      gap:.6rem;
-      margin-top:.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.6rem;
     }
 
     .button {
-      background: radial-gradient(circle at top, #00ffcc, #00c07a);
-      color: #000;
+      background: radial-gradient(circle at top, var(--accent), var(--accent-soft));
+      color: #020617;
       padding: 0.8rem 1.2rem;
       font-size: 0.75rem;
       border: none;
@@ -180,64 +193,70 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      justify-content:center;
-      gap:.3rem;
+      justify-content: center;
+      gap: 0.3rem;
       font-weight: 600;
-      box-shadow: 0 0 20px rgba(0,255,153,0.5);
+      box-shadow: 0 0 20px rgba(56,189,248,0.6);
       transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
     }
 
     .button:hover {
       transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 0 28px rgba(0,255,204,0.75);
-      filter: saturate(1.15);
+      box-shadow: 0 0 26px rgba(129,140,248,0.85);
+      filter: saturate(1.08);
     }
 
     .button.secondary {
-      background: rgba(0,0,0,0.9);
-      color:#00ffcc;
-      border:1px solid rgba(0,255,204,0.7);
-      box-shadow: 0 0 16px rgba(0,255,153,0.35);
+      background: rgba(15,23,42,0.98);
+      color: var(--accent);
+      border: 1px solid rgba(148,163,184,0.9);
+      box-shadow: 0 0 16px rgba(15,23,42,0.9);
     }
 
     .hero-stats {
-      display:grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap:.5rem;
-      margin-top:.8rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 0.6rem;
+      margin-top: 0.9rem;
     }
 
     @media (max-width: 700px) {
       .hero-stats {
-        grid-template-columns: repeat(2,minmax(0,1fr));
+        grid-template-columns: 1fr;
       }
     }
 
     .stat-card {
-      background: rgba(1,8,5,0.9);
-      border-radius: .7rem;
-      border: 1px solid rgba(0,255,153,0.4);
-      padding:.6rem;
-      font-size:0.55rem;
-      text-align:left;
-      line-height:1.5;
+      background: rgba(15,23,42,0.95);
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148,163,184,0.8);
+      padding: 0.65rem 0.7rem;
+      font-size: 0.55rem;
+      text-align: left;
+      line-height: 1.6;
     }
 
     .stat-label {
-      color:#9ae6b4;
-      margin-bottom:.1rem;
-      font-size:0.5rem;
+      color: #9ca3af;
+      margin-bottom: 0.2rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.04em;
     }
 
     .stat-value {
-      font-size:0.6rem;
-      color:#eafff6;
-      line-height:1.6;
+      font-size: 0.6rem;
+      color: #e5f9ff;
+      line-height: 1.6;
     }
 
     .stat-value .stat-num {
-      display:block;
-      margin-top:2px;
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #f9fafb;
+      text-shadow: 0 0 8px rgba(56,189,248,0.6);
     }
 
     main {
@@ -254,23 +273,23 @@
     .section-title {
       font-size: 1rem;
       margin-bottom: 0.7rem;
-      text-align:left;
-      color:#eafff6;
-      text-shadow: 0 0 8px rgba(0,255,153,0.6);
+      text-align: left;
+      color: #e5e7eb;
+      text-shadow: 0 0 8px rgba(56,189,248,0.6);
     }
 
     .section-inner {
-      background: rgba(3,10,7,0.95);
+      background: var(--bg-card);
       border-radius: 1rem;
-      border: 1px solid rgba(0,255,153,0.4);
+      border: 1px solid var(--border-soft);
       padding: 1rem;
-      box-shadow: 0 0 24px rgba(0,255,153,0.25);
+      box-shadow: 0 0 24px rgba(15,23,42,0.9);
     }
 
     .section-split {
-      display:grid;
+      display: grid;
       grid-template-columns: minmax(0,1.1fr) minmax(0,1.1fr);
-      gap:1.2rem;
+      gap: 1.2rem;
     }
 
     @media (max-width: 800px) {
@@ -280,53 +299,53 @@
     }
 
     .card {
-      background: rgba(0,0,0,0.75);
-      border: 1px solid rgba(0,255,153,.35);
-      padding: .9rem;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(148,163,184,0.85);
+      padding: 0.9rem;
       border-radius: 0.9rem;
-      font-size:0.7rem;
-      text-align:left;
+      font-size: 0.7rem;
+      text-align: left;
     }
 
-    .card p { margin-bottom: .4rem; }
+    .card p { margin-bottom: 0.4rem; }
 
     .contract, .tokenomics {
-      background: rgba(0,0,0,0.85);
+      background: rgba(15,23,42,0.95);
       padding: 0.8rem;
       border-radius: 0.7rem;
       margin-top: 0.5rem;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       line-height: 1.8;
       word-wrap: break-word;
-      border: 1px solid rgba(0,255,153,0.4);
+      border: 1px solid rgba(148,163,184,0.8);
     }
 
     ul {
       list-style: none;
       padding: 0;
       font-size: 0.65rem;
-      line-height:1.6;
-      margin-top:.2rem;
+      line-height: 1.7;
+      margin-top: 0.2rem;
     }
 
     .burn-media {
-      text-align:center;
+      text-align: center;
     }
 
     .burn-media img {
       max-width: 100%;
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 0 24px rgba(144, 238, 144, 0.9);
+      box-shadow: 0 0 26px rgba(148,163,184,0.9);
     }
 
     .burn-link {
       margin-top: 0.6rem;
-      display:inline-block;
-      color:#00ffcc;
+      display: inline-block;
+      color: var(--accent);
       text-decoration: underline;
-      font-weight:bold;
-      font-size:0.7rem;
+      font-weight: bold;
+      font-size: 0.7rem;
     }
 
     iframe {
@@ -335,26 +354,26 @@
 
     .chart-links {
       margin-top: 0.7rem;
-      display:flex;
-      flex-wrap:wrap;
-      gap: .6rem;
-      justify-content:center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
     }
 
     .chart-links a {
       padding: 0.45rem 0.9rem;
-      background: #00ffcc;
-      color:#000;
-      text-decoration:none;
-      border-radius:999px;
-      font-weight:bold;
-      font-size:0.65rem;
-      box-shadow: 0 0 20px rgba(0,255,204,0.6);
+      background: var(--accent);
+      color: #020617;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 0.65rem;
+      box-shadow: 0 0 20px rgba(56,189,248,0.7);
     }
 
     .chart-links a:hover {
       transform: translateY(-1px);
-      box-shadow: 0 0 26px rgba(0,255,204,0.9);
+      box-shadow: 0 0 26px rgba(129,140,248,0.9);
     }
 
     #whitepaper {
@@ -363,33 +382,33 @@
     }
 
     #whitepaper .section-inner {
-      background: rgba(2,6,23,0.95);
+      background: #020617;
     }
 
     #whitepaper h2 {
-      text-align:center;
-      font-size:1.15rem;
+      text-align: center;
+      font-size: 1.15rem;
       margin-bottom: 0.6rem;
     }
 
     .whitepaper-body {
       max-width: 100%;
       margin: 0.5rem auto 0;
-      background: rgba(0,0,0,0.9);
+      background: rgba(15,23,42,0.98);
       padding: 1rem;
       border-radius: 0.9rem;
       height: 380px;
       overflow-y: auto;
       font-size: 0.7rem;
       line-height: 1.7;
-      text-align:left;
-      border:1px solid rgba(0,255,153,0.35);
+      text-align: left;
+      border: 1px solid rgba(148,163,184,0.85);
     }
 
     .whitepaper-body h3 {
       font-size: 0.85rem;
       margin: 0.7rem 0 0.2rem;
-      color:#a5ffcf;
+      color: #bfdbfe;
     }
 
     .whitepaper-body p {
@@ -397,56 +416,73 @@
     }
 
     .muted {
-      color:#9ca3af;
-      font-size:0.65rem;
+      color: var(--text-soft);
+      font-size: 0.65rem;
     }
 
     .center {
-      text-align:center;
+      text-align: center;
     }
 
-    .mt-05 { margin-top:0.5rem; }
-    .mt-1  { margin-top:1rem; }
-    .mt-15 { margin-top:1.5rem; }
+    .mt-05 { margin-top: 0.5rem; }
+    .mt-1  { margin-top: 1rem; }
+    .mt-15 { margin-top: 1.5rem; }
 
     footer {
       padding: 2rem 1rem 1.5rem;
-      font-size: .65rem;
+      font-size: 0.65rem;
       text-align: center;
-      color:#9ca3af;
+      color: var(--text-soft);
     }
 
     .community-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:.7rem;
-      justify-content:center;
-      margin-top:.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      justify-content: center;
+      margin-top: 0.7rem;
     }
 
+    /* Futuristischer AI-Button (Kopf unten rechts) */
     .aiq-fab {
       position: fixed;
       right: 20px;
       bottom: 20px;
-      width: 60px;
-      height: 60px;
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
-      border: 2px solid #00ff99;
-      background: radial-gradient(circle at top, #00ffcc, #00120a);
-      color: #001b12;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size: 28px;
-      cursor:pointer;
-      z-index:9999;
-      box-shadow: 0 0 22px rgba(0,255,153,0.7);
-      transition: transform .15s ease, box-shadow .15s ease;
+      border: 2px solid rgba(148,163,184,0.95);
+      background:
+        radial-gradient(circle at 30% 0, rgba(248,250,252,0.9), rgba(30,64,175,0.95)),
+        radial-gradient(circle at 70% 100%, rgba(56,189,248,0.9), #020617);
+      color: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow:
+        0 0 18px rgba(56,189,248,0.9),
+        0 0 30px rgba(129,140,248,0.7);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .aiq-fab::after {
+      content: "AI";
+      position: absolute;
+      bottom: 6px;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: #e5e7eb;
+      text-shadow: 0 0 5px rgba(15,23,42,0.9);
     }
 
     .aiq-fab:hover {
       transform: scale(1.08) translateY(-1px);
-      box-shadow: 0 0 30px rgba(0,255,204,0.85);
+      box-shadow:
+        0 0 22px rgba(56,189,248,1),
+        0 0 40px rgba(129,140,248,0.95);
     }
 
     #aiq-panel {
@@ -456,13 +492,13 @@
       width: 420px;
       max-width: calc(100vw - 30px);
       background: #020617;
-      color:#e5e7eb;
+      color: #e5e7eb;
       border: 1px solid #1f2937;
       border-radius: 16px;
       display: none;
       padding: 14px;
       z-index: 9999;
-      box-shadow: 0 14px 40px rgba(0,0,0,.65);
+      box-shadow: 0 14px 40px rgba(0,0,0,.7);
       font-family: 'Press Start 2P', monospace;
       font-size: 7px;
       line-height: 1.55;
@@ -470,31 +506,31 @@
     }
 
     #aiq-header {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      margin-bottom:8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
     #aiq-header .title {
-      font-weight:700;
-      font-size:12px;
-      color:#00ff99;
-      text-shadow: 0 0 8px rgba(0,255,153,0.8);
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--accent);
+      text-shadow: 0 0 8px rgba(56,189,248,0.85);
     }
 
     #aiq-close {
       background: transparent;
-      border:0;
-      color:#94a3b8;
-      font-size:16px;
-      cursor:pointer;
+      border: 0;
+      color: #94a3b8;
+      font-size: 16px;
+      cursor: pointer;
     }
 
     #aiq-log {
       height: 240px;
-      overflow:auto;
+      overflow: auto;
       border: 1px solid #1f2937;
       border-radius: 10px;
       padding: 8px;
@@ -502,7 +538,7 @@
     }
 
     .aiq-msg { margin: 8px 0; }
-    .aiq-msg b { color:#00ff99; }
+    .aiq-msg b { color: var(--accent); }
 
     #aiq-input {
       flex: 1;
@@ -517,96 +553,85 @@
     #aiq-send {
       padding: 8px 12px;
       border-radius: 8px;
-      background: #22c55e;
-      color: #0b1020;
+      background: var(--accent);
+      color: #020617;
       font-weight: 700;
       font-size: 11px;
       border: none;
-      cursor:pointer;
+      cursor: pointer;
     }
 
     #aiq-row {
-      display:flex;
-      gap:8px;
-      margin-top:10px;
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     #aiq-hint {
-      font-size:10px;
-      color:#9ca3af;
-      margin-top:8px;
+      font-size: 10px;
+      color: #9ca3af;
+      margin-top: 8px;
     }
 
-   @media (max-width: 600px) {
-  /* etwas weniger Rand auf Handy */
-  .app-shell {
-    padding: 0 0.4rem 2.4rem;
-  }
+    /* Mobile Tuning */
+    @media (max-width: 600px) {
+      .app-shell {
+        padding: 0 0.5rem 2.4rem;
+      }
 
-  /* Karten innen etwas kompakter */
-  .section-inner {
-    padding: 0.7rem;
-  }
+      .section-inner {
+        padding: 0.75rem;
+      }
 
-  /* Überschriften kleiner */
-  .section-title {
-    font-size: 0.9rem;
-  }
+      .section-title {
+        font-size: 0.9rem;
+      }
 
-  /* Stats oben untereinander statt nebeneinander */
-  .hero-stats {
-    grid-template-columns: 1fr;
-  }
+      .contract,
+      .tokenomics {
+        font-size: 0.62rem;
+        line-height: 1.6;
+        padding: 0.6rem;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
 
-  /* Contract + Tokenomics: kleinere Schrift + saubere Zeilenumbrüche */
-  .contract,
-  .tokenomics {
-    font-size: 0.58rem;
-    line-height: 1.6;
-    padding: 0.55rem;
-    word-break: break-all;
-    overflow-wrap: anywhere;
-  }
+      .whitepaper-body {
+        font-size: 0.65rem;
+        height: 320px;
+      }
 
-  /* Whitepaper etwas kleiner + flacher */
-  .whitepaper-body {
-    font-size: 0.65rem;
-    height: 320px;
-  }
+      .aiq-fab {
+        right: 14px;
+        bottom: 14px;
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+      }
 
-  /* AI-Fab & Panel wie vorher, nur leicht angepasst */
-  .aiq-fab {
-    right: 14px;
-    bottom: 14px;
-    width: 54px;
-    height: 54px;
-    font-size: 24px;
-  }
+      #aiq-panel {
+        bottom: 80px;
+        right: 10px;
+        width: calc(100vw - 20px);
+        height: 70vh;
+        padding: 12px;
+        border-radius: 14px;
+      }
 
-  #aiq-panel {
-    bottom: 80px;
-    right: 10px;
-    width: calc(100vw - 20px);
-    height: 70vh;
-    padding: 12px;
-    border-radius: 14px;
-  }
+      #aiq-log {
+        height: calc(70vh - 120px);
+        font-size: 10px;
+      }
 
-  #aiq-log {
-    height: calc(70vh - 120px);
-    font-size: 10px;
-  }
+      #aiq-input,
+      #aiq-send {
+        font-size: 10px;
+      }
 
-  #aiq-input,
-  #aiq-send {
-    font-size: 10px;
-  }
-
-  #aiq-hint {
-    font-size: 9px;
-  }
-}
-
+      #aiq-hint {
+        font-size: 9px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -656,22 +681,18 @@
 
           <div class="hero-stats">
             <div class="stat-card">
-              <div class="stat-label">Price</div>
+              <div class="stat-label">PRICE</div>
               <div class="stat-value" id="price">
-                💰 Current Price:
+                💰 Current Price
                 <span class="stat-num">Loading...</span>
               </div>
             </div>
             <div class="stat-card">
-              <div class="stat-label">Market Cap</div>
+              <div class="stat-label">MARKET CAP</div>
               <div class="stat-value" id="marketcap">
-                🧮 MC (circulating est.):
+                🧮 MC (circulating est.)
                 <span class="stat-num">Loading...</span>
               </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Supply & LP</div>
-              <div class="stat-value" id="supplyline"></div>
             </div>
           </div>
         </div>
@@ -726,8 +747,9 @@
               <div class="tokenomics">
                 Total Supply: 190,000,000,000 TBP<br>
                 Burned: 10,000,000,000 TBP<br>
-                Liquidity (SushiSwap): ~130,000,000,000 TBP<br>
+                Circulating (est.): ~166,000,000,000 TBP<br>
                 Owner (transparent): ~14,000,000,000 TBP (for listings/ops)<br>
+                Majority of supply is in the liquidity pool (check live trackers).<br>
                 Fair launch – No presale, no tax. Chain: Polygon (POL)
               </div>
             </div>
@@ -782,8 +804,9 @@
               <li><strong>Symbol:</strong> TBP</li>
               <li><strong>Total Supply:</strong> 190,000,000,000 TBP</li>
               <li><strong>Burned:</strong> 10,000,000,000 TBP</li>
-              <li><strong>Liquidity:</strong> 130,000,000,000 TBP on SushiSwap</li>
+              <li><strong>Circulating (est.):</strong> ~166,000,000,000 TBP</li>
               <li><strong>Owner (transparent):</strong> 14,000,000,000 TBP (listings/ops)</li>
+              <li><strong>Liquidity:</strong> Majority of supply in LP (see live trackers)</li>
               <li><strong>Taxes:</strong> 0% Buy/Sell</li>
               <li><strong>Chain:</strong> Polygon (POL)</li>
             </ul>
@@ -793,7 +816,7 @@
             <ul>
               <li>DEX listings (SushiSwap, Trackers)</li>
               <li>AI Assistant live on Website &amp; Telegram</li>
-              <li>Public supply stats &amp; LP lock evidence</li>
+              <li>Public supply stats &amp; LP burn evidence</li>
             </ul>
 
             <p><strong>Phase 2: Community &amp; CMC</strong></p>
@@ -855,7 +878,8 @@
     </footer>
   </div>
 
-  <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI">🐸</button>
+  <!-- Futuristischer AI-Kopf -->
+  <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI">🤖</button>
 
   <div id="aiq-panel" role="dialog" aria-modal="true" aria-label="TBP Assistant">
     <div id="aiq-header">
@@ -877,26 +901,14 @@
     var MAX_SUPPLY = 190000000000;
     var BURNED     = 10000000000;
     var OWNER      = 14000000000;
-    var LP_HELD    = 130000000000;
     var CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
 
     console.log("[TBP-AI] booting…");
 
-    function setSupplyLine() {
-      var el = document.getElementById("supplyline");
-      if (!el) return;
-      el.innerHTML =
-        '🔥 <strong>' + BURNED.toLocaleString() + ' TBP</strong> burned<br>' +
-        '💧 ~<strong>' + LP_HELD.toLocaleString() + ' TBP</strong> in LP<br>' +
-        '👤 Owner ~<strong>' + OWNER.toLocaleString() + ' TBP</strong><br>' +
-        '📦 Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
-    }
-
-
     const PAIR = DEX_PAIR;
 
     const fmtUSD = (n, opts={}) =>
-      (isFinite(n) ? 
+      (isFinite(n) ?
         new Intl.NumberFormat(undefined, {
           style: "currency",
           currency: "USD",
@@ -953,12 +965,12 @@
 
         if (priceEl) {
           priceEl.innerHTML =
-            '💰 Current Price:<span class="stat-num">' + fmtPriceUSD(price) + '</span>';
+            '💰 Current Price<span class="stat-num">' + fmtPriceUSD(price) + '</span>';
         }
 
         if (mcEl) {
           mcEl.innerHTML =
-            '🧮 MC (circulating est.):' +
+            '🧮 MC (circulating est.)' +
             '<span class="stat-num">' + fmtUSD(circ) + '</span>' +
             '<span class="stat-num">FDV: ' + fmtUSD(fdv) + '</span>';
         }
@@ -966,16 +978,15 @@
         console.error("[TBP-AI] price error:", e);
         if (priceEl) {
           priceEl.innerHTML =
-            '💰 Current Price:<span class="stat-num">Unavailable</span>';
+            '💰 Current Price<span class="stat-num">Unavailable</span>';
         }
         if (mcEl) {
           mcEl.innerHTML =
-            '🧮 Market Cap:<span class="stat-num">Error</span>';
+            '🧮 MC (circulating est.)<span class="stat-num">Error</span>';
         }
       }
     }
 
-    setSupplyLine();
     fetchTBPPrice();
     setInterval(fetchTBPPrice, 10000);
 
@@ -1016,7 +1027,7 @@
     var FAQ = [
       { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
       { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
-      { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
+      { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; circulating ~166B; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
       { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep on-chain stats visible. 🧠🐸" },
       { q:/cmc|coingecko|listing|listung/i, a:"Goal: CoinGecko & CMC listing — focus on transparency, activity & community growth." },
       { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
