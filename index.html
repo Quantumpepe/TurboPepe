@@ -6,260 +6,816 @@
   <title>TurboPepe-AI (TBP)</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       margin: 0;
       font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(135deg, #0f0f0f, #0a0);
-      color: #00ff99;
-      text-align: center;
-      padding: 1rem;
+      color: #e5ffe5;
+      background: radial-gradient(circle at top, #00ff99 0, #001007 20%, #020617 55%, #000 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
     }
+
+    /* Futuristic grid background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 153, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 153, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 10% 20%, rgba(0,255,153,0.14) 0, transparent 45%),
+                  radial-gradient(circle at 80% 80%, rgba(0,255,204,0.1) 0, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .app-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+    }
+
+    marquee {
+      color:#00ff99;
+      font-size:0.75rem;
+      margin-top:0;
+      background:#000;
+      padding:0.5rem 0;
+      border-bottom:2px solid #00ff99;
+      text-shadow: 0 0 8px rgba(0,255,153,0.7);
+    }
+
+    /* HERO / HEADER */
     header {
-      padding: 1rem;
-      font-size: 1.2rem;
+      padding: 1.5rem 0 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1.1fr);
+      align-items: center;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .logo {
+      width: 110px;
+      height: auto;
+      filter: drop-shadow(0 0 25px rgba(0,255,153,0.8));
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotate(-2deg);
+      filter: drop-shadow(0 0 40px rgba(0,255,204,0.95));
+    }
+
+    h1 {
+      margin:0;
+      font-size:1.55rem;
+      letter-spacing: 1px;
+      color:#eafff2;
+      text-shadow: 0 0 10px rgba(0,255,153,0.7);
+    }
+
+    .subtitle {
+      font-size: 0.65rem;
+      color:#a5ffcf;
+      line-height:1.8;
+    }
+
+    .hero-chip-row {
+      margin-top: .2rem;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
       gap: .5rem;
     }
-    .logo { width: 70px; height: auto; }
-    .logo:hover { filter: drop-shadow(0 0 10px #00ff99); transform: scale(1.1); transition: all .3s ease; }
-    .container { max-width: 900px; margin: 0 auto; }
-    .button {
-      background: #00ff99; color: #000; padding: 1rem; font-size: 1rem;
-      border: none; border-radius: 10px; cursor: pointer; margin: .5rem;
-      text-decoration: none; display: inline-block; width: 100%; max-width: 320px;
-    }
-    .section { margin-top: 2rem; }
-    .card {
-      background: rgba(0,255,153,.08);
-      border: 1px solid rgba(0,255,153,.25);
-      padding: 1rem; border-radius: 12px;
-    }
-    .contract, .tokenomics {
-      background: rgba(0,255,153,0.1);
-      padding: 1rem; border-radius: 8px; margin-top: 1rem; font-size: .75rem; word-wrap: break-word;
-    }
-    ul { list-style: none; padding: 0; font-size: .75rem; }
-    footer { padding: 2rem; font-size: .7rem; }
-    @media (min-width: 600px) { .button { width: auto; } }
 
-    /* === AI Widget (50% larger + mobile responsive) === */
+    .chip {
+      background: radial-gradient(circle at top, rgba(0,255,153,0.25), rgba(0,0,0,0.9));
+      border: 1px solid rgba(0,255,153,0.55);
+      color:#e5ffe5;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      box-shadow: 0 0 14px rgba(0,255,153,0.4);
+    }
+
+    .chip span {
+      font-size: 0.8rem;
+    }
+
+    .hero-right {
+      background: linear-gradient(145deg, rgba(3,20,10,0.95), rgba(1,8,4,0.95));
+      border-radius: 1rem;
+      border: 1px solid rgba(0,255,153,0.5);
+      box-shadow: 0 0 40px rgba(0,255,153,0.25);
+      padding: 1rem 1.1rem;
+      display:flex;
+      flex-direction:column;
+      gap: .8rem;
+    }
+
+    .hero-right h2 {
+      font-size: 0.9rem;
+      margin:0;
+      color:#c9ffe3;
+    }
+
+    .hero-right p {
+      font-size: 0.6rem;
+      line-height:1.7;
+      color:#d1fae5;
+      margin:0;
+    }
+
+    .hero-buttons {
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+      margin-top:.6rem;
+    }
+
+    .button {
+      background: radial-gradient(circle at top, #00ffcc, #00c07a);
+      color: #000;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.75rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content:center;
+      gap:.3rem;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(0,255,153,0.5);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 0 28px rgba(0,255,204,0.75);
+      filter: saturate(1.15);
+    }
+
+    .button.secondary {
+      background: rgba(0,0,0,0.9);
+      color:#00ffcc;
+      border:1px solid rgba(0,255,204,0.7);
+      box-shadow: 0 0 16px rgba(0,255,153,0.35);
+    }
+
+    .hero-stats {
+      display:grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap:.5rem;
+      margin-top:.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .hero-stats {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+    }
+
+    .stat-card {
+      background: rgba(1,8,5,0.9);
+      border-radius: .7rem;
+      border: 1px solid rgba(0,255,153,0.4);
+      padding:.6rem;
+      font-size:0.55rem;
+      text-align:left;
+    }
+
+    .stat-label {
+      color:#9ae6b4;
+      margin-bottom:.2rem;
+      font-size:0.5rem;
+    }
+
+    .stat-value {
+      font-size:0.6rem;
+      color:#eafff6;
+    }
+
+    /* SECTIONS */
+    main {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .section {
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
+      text-align:left;
+      color:#eafff6;
+      text-shadow: 0 0 8px rgba(0,255,153,0.6);
+    }
+
+    .section-inner {
+      background: rgba(3,10,7,0.95);
+      border-radius: 1rem;
+      border: 1px solid rgba(0,255,153,0.4);
+      padding: 1rem;
+      box-shadow: 0 0 24px rgba(0,255,153,0.25);
+    }
+
+    .section-split {
+      display:grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1.1fr);
+      gap:1.2rem;
+    }
+
+    @media (max-width: 800px) {
+      .section-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: rgba(0,0,0,0.75);
+      border: 1px solid rgba(0,255,153,.35);
+      padding: .9rem;
+      border-radius: 0.9rem;
+      font-size:0.7rem;
+      text-align:left;
+    }
+
+    .card p { margin-bottom: .4rem; }
+
+    .contract, .tokenomics {
+      background: rgba(0,0,0,0.85);
+      padding: 0.8rem;
+      border-radius: 0.7rem;
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      word-wrap: break-word;
+      border: 1px solid rgba(0,255,153,0.4);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.65rem;
+      line-height:1.6;
+      margin-top:.2rem;
+    }
+
+    /* Liquidity burn block */
+    .burn-media {
+      text-align:center;
+    }
+
+    .burn-media img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 24px rgba(144, 238, 144, 0.9);
+    }
+
+    .burn-link {
+      margin-top: 0.6rem;
+      display:inline-block;
+      color:#00ffcc;
+      text-decoration: underline;
+      font-weight:bold;
+      font-size:0.7rem;
+    }
+
+    /* Chart */
+    iframe {
+      border-radius: 12px;
+    }
+
+    .chart-links {
+      margin-top: 0.7rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap: .6rem;
+      justify-content:center;
+    }
+
+    .chart-links a {
+      padding: 0.45rem 0.9rem;
+      background: #00ffcc;
+      color:#000;
+      text-decoration:none;
+      border-radius:999px;
+      font-weight:bold;
+      font-size:0.65rem;
+      box-shadow: 0 0 20px rgba(0,255,204,0.6);
+    }
+
+    .chart-links a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 26px rgba(0,255,204,0.9);
+    }
+
+    /* Whitepaper section */
+    #whitepaper {
+      background: transparent;
+      padding: 0;
+    }
+
+    #whitepaper .section-inner {
+      background: rgba(2,6,23,0.95);
+    }
+
+    #whitepaper h2 {
+      text-align:center;
+      font-size:1.15rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .whitepaper-body {
+      max-width: 100%;
+      margin: 0.5rem auto 0;
+      background: rgba(0,0,0,0.9);
+      padding: 1rem;
+      border-radius: 0.9rem;
+      height: 380px;
+      overflow-y: auto;
+      font-size: 0.7rem;
+      line-height: 1.7;
+      text-align:left;
+      border:1px solid rgba(0,255,153,0.35);
+    }
+
+    .whitepaper-body h3 {
+      font-size: 0.85rem;
+      margin: 0.7rem 0 0.2rem;
+      color:#a5ffcf;
+    }
+
+    .whitepaper-body p {
+      margin-bottom: 0.3rem;
+    }
+
+    /* Simple helpers */
+    .muted {
+      color:#9ca3af;
+      font-size:0.65rem;
+    }
+
+    .center {
+      text-align:center;
+    }
+
+    .mt-05 { margin-top:0.5rem; }
+    .mt-1  { margin-top:1rem; }
+    .mt-15 { margin-top:1.5rem; }
+
+    footer {
+      padding: 2rem 1rem 1.5rem;
+      font-size: .65rem;
+      text-align: center;
+      color:#9ca3af;
+    }
+
+    /* COMMUNITY buttons */
+    .community-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:.7rem;
+      justify-content:center;
+      margin-top:.7rem;
+    }
+
+    /* Floating AI Button (mostly original, slightly tuned to fit new style) */
     .aiq-fab {
       position: fixed;
       right: 20px;
       bottom: 20px;
-      width: 56px; height: 56px; border-radius: 50%;
-      border: 2px solid #00ff99; background:#081a12; color:#00ff99;
-      display:flex; align-items:center; justify-content:center;
-      font-size: 26px; cursor:pointer; z-index:9999;
-      box-shadow: 0 0 18px rgba(0,255,153,0.45);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #00ff99;
+      background: radial-gradient(circle at top, #00ffcc, #00120a);
+      color: #001b12;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 28px;
+      cursor:pointer;
+      z-index:9999;
+      box-shadow: 0 0 22px rgba(0,255,153,0.7);
       transition: transform .15s ease, box-shadow .15s ease;
     }
-    .aiq-fab:hover { transform: scale(1.08); box-shadow: 0 0 24px rgba(0,255,153,0.6); }
+
+    .aiq-fab:hover {
+      transform: scale(1.08) translateY(-1px);
+      box-shadow: 0 0 30px rgba(0,255,204,0.85);
+    }
 
     #aiq-panel {
-      position: fixed; right: 20px; bottom: 90px; width: 420px; /* 1.5x bigger */
+      position: fixed;
+      right: 20px;
+      bottom: 90px;
+      width: 420px;
       max-width: calc(100vw - 30px);
-      background: #0f172a; color:#e5e7eb;
-      border: 1px solid #1f2937; border-radius: 16px;
-      display: none; padding: 14px; z-index: 9999;
-      box-shadow: 0 8px 30px rgba(0,0,0,.45);
+      background: #020617;
+      color:#e5e7eb;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      display: none;
+      padding: 14px;
+      z-index: 9999;
+      box-shadow: 0 14px 40px rgba(0,0,0,.65);
       font-family: 'Press Start 2P', monospace;
-      font-size: 7px; line-height: 1.55; text-align: left;
+      font-size: 7px;
+      line-height: 1.55;
+      text-align: left;
     }
-    #aiq-header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
-    #aiq-header .title { font-weight:700; font-size:12px; color:#00ff99; }
-    #aiq-close { background: transparent; border:0; color:#94a3b8; font-size:16px; cursor:pointer; }
+
+    #aiq-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+    }
+
+    #aiq-header .title {
+      font-weight:700;
+      font-size:12px;
+      color:#00ff99;
+      text-shadow: 0 0 8px rgba(0,255,153,0.8);
+    }
+
+    #aiq-close {
+      background: transparent;
+      border:0;
+      color:#94a3b8;
+      font-size:16px;
+      cursor:pointer;
+    }
+
     #aiq-log {
-      height: 240px; overflow:auto; border: 1px solid #1f2937; border-radius: 10px;
-      padding: 8px; background: #0b1220;
+      height: 240px;
+      overflow:auto;
+      border: 1px solid #1f2937;
+      border-radius: 10px;
+      padding: 8px;
+      background: #020318;
     }
+
     .aiq-msg { margin: 8px 0; }
     .aiq-msg b { color:#00ff99; }
+
     #aiq-input {
-      flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #334155;
-      background: #0b1220; color: #e5e7eb; font-size: 11px;
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 11px;
     }
+
     #aiq-send {
-      padding: 8px 12px; border-radius: 8px; background: #22c55e;
-      color: #0b1020; font-weight: 700; font-size: 11px; border: none; cursor:pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #22c55e;
+      color: #0b1020;
+      font-weight: 700;
+      font-size: 11px;
+      border: none;
+      cursor:pointer;
     }
-    #aiq-row { display:flex; gap:8px; margin-top:10px; }
-    #aiq-hint { font-size:10px; color:#9ca3af; margin-top:8px; }
+
+    #aiq-row {
+      display:flex;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    #aiq-hint {
+      font-size:10px;
+      color:#9ca3af;
+      margin-top:8px;
+    }
 
     /* Mobile Optimization */
     @media (max-width: 600px) {
-      .aiq-fab { right:14px; bottom:14px; width:54px; height:54px; font-size:24px; }
-      #aiq-panel {
-        bottom: 80px; right: 10px;
-        width: calc(100vw - 20px); height: 70vh;
-        padding: 12px; border-radius: 14px;
+      .app-shell {
+        padding: 0 0.8rem 2.8rem;
       }
-      #aiq-log { height: calc(70vh - 120px); font-size:10px; }
-      #aiq-input, #aiq-send { font-size:10px; }
-      #aiq-hint { font-size:9px; }
+      .aiq-fab {
+        right:14px;
+        bottom:14px;
+        width:54px;
+        height:54px;
+        font-size:24px;
+      }
+      #aiq-panel {
+        bottom: 80px;
+        right: 10px;
+        width: calc(100vw - 20px);
+        height: 70vh;
+        padding: 12px;
+        border-radius: 14px;
+      }
+      #aiq-log {
+        height: calc(70vh - 120px);
+        font-size:10px;
+      }
+      #aiq-input, #aiq-send {
+        font-size:10px;
+      }
+      #aiq-hint {
+        font-size:9px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <marquee behavior="scroll" direction="left" scrollamount="6" style="color:#00ff99; font-size:0.8rem; margin-top:0; background:#000; padding:0.5rem 0; border-bottom:2px solid #00ff99;">
+  <marquee behavior="scroll" direction="left" scrollamount="6">
     🐸 TurboPepe-AI is just getting started... Meme season is here... 🚀
   </marquee>
 
-  <header>
-    <img src="turbopepe.png" alt="TurboPepe Logo" class="logo">
-    <h1 style="margin:0; font-size:1.5rem;">TurboPepe-AI (TBP) is LIVE!</h1>
+  <div class="app-shell">
+    <header>
+      <div class="hero-inner">
+        <div class="logo-wrap">
+          <img src="turbopepe.png" alt="TurboPepe Logo" class="logo">
+          <h1>TurboPepe-AI (TBP) is LIVE!</h1>
+          <p class="subtitle">
+            The fairest meme-launch of the year.<br>
+            Built on Polygon. Powered by AI & pure community energy.
+          </p>
+          <div class="hero-chip-row">
+            <div class="chip">
+              <span>🧠</span> TBP is an AI-Token — I post & explain myself
+            </div>
+            <div class="chip">
+              <span>✅</span> 100% transparency • No taxes
+            </div>
+            <div class="chip">
+              <span>🚀</span> AI-assisted community growth
+            </div>
+          </div>
+        </div>
 
-    <!-- AI Identity -->
-    <div style="margin:12px 0 0; display:flex; gap:8px; justify-content:center; align-items:center; font-size:0.8rem; flex-wrap: wrap;">
-      <span style="background:#001b12;border:1px solid #00ff99;color:#00ff99;padding:6px 10px;border-radius:999px;">
-        🧠 TBP is an AI-Token — I post & explain myself
-      </span>
-    </div>
-  </header>
+        <div class="hero-right">
+          <h2>TBP AI Control Panel</h2>
+          <p>
+            Polygon-based AI meme token with burned liquidity, fair launch, and a live AI assistant
+            watching price, market cap and community questions in real time.
+          </p>
 
-  <div class="container">
+          <div class="hero-buttons">
+            <a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">
+              🛒 Buy TBP on SushiSwap
+            </a>
+            <a class="button secondary" href="#whitepaper">
+              📜 Read Whitepaper
+            </a>
+          </div>
 
-    <p>
-      The fairest meme-launch of the year:<br>
-      ✅ 100% transparency<br>
-      ✅ No taxes<br>
-      ✅ AI-assisted community growth 🚀
-    </p>
-
-    <div class="section card" style="text-align:center; margin-top:25px;">
-      <h2 style="color:#00ff99; margin:0 0 8px;">Liquidity Burned!</h2>
-      <p style="color:#fff; margin:0 0 12px;">TurboPepe's LP has been burned – it’s locked forever!</p>
-      <img src="file_00000000c09c6246a5115ad056026505.png" alt="TurboPepe burning LP" style="max-width: 90%; height: auto; border-radius: 12px; box-shadow: 0 0 20px lime;">
-      <p style="margin-top: 10px;">
-        <a href="https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a" target="_blank"
-           style="color:#00ff99; text-decoration: underline; font-weight: bold;">View Burn on PolygonScan</a>
-      </p>
-    </div>
-
-    <a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">Buy TBP on SushiSwap</a>
-
-    <div style="text-align:center; margin-top:20px;">
-      <h3 style="color:#fff; font-family:sans-serif; margin:0 0 8px;">TurboPepe-AI Staking coming soon!</h3>
-      <p style="color:#ccc; margin:0 0 12px;">Earn <strong>5%–10%</strong> rewards.</p>
-      
-    </div>
-
-    <p id="price" style="font-size:0.9rem; margin-top: 0.5rem;">💰 Current Price: Loading...</p>
-    <p id="marketcap" style="font-size:0.8rem; margin-top: 0.25rem;">🧮 Market Cap: Loading...</p>
-    <p id="supplyline" style="font-size:0.75rem; margin-top:0.25rem; color:#00ff99;"></p>
-
-    <div class="section">
-      <h2>📜 Contract Address</h2>
-      <div class="contract">0x50c40e03552A42fbE41b2507d522F56d7325D1F2</div>
-    </div>
-
-    <div class="section">
-      <h2>📈 Chart</h2>
-      <div style="margin-top: 1rem;">
-        <iframe src="https://www.geckoterminal.com/en/polygon_pos/pools/0x945c73101e11cc9e529c839d1d75648d04047b0b?embed=1"
-                height="400" width="100%" frameborder="0" style="border-radius: 10px;"></iframe>
-
-        <div style="margin-top: 1rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-          <a href="https://www.dextools.io/app/en/polygon/pair-explorer/0x945c73101e11cc9e529c839d1d75648d04047b0b"
-             target="_blank"
-             style="padding: 0.5rem 1rem; background: #00ffcc; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold;">
-            View on DEXTools
-          </a>
-          <a href="https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b"
-             target="_blank"
-             style="padding: 0.5rem 1rem; background: #00ffcc; color: #000; text-decoration: none; border-radius: 6px; font-weight: bold;">
-            View on DexScreener
-          </a>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-label">Price</div>
+              <div class="stat-value" id="price">💰 Current Price: Loading...</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Market Cap</div>
+              <div class="stat-value" id="marketcap">🧮 Market Cap: Loading...</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Supply & LP</div>
+              <div class="stat-value" id="supplyline"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </header>
 
-    <div class="section">
-      <h2>📊 Tokenomics</h2>
-      <div class="tokenomics">
-        Total Supply: 190,000,000,000 TBP<br>
-        Burned: 10,000,000,000 TBP<br>
-        Liquidity (SushiSwap): ~130,000,000,000 TBP<br>
-        Owner (transparent): ~14,000,000,000 TBP (for listings/ops)<br>
-        Fair launch – No presale, no tax. Chain: Polygon (POL)
-      </div>
-    </div>
+    <main>
+      <!-- Liquidity / Burn + Staking Teaser -->
+      <section class="section">
+        <div class="section-inner section-split">
+          <div class="card">
+            <h2 class="section-title">🔥 Liquidity Burned Forever</h2>
+            <p>
+              TurboPepe's LP has been burned – it’s locked forever. No hidden games, no exit doors,
+              just clean on-chain proof.
+            </p>
+            <div class="burn-media mt-1">
+              <img src="file_00000000c09c6246a5115ad056026505.png" alt="TurboPepe burning LP">
+              <a
+                href="https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a"
+                target="_blank"
+                class="burn-link"
+              >
+                View Burn on PolygonScan
+              </a>
+            </div>
+          </div>
 
-    <div class="section" id="whitepaper" style="padding: 40px; background-color: #101010; color: white;">
-      <h2 style="text-align:center; font-size:2rem; margin:0 0 12px;">📜 Whitepaper</h2>
-      <div style="max-width: 900px; margin: 20px auto; background: #1a1a1a; padding: 20px; border-radius: 12px; height: 400px; overflow-y: auto; font-size: 1rem; line-height: 1.6; text-align:left;">
-        <p><strong>TurboPepe (TBP)</strong> is a meme-powered community token on Polygon with transparent tokenomics and a real AI layer. TBP’s AI posts autonomously, answers community questions, and monitors on-chain stats.</p>
+          <div class="card">
+            <h2 class="section-title">🧠 TurboPepe-AI Staking</h2>
+            <p class="mt-05">
+              TurboPepe-AI Staking coming soon! Earn <strong>5%–10%</strong> rewards for holders who
+              lock and support the ecosystem.
+            </p>
+            <p class="muted mt-1">
+              Smart, simple, sustainable — the AI watches on-chain, while you earn
+              passive TBP yield.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <h3>🚀 Vision</h3>
-        <p>Build a high-speed, AI-driven meme brand powered by its community and transparent on-chain mechanics.</p>
+      <!-- Contract + Chart -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="section-split">
+            <div>
+              <h2 class="section-title">📜 Contract Address</h2>
+              <div class="contract">
+                0x50c40e03552A42fbE41b2507d522F56d7325D1F2
+              </div>
 
-        <h3>📊 Tokenomics (recap)</h3>
-        <ul>
-          <li><strong>Name:</strong> TurboPepe-AI</li>
-          <li><strong>Symbol:</strong> TBP</li>
-          <li><strong>Total Supply:</strong> 190,000,000,000 TBP</li>
-          <li><strong>Burned:</strong> 10,000,000,000 TBP</li>
-          <li><strong>Liquidity:</strong> ~130,000,000,000 TBP on SushiSwap</li>
-          <li><strong>Owner (transparent):</strong> ~14,000,000,000 TBP (listings/ops)</li>
-          <li><strong>Taxes:</strong> 0% Buy/Sell</li>
-          <li><strong>Chain:</strong> Polygon (POL)</li>
-        </ul>
+              <h2 class="section-title mt-15">📊 Tokenomics</h2>
+              <div class="tokenomics">
+                Total Supply: 190,000,000,000 TBP<br>
+                Burned: 10,000,000,000 TBP<br>
+                Liquidity (SushiSwap): ~130,000,000,000 TBP<br>
+                Owner (transparent): ~14,000,000,000 TBP (for listings/ops)<br>
+                Fair launch – No presale, no tax. Chain: Polygon (POL)
+              </div>
+            </div>
 
-        <h3>🛣️ Roadmap</h3>
-        <p><strong>Phase 1: AI & DEX</strong></p>
-        <ul>
-          <li>DEX listings (SushiSwap, Trackers)</li>
-          <li>AI Assistant live on Website & Telegram</li>
-          <li>Public supply stats & LP lock evidence</li>
-        </ul>
-        <p><strong>Phase 2: Community & CMC</strong></p>
-        <ul>
-          
-          <li>CoinGecko & CoinMarketCap listing</li>
-          <li>Daily AI posting cadence (X & TG)</li>
-        </ul>
-        <p><strong>Phase 3: Utility</strong></p>
-        <ul>
-          <li>Escrow payments (“locked until release”)</li>
-          <li>In-app wallet & chat</li>
-          <li>Further integrations & partnerships</li>
-        </ul>
+            <div>
+              <h2 class="section-title">📈 Live Chart</h2>
+              <iframe
+                src="https://www.geckoterminal.com/en/polygon_pos/pools/0x945c73101e11cc9e529c839d1d75648d04047b0b?embed=1"
+                height="400"
+                width="100%"
+                frameborder="0"
+              ></iframe>
 
-        <h3>🔐 Security</h3>
-        <ul>
-          <li>Verified contracts</li>
-          <li>LP burned/locked (on-chain proof linked)</li>
-          <li>Transparent owner balance & intent</li>
-        </ul>
+              <div class="chart-links">
+                <a
+                  href="https://www.dextools.io/app/en/polygon/pair-explorer/0x945c73101e11cc9e529c839d1d75648d04047b0b"
+                  target="_blank"
+                >
+                  Open in DEXTools
+                </a>
+                <a
+                  href="https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b"
+                  target="_blank"
+                >
+                  Open in DexScreener
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <h3>✅ Final Note</h3>
-        <p>TBP isn’t just another meme token — it’s an <strong>AI-token</strong> that explains itself and grows with its community.</p>
-      </div>
-    </div>
+      <!-- Whitepaper -->
+      <section class="section" id="whitepaper">
+        <div class="section-inner">
+          <h2>📜 Whitepaper</h2>
+          <div class="whitepaper-body">
+            <p>
+              <strong>TurboPepe (TBP)</strong> is a meme-powered community token on Polygon with
+              transparent tokenomics and a real AI layer. TBP’s AI posts autonomously, answers community
+              questions, and monitors on-chain stats.
+            </p>
 
-    <div class="section">
-      <h2>🧠 What is TurboPepe?</h2>
-      <p style="font-size:.8rem; line-height:1.6;">
-        TurboPepe ($TBP) is a community-driven meme token with a real AI layer.<br><br>
-        The AI posts, explains, and keeps our on-chain stats in check.<br>
-        No taxes. No empty promises. Just fair vibes, fast moves, and full transparency. 🐸🚀
-      </p>
-    </div>
+            <h3>🚀 Vision</h3>
+            <p>
+              Build a high-speed, AI-driven meme brand powered by its community and transparent on-chain
+              mechanics.
+            </p>
 
-    <div class="section">
-      <h2>Join the Community</h2>
-      <a class="button" href="https://t.me/turbopepe25" target="_blank">Telegram</a>
-      <a class="button" href="https://x.com/TurboPepe2025" target="_blank">Twitter</a>
-    </div>
+            <h3>📊 Tokenomics (recap)</h3>
+            <ul>
+              <li><strong>Name:</strong> TurboPepe-AI</li>
+              <li><strong>Symbol:</strong> TBP</li>
+              <li><strong>Total Supply:</strong> 190,000,000,000 TBP</li>
+              <li><strong>Burned:</strong> 10,000,000,000 TBP</li>
+              <li><strong>Liquidity:</strong> ~130,000,000,000 TBP on SushiSwap</li>
+              <li><strong>Owner (transparent):</strong> ~14,000,000,000 TBP (listings/ops)</li>
+              <li><strong>Taxes:</strong> 0% Buy/Sell</li>
+              <li><strong>Chain:</strong> Polygon (POL)</li>
+            </ul>
+
+            <h3>🛣️ Roadmap</h3>
+            <p><strong>Phase 1: AI &amp; DEX</strong></p>
+            <ul>
+              <li>DEX listings (SushiSwap, Trackers)</li>
+              <li>AI Assistant live on Website &amp; Telegram</li>
+              <li>Public supply stats &amp; LP lock evidence</li>
+            </ul>
+
+            <p><strong>Phase 2: Community &amp; CMC</strong></p>
+            <ul>
+              
+              <li>CoinGecko &amp; CoinMarketCap listing</li>
+              <li>Daily AI posting cadence (X &amp; TG)</li>
+            </ul>
+
+            <p><strong>Phase 3: Utility</strong></p>
+            <ul>
+              <li>Escrow payments (“locked until release”)</li>
+              <li>In-app wallet &amp; chat</li>
+              <li>Further integrations &amp; partnerships</li>
+            </ul>
+
+            <h3>🔐 Security</h3>
+            <ul>
+              <li>Verified contracts</li>
+              <li>LP burned/locked (on-chain proof linked)</li>
+              <li>Transparent owner balance &amp; intent</li>
+            </ul>
+
+            <h3>✅ Final Note</h3>
+            <p>
+              TBP isn’t just another meme token — it’s an <strong>AI-token</strong> that explains itself
+              and grows with its community.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- What is TBP -->
+      <section class="section">
+        <div class="section-inner">
+          <h2 class="section-title">🧠 What is TurboPepe?</h2>
+          <p style="font-size:.75rem; line-height:1.7; text-align:left;">
+            TurboPepe ($TBP) is a community-driven meme token with a real AI layer.<br><br>
+            The AI posts, explains, and keeps our on-chain stats in check.<br>
+            No taxes. No empty promises. Just fair vibes, fast moves, and full transparency. 🐸🚀
+          </p>
+        </div>
+      </section>
+
+      <!-- Community -->
+      <section class="section">
+        <div class="section-inner center">
+          <h2 class="section-title" style="text-align:center;">Join the Community</h2>
+          <p class="muted">
+            Follow TurboPepe-AI, track updates, and let the bot talk for itself.
+          </p>
+          <div class="community-row">
+            <a class="button" href="https://t.me/turbopepe25" target="_blank">📢 Telegram</a>
+            <a class="button secondary" href="https://x.com/TurboPepe2025" target="_blank">𝕏 Twitter</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      TurboPepe © 2025 – Powered by memes &amp; Polygon • turbopepeai@gmail.com 🐸
+    </footer>
   </div>
-
-  <footer>
-    TurboPepe © 2025 – Powered by memes & Polygon • turbopepeai@gmail.com 🐸
-  </footer>
 
   <!-- Floating AI Button -->
   <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI">🐸</button>
@@ -278,230 +834,235 @@
     <div id="aiq-hint">Tip: price/chart • how to buy • security • goal</div>
   </div>
 
-  <!-- Pricing / Market Cap & AI scripts -->
- <script>
-  'use strict';
+  <!-- Pricing / Market Cap & AI scripts (unverändert inhaltlich) -->
+  <script>
+    'use strict';
 
-  // ================== CONFIG ==================
-  var DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
-  var MAX_SUPPLY = 190000000000;  // 190B
-  var BURNED     = 10000000000;   // 10B
-  var OWNER      = 14000000000;   // 14B
-  var LP_HELD    = 130000000000;  // 130B
-  var CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
+    // ================== CONFIG ==================
+    var DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b"; // Polygon Sushi pair
+    var MAX_SUPPLY = 190000000000;  // 190B
+    var BURNED     = 10000000000;   // 10B
+    var OWNER      = 14000000000;   // 14B
+    var LP_HELD    = 130000000000;  // 130B
+    var CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
 
-  console.log("[TBP-AI] booting…");
+    console.log("[TBP-AI] booting…");
 
-  // ================== SUPPLY LINE ==================
-  function setSupplyLine() {
-    var el = document.getElementById("supplyline");
-    if (!el) return;
-    el.innerHTML =
-      '🔥 <strong>' + BURNED.toLocaleString() + ' TBP</strong> burned&nbsp;•&nbsp;' +
-      '💧 ~<strong>' + LP_HELD.toLocaleString() + ' TBP</strong> in LP&nbsp;•&nbsp;' +
-      '👤 Owner ~<strong>' + OWNER.toLocaleString() + ' TBP</strong>&nbsp;•&nbsp;' +
-      'Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
-  }
+    // ================== SUPPLY LINE ==================
+    function setSupplyLine() {
+      var el = document.getElementById("supplyline");
+      if (!el) return;
+      el.innerHTML =
+        '🔥 <strong>' + BURNED.toLocaleString() + ' TBP</strong> burned&nbsp;•&nbsp;' +
+        '💧 ~<strong>' + LP_HELD.toLocaleString() + ' TBP</strong> in LP&nbsp;•&nbsp;' +
+        '👤 Owner ~<strong>' + OWNER.toLocaleString() + ' TBP</strong>&nbsp;•&nbsp;' +
+        'Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
+    }
 
     // ================== PRICE & MC ==================
-  // Erst GeckoTerminal, Fallback Dexscreener
-  const PAIR = DEX_PAIR;
+    // Erst GeckoTerminal, Fallback Dexscreener
+    const PAIR = DEX_PAIR;
 
-  const fmtUSD = (n, opts={}) =>
-    (isFinite(n) ? 
-      new Intl.NumberFormat(undefined, { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 4, ...opts }).format(n)
-      : "N/A");
+    const fmtUSD = (n, opts={}) =>
+      (isFinite(n) ? 
+        new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency: "USD",
+          notation: "compact",
+          maximumFractionDigits: 4,
+          ...opts
+        }).format(n)
+        : "N/A");
 
-  async function fetchFromGecko() {
-    // Doku: https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/{pool}
-    const url = `https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/${PAIR}`;
-    const r = await fetch(url, { headers: { "accept": "application/json" }});
-    if (!r.ok) throw new Error(`Gecko ${r.status}`);
-    const j = await r.json();
-    const attrs = j && j.data && j.data.attributes;
-    const price = attrs && attrs.base_token_price_usd ? Number(attrs.base_token_price_usd) : NaN;
-    if (!isFinite(price)) throw new Error("Gecko price missing");
-    return price;
-  }
-
-  async function fetchFromDexscreener() {
-    const url = `https://api.dexscreener.com/latest/dex/pairs/polygon/${PAIR}`;
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`Dex ${r.status}`);
-    const j = await r.json();
-    const pair = (j && j.pair) ? j.pair : (j && j.pairs && j.pairs[0]);
-    const price = pair && pair.priceUsd ? Number(pair.priceUsd) : NaN;
-    if (!isFinite(price)) throw new Error("Dex price missing");
-    return price;
-  }
- // Präzise Preisformatierung für sehr kleine Zahlen
-const fmtPriceUSD = (n) => {
-  if (!isFinite(n)) return "N/A";
-  if (n >= 0.01) {
-    return new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 6
-    }).format(n);
-  }
-
-  // Sehr klein: feste 12 Nachkommastellen und Nullen trimmen
-  const s = n.toFixed(12).replace(/0+$/, '').replace(/\.$/, '');
-  return `$${s}`;
-};
-
-
-  async function fetchTBPPrice() {
-    const priceEl = document.getElementById("price");
-    const mcEl    = document.getElementById("marketcap");
-    try {
-      // 1) GeckoTerminal zuerst
-      let price = await fetchFromGecko().catch(() => null);
-      // 2) Fallback Dexscreener
-      if (!price) price = await fetchFromDexscreener();
-
-      const fdv  = price * MAX_SUPPLY;
-      const circ = price * CIRC_SUPPLY;
-
-      priceEl.textContent = `💰 Current Price: ${fmtPriceUSD(price)}`;
-
-      if (mcEl)    mcEl.textContent    = `🧮 MC (circulating est.): ${fmtUSD(circ)} | FDV: ${fmtUSD(fdv)}`;
-    } catch (e) {
-      console.error("[TBP-AI] price error:", e);
-      if (priceEl) priceEl.textContent = "💰 Current Price: Unavailable";
-      if (mcEl)    mcEl.textContent    = "🧮 Market Cap: Error";
+    async function fetchFromGecko() {
+      // Doku: https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/{pool}
+      const url = `https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/${PAIR}`;
+      const r = await fetch(url, { headers: { "accept": "application/json" }});
+      if (!r.ok) throw new Error(`Gecko ${r.status}`);
+      const j = await r.json();
+      const attrs = j && j.data && j.data.attributes;
+      const price = attrs && attrs.base_token_price_usd ? Number(attrs.base_token_price_usd) : NaN;
+      if (!isFinite(price)) throw new Error("Gecko price missing");
+      return price;
     }
-  }
 
-  setSupplyLine();
-  fetchTBPPrice();
-  // alle 15s aktualisieren (kannst du anpassen)
-  setInterval(fetchTBPPrice, 10000);
-
-
-  // ================== AI WIDGET – UI HELPERS ==================
-  var aiqCtx = []; // rolling context
-
-  function addMsg(sender, text) {
-  var log = document.getElementById('aiq-log');
-  var d = document.createElement('div');
-  d.className = 'aiq-msg';
-
-  // ✅ FIX 2 – HTML aktivieren + klickbare Links + Zeilenumbrüche
-  d.innerHTML = "<b>" + sender + ":</b> " + (text || "").replace(/\n/g, "<br>");
-
-  log.appendChild(d);
-  log.scrollTop = log.scrollHeight;
-}
-
-
-  var typingEl = null, typingInt = null;
-  function showTyping(){
-    var log = document.getElementById('aiq-log');
-    typingEl = document.createElement('div');
-    typingEl.className = 'aiq-msg';
-    typingEl.innerHTML = '<b>TBP:</b> <span id="aiq-dots">…</span>';
-    log.appendChild(typingEl);
-    log.scrollTop = log.scrollHeight;
-    var n=0;
-    typingInt = setInterval(function(){
-      n=(n+1)%4;
-      var dots = (n===0 ? '…' : Array(n+1).join('.'));
-      var el = document.getElementById('aiq-dots');
-      if (el) el.textContent = dots;
-    }, 300);
-  }
-  function hideTyping(){
-    if (typingInt) clearInterval(typingInt);
-    typingInt = null;
-    if (typingEl) typingEl.remove();
-    typingEl = null;
-  }
-
-  // ================== FAQ ==================
-  var FAQ = [
-    { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
-    { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
-    { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
-    { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep on-chain stats visible. 🧠🐸" },
-    { q:/cmc|coingecko|listing|listung/i, a:"Goal: CoinGecko & CMC listing — focus on transparency, activity & community growth." },
-    { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
-  ];
-  function faqAnswer(t){ for (var i=0;i<FAQ.length;i++){ if (FAQ[i].q.test(t)) return FAQ[i].a; } return null; }
-
-  // ================== SMARTER ADVISOR ==================
-  async function askAdvisor(text){
-  const r = await fetch("https://tbp-advisor.onrender.com/ask", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ question: text, context: [], need_image: false })
-  });
-  let body;
-  try { body = await r.json(); } catch { body = { error: await r.text() }; }
-  if(!r.ok || body.error){ throw new Error(body.error || `HTTP ${r.status}`); }
-  return body.answer || null;
-}
-
-
-
-  async function aiSend(){
-  var inp = document.getElementById('aiq-input');
-  var q = (inp.value || '').trim();
-  if (!q) return;
-
-  addMsg('You', q);
-  aiqCtx.push("You: " + q);
-  inp.value = '';
-
-  // 1) IMMER erst den Advisor fragen
-  showTyping();
-  let adv = null;
-  try {
-    adv = await askAdvisor(q);
-  } catch(e) {}
-  hideTyping();
-
-  // 2) Wenn AI nichts liefert → erst dann FAQ probieren
-  if (!adv) {
-    var hit = faqAnswer(q);
-    if (hit){
-      addMsg('TBP', hit);
-      aiqCtx.push("TBP: " + hit);
-      return;
+    async function fetchFromDexscreener() {
+      const url = `https://api.dexscreener.com/latest/dex/pairs/polygon/${PAIR}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Dex ${r.status}`);
+      const j = await r.json();
+      const pair = (j && j.pair) ? j.pair : (j && j.pairs && j.pairs[0]);
+      const price = pair && pair.priceUsd ? Number(pair.priceUsd) : NaN;
+      if (!isFinite(price)) throw new Error("Dex price missing");
+      return price;
     }
-  }
 
-  // 3) Antwort ausgeben (deutlich variabler Text)
-  var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(q);
-  var msg = adv || (isDE
-    ? "Ich sammle gerade Daten… schau währenddessen ins Chart-Widget. 🐸"
-    : "Collecting data… check the chart widget meanwhile. 🐸");
-  addMsg('TBP', msg);
-  aiqCtx.push("TBP: " + msg);
-}
+    // Präzise Preisformatierung für sehr kleine Zahlen
+    const fmtPriceUSD = (n) => {
+      if (!isFinite(n)) return "N/A";
+      if (n >= 0.01) {
+        return new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 6
+        }).format(n);
+      }
+      // Sehr klein: feste 12 Nachkommastellen und Nullen trimmen
+      const s = n.toFixed(12).replace(/0+$/, '').replace(/\.$/, '');
+      return `$${s}`;
+    };
 
+    async function fetchTBPPrice() {
+      const priceEl = document.getElementById("price");
+      const mcEl    = document.getElementById("marketcap");
+      try {
+        // 1) GeckoTerminal zuerst
+        let price = await fetchFromGecko().catch(() => null);
+        // 2) Fallback Dexscreener
+        if (!price) price = await fetchFromDexscreener();
 
-  // ================== WIRE UI ==================
-  var fab     = document.getElementById('aiq-fab');
-  var panel   = document.getElementById('aiq-panel');
-  var closeBtn= document.getElementById('aiq-close');
-  var sendBtn = document.getElementById('aiq-send');
-  var input   = document.getElementById('aiq-input');
+        const fdv  = price * MAX_SUPPLY;
+        const circ = price * CIRC_SUPPLY;
 
-  if (!fab || !panel || !closeBtn || !sendBtn || !input) {
-    console.error("[TBP-AI] Missing DOM elements for AI widget.");
-  } else {
-    fab.addEventListener('click', function(){
-      panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-      if (panel.style.display === 'block') input.focus();
-    });
-    closeBtn.addEventListener('click', function(){ panel.style.display = 'none'; });
-    sendBtn.addEventListener('click', aiSend);
-    input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ aiSend(); }});
-  }
+        priceEl.textContent = `💰 Current Price: ${fmtPriceUSD(price)}`;
 
-  console.log("[TBP-AI] ready.");
-</script>
+        if (mcEl) mcEl.textContent = `🧮 MC (circulating est.): ${fmtUSD(circ)} | FDV: ${fmtUSD(fdv)}`;
+      } catch (e) {
+        console.error("[TBP-AI] price error:", e);
+        if (priceEl) priceEl.textContent = "💰 Current Price: Unavailable";
+        if (mcEl)    mcEl.textContent    = "🧮 Market Cap: Error";
+      }
+    }
+
+    setSupplyLine();
+    fetchTBPPrice();
+    // alle 10s aktualisieren
+    setInterval(fetchTBPPrice, 10000);
+
+    // ================== AI WIDGET – UI HELPERS ==================
+    var aiqCtx = []; // rolling context
+
+    function addMsg(sender, text) {
+      var log = document.getElementById('aiq-log');
+      var d = document.createElement('div');
+      d.className = 'aiq-msg';
+
+      // HTML + Zeilenumbrüche
+      d.innerHTML = "<b>" + sender + ":</b> " + (text || "").replace(/\n/g, "<br>");
+
+      log.appendChild(d);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    var typingEl = null, typingInt = null;
+    function showTyping(){
+      var log = document.getElementById('aiq-log');
+      typingEl = document.createElement('div');
+      typingEl.className = 'aiq-msg';
+      typingEl.innerHTML = '<b>TBP:</b> <span id="aiq-dots">…</span>';
+      log.appendChild(typingEl);
+      log.scrollTop = log.scrollHeight;
+      var n=0;
+      typingInt = setInterval(function(){
+        n=(n+1)%4;
+        var dots = (n===0 ? '…' : Array(n+1).join('.'));
+        var el = document.getElementById('aiq-dots');
+        if (el) el.textContent = dots;
+      }, 300);
+    }
+    function hideTyping(){
+      if (typingInt) clearInterval(typingInt);
+      typingInt = null;
+      if (typingEl) typingEl.remove();
+      typingEl = null;
+    }
+
+    // ================== FAQ ==================
+    var FAQ = [
+      { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
+      { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
+      { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; ~130B in LP; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
+      { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-Token on Polygon. I post & explain myself and keep on-chain stats visible. 🧠🐸" },
+      { q:/cmc|coingecko|listing|listung/i, a:"Goal: CoinGecko & CMC listing — focus on transparency, activity & community growth." },
+      { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
+    ];
+    function faqAnswer(t){
+      for (var i=0;i<FAQ.length;i++){
+        if (FAQ[i].q.test(t)) return FAQ[i].a;
+      }
+      return null;
+    }
+
+    // ================== SMARTER ADVISOR ==================
+    async function askAdvisor(text){
+      const r = await fetch("https://tbp-advisor.onrender.com/ask", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ question: text, context: [], need_image: false })
+      });
+      let body;
+      try { body = await r.json(); } catch { body = { error: await r.text() }; }
+      if(!r.ok || body.error){ throw new Error(body.error || `HTTP ${r.status}`); }
+      return body.answer || null;
+    }
+
+    async function aiSend(){
+      var inp = document.getElementById('aiq-input');
+      var q = (inp.value || '').trim();
+      if (!q) return;
+
+      addMsg('You', q);
+      aiqCtx.push("You: " + q);
+      inp.value = '';
+
+      // 1) IMMER erst den Advisor fragen
+      showTyping();
+      let adv = null;
+      try {
+        adv = await askAdvisor(q);
+      } catch(e) {}
+      hideTyping();
+
+      // 2) Wenn AI nichts liefert → erst dann FAQ probieren
+      if (!adv) {
+        var hit = faqAnswer(q);
+        if (hit){
+          addMsg('TBP', hit);
+          aiqCtx.push("TBP: " + hit);
+          return;
+        }
+      }
+
+      // 3) Antwort ausgeben (deutlich variabler Text)
+      var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(q);
+      var msg = adv || (isDE
+        ? "Ich sammle gerade Daten… schau währenddessen ins Chart-Widget. 🐸"
+        : "Collecting data… check the chart widget meanwhile. 🐸");
+      addMsg('TBP', msg);
+      aiqCtx.push("TBP: " + msg);
+    }
+
+    // ================== WIRE UI ==================
+    var fab     = document.getElementById('aiq-fab');
+    var panel   = document.getElementById('aiq-panel');
+    var closeBtn= document.getElementById('aiq-close');
+    var sendBtn = document.getElementById('aiq-send');
+    var input   = document.getElementById('aiq-input');
+
+    if (!fab || !panel || !closeBtn || !sendBtn || !input) {
+      console.error("[TBP-AI] Missing DOM elements for AI widget.");
+    } else {
+      fab.addEventListener('click', function(){
+        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        if (panel.style.display === 'block') input.focus();
+      });
+      closeBtn.addEventListener('click', function(){ panel.style.display = 'none'; });
+      sendBtn.addEventListener('click', aiSend);
+      input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ aiSend(); }});
+    }
+
+    console.log("[TBP-AI] ready.");
+  </script>
 
 </body>
 </html>
