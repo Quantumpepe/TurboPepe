@@ -443,19 +443,23 @@
       margin-top: 0.7rem;
     }
 
-    /* Futuristischer AI-Button (Kopf unten rechts) */
-    /* Runder AI-Logo-Button unten rechts */
+    /* Runder AI-Logo-Button unten rechts – Bild füllt den Kreis */
     .aiq-fab {
       position: fixed;
       right: 20px;
       bottom: 20px;
-      width: 64px;
-      height: 64px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       border: 2px solid rgba(148,163,184,0.95);
-      background:
-        radial-gradient(circle at 50% 0, rgba(248,250,252,0.7), rgba(15,23,42,0.95)),
-        url("TBP-AI.png") center/80% no-repeat;
+
+      /* kräftiger, ohne extra Verlauf */
+      background-color: #020617;
+      background-image: url("ai_head.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%; /* Bild so groß wie der Kreis */
+
       box-shadow:
         0 0 18px rgba(56,189,248,0.9),
         0 0 32px rgba(129,140,248,0.75);
@@ -464,7 +468,6 @@
       transition: transform .18s ease, box-shadow .18s ease;
     }
 
-    /* Hover-Effekt nur leicht */
     .aiq-fab:hover {
       transform: scale(1.06) translateY(-1px);
       box-shadow:
@@ -477,11 +480,9 @@
       .aiq-fab {
         right: 14px;
         bottom: 14px;
-        width: 54px;
-        height: 54px;
-        background:
-          radial-gradient(circle at 50% 0, rgba(248,250,252,0.7), rgba(15,23,42,0.95)),
-          url("ai_head.png") center/80% no-repeat;
+        width: 62px;
+        height: 62px;
+        background-size: 100% 100%;
       }
     }
 
