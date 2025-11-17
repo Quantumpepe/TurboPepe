@@ -886,11 +886,12 @@
       var el = document.getElementById("supplyline");
       if (!el) return;
       el.innerHTML =
-        '🔥 <strong>' + BURNED.toLocaleString() + ' TBP</strong> burned&nbsp;•&nbsp;' +
-        '💧 ~<strong>' + LP_HELD.toLocaleString() + ' TBP</strong> in LP&nbsp;•&nbsp;' +
-        '👤 Owner ~<strong>' + OWNER.toLocaleString() + ' TBP</strong>&nbsp;•&nbsp;' +
-        'Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
+        '🔥 <strong>' + BURNED.toLocaleString() + ' TBP</strong> burned<br>' +
+        '💧 ~<strong>' + LP_HELD.toLocaleString() + ' TBP</strong> in LP<br>' +
+        '👤 Owner ~<strong>' + OWNER.toLocaleString() + ' TBP</strong><br>' +
+        '📦 Total: <strong>' + MAX_SUPPLY.toLocaleString() + ' TBP</strong>';
     }
+
 
     const PAIR = DEX_PAIR;
 
