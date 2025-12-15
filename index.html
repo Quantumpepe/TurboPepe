@@ -443,6 +443,73 @@
       margin-top: 0.7rem;
     }
 
+    /* =========================
+       NFT PROMO BUTTON (GO TO NFTs)
+    ========================= */
+    .nft-cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+      margin-top:.9rem;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .nft-note{
+      font-size:.62rem;
+      color:#cbd5f5;
+      opacity:.85;
+      line-height:1.6;
+    }
+
+    #goToNftsBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+      padding:.78rem 1.15rem;
+      border-radius:999px;
+      text-decoration:none;
+      cursor:pointer;
+      color:#020617;
+      font-size:.72rem;
+      font-weight:700;
+      border:2px solid rgba(56,189,248,0.9);
+      background: radial-gradient(circle at top, var(--accent), var(--accent-soft));
+      box-shadow:
+        0 0 16px rgba(56,189,248,.85),
+        0 0 34px rgba(56,189,248,.55),
+        0 0 70px rgba(129,140,248,.30);
+      animation: nftGlow 2.8s ease-in-out infinite alternate;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    #goToNftsBtn:hover{
+      transform: translateY(-1px) scale(1.02);
+      box-shadow:
+        0 0 18px rgba(56,189,248,1),
+        0 0 42px rgba(56,189,248,.70),
+        0 0 88px rgba(129,140,248,.38);
+      filter:saturate(1.08);
+    }
+
+    @keyframes nftGlow{
+      0%{
+        border-color:#38bdf8;
+        box-shadow:
+          0 0 16px rgba(56,189,248,.85),
+          0 0 34px rgba(56,189,248,.55),
+          0 0 70px rgba(129,140,248,.30);
+      }
+      100%{
+        border-color:#a78bfa;
+        box-shadow:
+          0 0 18px rgba(167,139,250,.88),
+          0 0 40px rgba(167,139,250,.58),
+          0 0 86px rgba(56,189,248,.26);
+      }
+    }
+
     /* Runder AI-Logo-Button unten rechts – Bild füllt den Kreis */
     .aiq-fab {
       position: fixed;
@@ -731,17 +798,33 @@
             </div>
           </div>
 
+          <!-- ✅ REPLACED: STAKING WINDOW -> NFT PROMO WINDOW -->
           <div class="card">
-            <h2 class="section-title">🧠 TurboPepe-AI Staking</h2>
+            <h2 class="section-title">💎 TBP-AI NFTs — Gold & Silver Access Pass</h2>
             <p class="mt-05">
-              TurboPepe-AI Staking coming soon! Earn <strong>5%–10%</strong> rewards for holders who
-              lock and support the ecosystem.
+              The TBP-AI NFT Program is a long-term access and utility framework designed to grow with the TBP-AI ecosystem.
+              These NFTs are not hype collectibles — they are access keys for future tools, gated features and utility layers.
             </p>
-            <p class="muted mt-1">
-              Smart, simple, sustainable — the AI watches on-chain, while you earn
-              passive TBP yield.
-            </p>
+
+            <ul class="mt-1">
+              <li>• <strong>Gold NFT</strong> — premium tier: priority access, upgrades & exclusive future utilities</li>
+              <li>• <strong>Silver NFT</strong> — entry tier: core access perks & community utility expansion</li>
+              <li>• <strong>Transparent</strong> — clean contracts, stable metadata, utility grows over time</li>
+            </ul>
+
+            <div class="nft-cta-row">
+              <a
+                id="goToNftsBtn"
+                href="https://quantumpepe.github.io/NFTs-WalletConnectV2/"
+                target="_blank"
+                rel="noopener"
+              >
+                💎 GO TO NFTs
+              </a>
+              <div class="nft-note">Network: Polygon • Mint Gold or Silver</div>
+            </div>
           </div>
+          <!-- ✅ END REPLACEMENT -->
         </div>
       </section>
 
