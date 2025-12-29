@@ -709,6 +709,55 @@
         font-size: 9px;
       }
     }
+
+    /* =========================
+       PWA DOWNLOAD LOGO (INSTALL)
+    ========================= */
+    .logo-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 18px; /* Abstand zwischen beiden */
+    }
+
+    .pwa-install{
+      padding:0;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 8px; /* Abstand Icon -> DOWNLOAD */
+    }
+
+    .pwa-logo{
+      width:110px;
+      height:auto;
+      border-radius:18px;
+      filter: drop-shadow(0 0 24px rgba(56,189,248,0.95));
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .pwa-install:hover .pwa-logo{
+      transform: scale(1.08) rotate(1.2deg);
+      filter: drop-shadow(0 0 36px rgba(129,140,248,1));
+    }
+
+    .pwa-label{
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(56,189,248,0.75);
+      opacity: 0.95;
+      user-select:none;
+    }
+
+    .pwa-install:hover .pwa-label{
+      color:#a78bfa;
+      text-shadow: 0 0 12px rgba(167,139,250,0.85);
+    }
+
   </style>
 </head>
 <body>
@@ -721,7 +770,17 @@
     <header>
       <div class="hero-inner">
         <div class="logo-wrap">
-          <img src="turbopepe1.png" alt="TurboPepe Logo" class="logo">
+          <div class="logo-row">
+            <!-- DOWNLOAD-Logo (PWA Install Button) -->
+            <button id="pwaInstallBtn" class="pwa-install" type="button" hidden aria-label="Download App">
+              <img src="TBP-AI.png" alt="Download App" class="pwa-logo">
+              <span class="pwa-label">DOWNLOAD</span>
+            </button>
+
+            <!-- Dein vorhandenes Logo -->
+            <img src="turbopepe1.png" alt="TurboPepe Logo" class="logo">
+          </div>
+
           <h1>TurboPepe-AI (TBP) is LIVE!</h1>
           <p class="subtitle">
             AI-powered crypto intelligence on Polygon.<br>
@@ -1306,6 +1365,49 @@
       sendBtn.addEventListener('click', aiSend);
       input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ aiSend(); }});
     }
+
+
+    // =========================
+    // PWA INSTALL BUTTON (DOWNLOAD)
+    // =========================
+    let deferredPrompt = null;
+    const pwaInstallBtn = document.getElementById("pwaInstallBtn");
+
+    function isIos(){
+      return /iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    // Android/Chrome: Button zeigen wenn installierbar
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (pwaInstallBtn) pwaInstallBtn.hidden = false;
+    });
+
+    // Klick auf DOWNLOAD
+    if (pwaInstallBtn) {
+      pwaInstallBtn.addEventListener("click", async () => {
+        if (isIos()) {
+          alert("iPhone: Teilen (⤴︎) → 'Zum Home-Bildschirm' → Hinzufügen.");
+          return;
+        }
+
+        if (!deferredPrompt) {
+          alert("Download/Install ist hier nicht verfügbar. Öffne die Seite in Chrome auf Android.");
+          return;
+        }
+
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        pwaInstallBtn.hidden = true;
+      });
+    }
+
+    window.addEventListener("appinstalled", () => {
+      if (pwaInstallBtn) pwaInstallBtn.hidden = true;
+    });
+
 
     console.log("[TBP-AI] ready.");
   </script>
