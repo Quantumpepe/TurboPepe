@@ -1287,6 +1287,28 @@
     }
 
     var FAQ = [
+
+      { q:/nexus|nexus analyt|grid|pwa|app|trading app|nexus-analyt/i,
+        a:{ 
+          en:"Nexus Analyt is an installable PWA (Progressive Web App) for crypto analysis and grid trading simulation. It runs like a native app on your phone, installs directly from the website, and follows a non-custodial, analysis-first approach.",
+          de:"Nexus Analyt ist eine installierbare PWA (Progressive Web App) für Krypto-Analyse und Grid-Trading-Simulation. Sie läuft wie eine native App auf dem Smartphone, wird direkt über die Website installiert und ist non-custodial aufgebaut."
+        }
+      },
+
+      { q:/download|install|installation|android|iphone|ios|homescreen|home screen/i,
+        a:{
+          en:"Open https://nexus-grid-ui.onrender.com/ on your phone. On Android/Chrome you can install the app directly. On iPhone use Share (⤴︎) → Add to Home Screen.",
+          de:"Öffne https://nexus-grid-ui.onrender.com/ auf deinem Handy. Auf Android/Chrome kannst du die App direkt installieren. Auf dem iPhone: Teilen (⤴︎) → Zum Home-Bildschirm."
+        }
+      },
+
+      { q:/what is nexus|was ist nexus|erklär nexus|explain nexus/i,
+        a:{
+          en:"Nexus Analyt focuses on monitoring, strategy testing and grid logic. Free mode is simulation and analytics, later Pro versions can connect wallets in read-only mode first.",
+          de:"Nexus Analyt konzentriert sich auf Monitoring, Strategie-Tests und Grid-Logik. Der Free-Modus ist Simulation & Analyse, spätere Pro-Versionen können Wallets zunächst read-only anbinden."
+        }
+      },
+
       { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
       { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
       { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; circulating ~166B; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
@@ -1294,9 +1316,17 @@
       { q:/cmc|coingecko|listing|listung/i, a:"Goal: CoinGecko & CMC listing — focus on transparency, activity & community growth." },
       { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
     ];
+    function detectLang(t){
+      return /[äöüß]|\b(der|die|das|und|wie|warum|kann|preis|kurs|was)\b/i.test(t) ? "de" : "en";
+    }
+
     function faqAnswer(t){
+      var lang = detectLang(t);
       for (var i=0;i<FAQ.length;i++){
-        if (FAQ[i].q.test(t)) return FAQ[i].a;
+        if (FAQ[i].q.test(t)){
+          var a = FAQ[i].a;
+          return (typeof a === "object") ? (a[lang] || a.en) : a;
+        }
       }
       return null;
     }
