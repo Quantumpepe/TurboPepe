@@ -995,7 +995,7 @@
 
           <div class="community-row mt-1" style="justify-content:flex-start;">
             <a class="button" href="https://nexus-grid-ui.onrender.com/" target="_blank" rel="noopener">🧠 Open Nexus Analyt (Alpha)</a>
-            <a class="button secondary" href="#ai">🤖 Open AI Assistant</a>
+            <a class="button secondary" href="javascript:void(0)" id="openAiBtn2">🤖 Open AI Assistant</a>
           </div>
 
           <p class="muted mt-05">
@@ -1312,11 +1312,6 @@
       TurboPepe © 2025 – AI-powered crypto intelligence on Polygon • turbopepeai@gmail.com 🐸
     </footer>
   </div>
-
-  <div id="ai" class="app-shell" style="max-width:1100px; margin:0 auto; padding:0 1rem;">
-    <p class="muted center mt-1">🤖 Tip: Click the glowing AI button (bottom-right) or use “Ask the Crypto AI” above.</p>
-  </div>
-
   <!-- Futuristischer AI-Kopf -->
   <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI"></button>
 
@@ -1559,6 +1554,28 @@
     var sendBtn = document.getElementById('aiq-send');
     var input   = document.getElementById('aiq-input');
 
+
+    function openAiPanel(){
+      try{
+        panel.style.display = "block";
+        input.focus();
+      }catch(e){}
+    }
+
+    // Wire up "Ask the Crypto AI" buttons (no URL hash needed)
+    try{
+      var b1 = document.getElementById("openAiBtn");
+      var b2 = document.getElementById("openAiBtn2");
+      var b3 = document.getElementById("openAiBtn3");
+      [b1,b2,b3].forEach(function(b){
+        if(!b) return;
+        b.addEventListener("click", function(e){
+          e.preventDefault();
+          openAiPanel();
+        });
+      });
+    }catch(e){}
+
     if (!fab || !panel || !closeBtn || !sendBtn || !input) {
       console.error("[TBP-AI] Missing DOM elements for AI widget.");
     } else {
@@ -1599,23 +1616,8 @@
         });
       }
     } catch(e) {}
-
-    // Open AI panel if user navigates with #ai
-    try {
-      if (location.hash === "#ai") {
-        panel.style.display = "block";
-        input.focus();
-      }
-      window.addEventListener("hashchange", function(){
-        if (location.hash === "#ai") {
-          panel.style.display = "block";
-          input.focus();
-        }
-      });
-    } catch(e) {}
-
     console.log("[TBP-AI] ready.");
-  </script>
+</script>
 
 </body>
 </html>
