@@ -753,12 +753,137 @@
         0 0 12px rgba(56,189,248,.6);
     }
 
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.55rem;
+    }
+
+    .link-pill{
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.85);
+      background: rgba(15,23,42,0.6);
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 0.6rem;
+      box-shadow: 0 0 14px rgba(15,23,42,0.9);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .link-pill:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(56,189,248,0.45);
+      filter: saturate(1.05);
+    }
+
+  
+    /* =========================
+       PROOF / DEMO (WOW)
+    ========================= */
+    .proof-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 1rem;
+      margin-top: .8rem;
+    }
+    @media (max-width: 900px){
+      .proof-grid{ grid-template-columns: 1fr; }
+    }
+
+    .proof-card{
+      position: relative;
+      background: rgba(0,0,0,0.72);
+      border-radius: 1rem;
+      padding: .9rem;
+      border: 1px solid rgba(148,163,184,0.85);
+      overflow: hidden;
+      box-shadow: 0 0 24px rgba(15,23,42,0.9);
+    }
+    .proof-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: conic-gradient(from 180deg, rgba(56,189,248,.85), rgba(167,139,250,.65), rgba(56,189,248,.85));
+      opacity:.22;
+      filter: blur(10px);
+      animation: proofSpin 7s linear infinite;
+      z-index:0;
+    }
+    @keyframes proofSpin{
+      0%{ transform: rotate(0deg); }
+      100%{ transform: rotate(360deg); }
+    }
+    .proof-card > *{ position: relative; z-index:1; }
+
+    .proof-title{
+      font-size: .82rem;
+      margin-bottom: .5rem;
+      color: #e5e7eb;
+      text-shadow: 0 0 8px rgba(56,189,248,0.55);
+    }
+    .proof-img{
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.55);
+      box-shadow: 0 0 24px rgba(2,6,23,0.85);
+      background: rgba(2,6,23,0.7);
+    }
+    .proof-caption{
+      margin-top: .6rem;
+      font-size: .62rem;
+      line-height: 1.65;
+      color: #dbeafe;
+      opacity: .95;
+    }
+
+    /* Contract copy */
+    .contract-row{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-top: .35rem;
+    }
+    .copy-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+      padding:.5rem .8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.85);
+      background: rgba(15,23,42,0.75);
+      color: var(--accent);
+      cursor:pointer;
+      font-size:.6rem;
+      box-shadow: 0 0 14px rgba(15,23,42,0.9);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .copy-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(56,189,248,0.45);
+      filter: saturate(1.05);
+    }
+    .copy-badge{
+      font-size:.6rem;
+      color:#9ca3af;
+    }
+
   </style>
 </head>
 <body>
 
   <marquee behavior="scroll" direction="left" scrollamount="6">
-    🐸 TurboPepe-AI is evolving from meme to full crypto intelligence engine – AI security, market analysis & community-driven growth. 🚀
+    🐸 Building a crypto-native AI platform — Nexus Analyt is live. TBP unlocks advanced security, analysis & automation as we ship.
   </marquee>
 
   <div class="app-shell">
@@ -770,49 +895,51 @@
             <a href="https://nexus-grid-ui.onrender.com/"
                class="pwa-install"
                aria-label="Download Nexus Analyt">
-              <span class="pwa-title">Nexus Analyt</span>
+              <span class="pwa-title">Nexus Analyt (Alpha)</span>
               <img src="Nexus.png" alt="Nexus Analyt App" class="pwa-logo">
-              <span class="pwa-label">DOWNLOAD</span>
+              <span class="pwa-label">OPEN ALPHA</span>
             </a>
 
             <!-- Dein vorhandenes Logo -->
             <img src="turbopepe1.png" alt="TurboPepe Logo" class="logo">
           </div>
 
-          <h1>TurboPepe-AI (TBP) is LIVE!</h1>
+          <h1>Crypto-Native AI Intelligence Platform</h1>
           <p class="subtitle">
-            AI-powered crypto intelligence on Polygon.<br>
-            Meme-born, utility-driven: security scanning, market analysis & transparent tokenomics.
-          </p>
+  Nexus Analyt is live as a <strong>Public Alpha</strong>.<br>
+  We’re building a specialized AI for crypto security, market analysis & automation — and validating what works before <strong>Nexus Analyt Pro</strong> ships.<br>
+  The <strong>TBP token</strong> will unlock advanced features as the platform evolves.
+</p>
           <div class="hero-chip-row">
-            <div class="chip">
-              <span>🧠</span> AI-driven crypto intelligence engine
-            </div>
-            <div class="chip">
-              <span>✅</span> 0% tax • LP burned • Transparent supply
-            </div>
-            <div class="chip">
-              <span>🚀</span> Built for security, analysis & community
-            </div>
-          </div>
+<div class="hero-chip-row">
+  <div class="chip"><span>🧪</span> Product-first: real tools, shipped weekly</div>
+  <div class="chip"><span>🤖</span> Live AI assistant (Website & Telegram)</div>
+  <div class="chip"><span>✅</span> 0% tax • LP burned • verifiable on-chain</div>
+</div>
+</div>
         </div>
 
         <div class="hero-right">
-          <h2>TBP AI Control Panel</h2>
-          <p>
-            Polygon-based AI crypto intelligence token with burned liquidity, fair launch, and a live AI assistant
-            watching price, market cap and community questions in real time.<br>
-            Next: on-chain security scanning & market intelligence tools powered by dedicated AI servers.
-          </p>
+  <h2>Start Here (Live Demo)</h2>
+  <p>
+    TurboPepe-AI is evolving from a meme into a <strong>crypto-native AI stack</strong>.
+    Nexus Analyt is the first live app. The AI assistant is already running on the website and Telegram.
+    Next up: contract risk checks, market intelligence and automation — with deeper tools unlocked through TBP utility.
+  </p>
 
           <div class="hero-buttons">
-            <a class="button" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank">
-              🛒 Buy TBP on SushiSwap
-            </a>
-            <a class="button secondary" href="#whitepaper">
-              📜 Read Whitepaper
-            </a>
-          </div>
+  <a class="button" href="https://nexus-grid-ui.onrender.com/" target="_blank" rel="noopener">
+    🧠 Try Nexus Analyt (Live App)
+  </a>
+  <a class="button secondary" href="#ai">
+    🤖 Ask the Crypto AI
+  </a>
+</div>
+
+<div class="hero-links">
+  <a class="link-pill" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank" rel="noopener">🛒 Buy TBP on SushiSwap</a>
+  <a class="link-pill" href="#whitepaper">📜 Whitepaper</a>
+</div>
 
           <div class="hero-stats">
             <div class="stat-card">
@@ -835,6 +962,48 @@
     </header>
 
     <main>
+
+      <section class="section" id="status">
+        <div class="section-inner">
+          <h2 class="section-title">🧭 Project Status</h2>
+          <div class="section-split">
+            <div class="card">
+              <p><strong>What’s live right now</strong></p>
+              <ul class="mt-05">
+                <li>• Nexus Analyt (Public Alpha) — prototype to test UX, features & grid logic</li>
+                <li>• Website + Telegram AI assistant (ask questions anytime)</li>
+                <li>• Transparent on-chain fundamentals (0% tax, LP burned)</li>
+              </ul>
+              <p class="muted mt-05">
+                We build in public. No “relaunch hype” — just steady shipping and measurable progress.
+              </p>
+            </div>
+
+            <div class="card">
+              <p><strong>What’s coming next</strong></p>
+              <ul class="mt-05">
+                <li>• Nexus Analyt Pro — in development (launch planned in the next months)</li>
+                <li>• Market intelligence (whales, liquidity health, early alerts)</li>
+                <li>• Multi-model crypto AI (specialized models, not generic chat)</li>
+                <li>• TBP utility activates step-by-step as products mature</li>
+              </ul>
+              <p class="muted mt-05">
+                TBP is designed as an <strong>access layer</strong>: deeper tools unlock progressively as the platform evolves.
+              </p>
+            </div>
+          </div>
+
+          <div class="community-row mt-1" style="justify-content:flex-start;">
+            <a class="button" href="https://nexus-grid-ui.onrender.com/" target="_blank" rel="noopener">🧠 Open Nexus Analyt (Alpha)</a>
+            <a class="button secondary" href="#ai">🤖 Open AI Assistant</a>
+          </div>
+
+          <p class="muted mt-05">
+            Tip: Start with the Alpha (Nexus Analyt) → then use the AI assistant for security & market questions. Your feedback helps shape Pro.
+          </p>
+        </div>
+      </section>
+
       <section class="section">
         <div class="section-inner section-split">
           <div class="card">
@@ -890,8 +1059,12 @@
           <div class="section-split">
             <div>
               <h2 class="section-title">📜 Contract Address</h2>
-              <div class="contract">
-                0x50c40e03552A42fbE41b2507d522F56d7325D1F2
+              <div class="contract-row">
+                <div class="contract" id="contractAddr">
+                  0x50c40e03552A42fbE41b2507d522F56d7325D1F2
+                </div>
+                <button class="copy-btn" id="copyContract" type="button">📋 Copy</button>
+                <span class="copy-badge" id="copyBadge" aria-live="polite"></span>
               </div>
 
               <h2 class="section-title mt-15">📊 Tokenomics</h2>
@@ -1140,6 +1313,10 @@
     </footer>
   </div>
 
+  <div id="ai" class="app-shell" style="max-width:1100px; margin:0 auto; padding:0 1rem;">
+    <p class="muted center mt-1">🤖 Tip: Click the glowing AI button (bottom-right) or use “Ask the Crypto AI” above.</p>
+  </div>
+
   <!-- Futuristischer AI-Kopf -->
   <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI"></button>
 
@@ -1304,7 +1481,7 @@
 
       { q:/what is nexus|was ist nexus|erklär nexus|explain nexus/i,
         a:{
-          en:"Nexus Analyt focuses on monitoring, strategy testing and grid logic. Free mode is simulation and analytics, later Pro versions can connect wallets in read-only mode first.",
+          en:"Nexus Analyt focuses on monitoring, strategy testing and grid logic. Free mode is simulation and analytics, Nexus Analyt Pro will expand capabilities once the Alpha validates the core UX.",
           de:"Nexus Analyt konzentriert sich auf Monitoring, Strategie-Tests und Grid-Logik. Der Free-Modus ist Simulation & Analyse, spätere Pro-Versionen können Wallets zunächst read-only anbinden."
         }
       },
@@ -1394,6 +1571,48 @@
       input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ aiSend(); }});
     }
 
+
+
+    // Copy contract address
+    try {
+      var copyBtn = document.getElementById("copyContract");
+      var addrEl  = document.getElementById("contractAddr");
+      var badge   = document.getElementById("copyBadge");
+      if (copyBtn && addrEl) {
+        copyBtn.addEventListener("click", async function(){
+          var addr = (addrEl.textContent || "").trim();
+          try {
+            await navigator.clipboard.writeText(addr);
+            if (badge) badge.textContent = "Copied!";
+            setTimeout(function(){ if (badge) badge.textContent = ""; }, 1500);
+          } catch(e) {
+            // Fallback
+            var ta = document.createElement("textarea");
+            ta.value = addr;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+            if (badge) badge.textContent = "Copied!";
+            setTimeout(function(){ if (badge) badge.textContent = ""; }, 1500);
+          }
+        });
+      }
+    } catch(e) {}
+
+    // Open AI panel if user navigates with #ai
+    try {
+      if (location.hash === "#ai") {
+        panel.style.display = "block";
+        input.focus();
+      }
+      window.addEventListener("hashchange", function(){
+        if (location.hash === "#ai") {
+          panel.style.display = "block";
+          input.focus();
+        }
+      });
+    } catch(e) {}
 
     console.log("[TBP-AI] ready.");
   </script>
