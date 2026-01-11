@@ -878,7 +878,193 @@
       color:#9ca3af;
     }
 
-  </style>
+  
+/* =========================
+   COMMUNITY FEEDBACK SECTION
+========================= */
+#commitment-feedback .section-title{
+  /* keep consistent with existing headings */
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+#commitment-feedback .feedback-lead{
+  font-size: .95rem;
+  line-height: 1.6;
+  color: #dbeafe;
+  margin-top: .5rem;
+  opacity: .95;
+}
+#commitment-feedback .feedback-block{
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(148,163,184,0.65);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 0 26px rgba(15,23,42,0.75);
+}
+#commitment-feedback .feedback-block h3{
+  font-size: 1.05rem;
+  color: #e5e7eb;
+  margin: 14px 0 8px;
+  text-shadow: 0 0 10px rgba(56,189,248,0.35);
+}
+#commitment-feedback .feedback-block p{
+  font-size: .95rem;
+  line-height: 1.65;
+  color: #e5e7eb;
+  margin: 0 0 10px;
+}
+#commitment-feedback .feedback-list{
+  margin: 6px 0 10px 18px;
+  padding: 0;
+  font-size: .93rem;
+  line-height: 1.6;
+  color: #dbeafe;
+}
+#commitment-feedback .feedback-list li{ margin: 6px 0; }
+#commitment-feedback .disclaimer-box{
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(148,163,184,0.6);
+  background: rgba(2,6,23,0.68);
+  color: #cbd5f5;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+#commitment-feedback .vote-wrap{
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 14px;
+}
+@media (max-width: 900px){
+  #commitment-feedback .vote-wrap{ grid-template-columns: 1fr; }
+}
+#commitment-feedback .vote-card{
+  background: rgba(15,23,42,0.88);
+  border: 1px solid rgba(148,163,184,0.65);
+  border-radius: 18px;
+  padding: 16px;
+}
+#commitment-feedback .vote-card h4{
+  margin: 0 0 10px;
+  font-size: 1.02rem;
+  color: #e5e7eb;
+  text-shadow: 0 0 10px rgba(56,189,248,0.25);
+}
+#commitment-feedback .mini-muted{
+  font-size: .9rem;
+  color: #9ca3af;
+  line-height: 1.55;
+}
+#commitment-feedback .vote-row{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+#commitment-feedback .thumb-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 170px;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.65);
+  background: rgba(0,0,0,0.55);
+  color: #e5e7eb;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(15,23,42,0.7);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+#commitment-feedback .thumb-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 0 26px rgba(15,23,42,0.85);
+  filter: saturate(1.1);
+}
+#commitment-feedback .thumb-btn.good{
+  border-color: rgba(34,197,94,0.9);
+}
+#commitment-feedback .thumb-btn.bad{
+  border-color: rgba(239,68,68,0.9);
+}
+#commitment-feedback .thumb{
+  font-size: 1.15rem;
+  line-height: 1;
+}
+#commitment-feedback .count-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.55);
+  background: rgba(2,6,23,0.65);
+  font-size: .9rem;
+  color: #e5e7eb;
+}
+#commitment-feedback .vote-status{
+  margin-top: 10px;
+  font-size: .9rem;
+  color: #9ca3af;
+  line-height: 1.55;
+}
+#commitment-feedback .feedback-input{
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(148,163,184,0.65);
+  background: rgba(2,6,23,0.65);
+  color: #e5e7eb;
+  padding: 12px 12px;
+  font-size: .95rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 110px;
+  outline: none;
+}
+#commitment-feedback .feedback-input:focus{
+  border-color: rgba(56,189,248,0.8);
+  box-shadow: 0 0 18px rgba(56,189,248,0.22);
+}
+#commitment-feedback .feedback-actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+}
+#commitment-feedback .small-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.65);
+  background: rgba(0,0,0,0.55);
+  color: #e5e7eb;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+#commitment-feedback .small-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 0 22px rgba(15,23,42,0.85);
+}
+#commitment-feedback .note-line{
+  margin-top: 10px;
+  font-size: .9rem;
+  color: #9ca3af;
+  line-height: 1.55;
+}
+
+</style>
 </head>
 <body>
 
@@ -1010,34 +1196,30 @@
       </div>
 
       <div class="vote-wrap">
-        <div class="vote-card">
-          <h4>Vote (simple)</h4>
-          <p class="mini-muted">
-            Based on the explanation above: should TBP explore a voluntary, utility-based commitment mechanism?
-          </p>
-          <div class="vote-row">
-            <button class="vote-btn primary" id="tbpVoteUp" type="button">👍 Sounds reasonable</button>
-            <button class="vote-btn" id="tbpVoteDown" type="button">👎 Not interested</button>
-          </div>
-          <div class="vote-status" id="tbpVoteStatus"></div>
-        </div>
+  <div class="vote-card">
+    <h4>Vote (simple)</h4>
+    <p class="mini-muted">Based on the explanation above: should TBP explore a voluntary, utility-based commitment mechanism?</p>
 
-        <div class="vote-card">
-          <h4>Optional feedback</h4>
-          <p class="mini-muted">
-            If you have a reason (support or concerns), write it here. This is optional.
-          </p>
-          <textarea class="feedback-input" id="tbpVoteText" placeholder="Your feedback (optional)…"></textarea>
-          <div class="feedback-actions">
-            <button class="vote-btn" id="tbpVoteSend" type="button">📨 Save feedback</button>
-            <div class="mini-muted" id="tbpVoteTextStatus"></div>
-          </div>
-          <div class="mini-muted">
-            Note: This page currently stores votes/feedback locally in your browser (no server submission yet).
-          </div>
-        </div>
-      </div>
+    <div class="vote-row">
+      <button class="thumb-btn good" id="tbpVoteUp" type="button" aria-label="Thumbs up vote">
+        <span class="thumb">👍</span>
+        <span>Yes</span>
+        <span class="count-pill" id="tbpUpCount">0</span>
+      </button>
+
+      <button class="thumb-btn bad" id="tbpVoteDown" type="button" aria-label="Thumbs down vote">
+        <span class="thumb">👎</span>
+        <span>No</span>
+        <span class="count-pill" id="tbpDownCount">0</span>
+      </button>
     </div>
+
+    <div class="vote-status" id="tbpVoteStatus" aria-live="polite"></div><div class="note-line">For detailed feedback or comments, please use the contact email listed at the bottom of the website.</div>
+  </div>
+
+  </div>
+</div>
+</div>
   </div>
 </section>
 
@@ -1742,7 +1924,73 @@
         });
       }
     } catch(e) {}
-    console.log("[TBP-AI] ready.");
+    
+// =========================
+// Community Feedback (local votes + counters)
+// =========================
+(function(){
+  try{
+    var upBtn   = document.getElementById("tbpVoteUp");
+    var dnBtn   = document.getElementById("tbpVoteDown");
+    var upCntEl = document.getElementById("tbpUpCount");
+    var dnCntEl = document.getElementById("tbpDownCount");
+    var status  = document.getElementById("tbpVoteStatus");
+
+    var txt     = document.getElementById("tbpVoteText");
+    var send    = document.getElementById("tbpVoteSend");
+    var email   = document.getElementById("tbpVoteEmail");
+    var copyBtn = document.getElementById("tbpVoteCopy");
+    var txtStat = document.getElementById("tbpVoteTextStatus");
+
+    if(!upBtn || !dnBtn || !upCntEl || !dnCntEl || !status) return;
+
+    var KEY_UP   = "tbp_commitment_up_v1";
+    var KEY_DOWN = "tbp_commitment_down_v1";
+    var KEY_VOTE = "tbp_commitment_myvote_v1";
+    var KEY_TEXT = "tbp_commitment_text_v1";
+
+    function getInt(k){ return parseInt(localStorage.getItem(k) || "0", 10) || 0; }
+    function setInt(k,v){ localStorage.setItem(k, String(v)); }
+    function setStatus(el, msg){ if(el) el.textContent = msg || ""; }
+
+    function render(){
+      var up = getInt(KEY_UP);
+      var dn = getInt(KEY_DOWN);
+      upCntEl.textContent = String(up);
+      dnCntEl.textContent = String(dn);
+
+      var v = localStorage.getItem(KEY_VOTE);
+      if(v === "up") setStatus(status, "You voted: 👍 Yes");
+      else if(v === "down") setStatus(status, "You voted: 👎 No");
+      else setStatus(status, "No vote submitted yet.");
+    }
+
+    function vote(which){
+      var prev = localStorage.getItem(KEY_VOTE);
+      if(prev === which){
+        setStatus(status, "Vote unchanged.");
+        return;
+      }
+      // remove previous vote from counts
+      if(prev === "up") setInt(KEY_UP, Math.max(0, getInt(KEY_UP) - 1));
+      if(prev === "down") setInt(KEY_DOWN, Math.max(0, getInt(KEY_DOWN) - 1));
+
+      // add new vote
+      if(which === "up") setInt(KEY_UP, getInt(KEY_UP) + 1);
+      if(which === "down") setInt(KEY_DOWN, getInt(KEY_DOWN) + 1);
+
+      localStorage.setItem(KEY_VOTE, which);
+      render();
+    }
+
+    upBtn.addEventListener("click", function(){ vote("up"); });
+    dnBtn.addEventListener("click", function(){ vote("down"); });
+
+    render();
+  }catch(e){}
+})();
+
+console.log("[TBP-AI] ready.");
 </script>
 
 </body>
