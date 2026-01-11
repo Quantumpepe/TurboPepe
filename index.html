@@ -961,7 +961,88 @@
 
     <main>
 
-      <section class="section" id="status">
+      
+<section class="section" id="commitment-feedback">
+  <div class="section-inner">
+    <h2 class="section-title">🗳️ Community Feedback — Utility Commitment Mechanism (Exploration)</h2>
+
+    <p class="feedback-lead">
+      We are exploring a voluntary mechanism for long-term TBP holders to participate more deeply in the ecosystem —
+      without introducing traditional staking, fixed yields, or automated reward systems.
+      This is not a launch announcement. It is an explanation of a concept so you can give informed feedback.
+    </p>
+
+    <div class="feedback-block">
+      <h3>What is being explored?</h3>
+      <p>
+        A <strong>voluntary commitment mechanism</strong> where holders can choose to lock TBP for a longer period to signal
+        long-term alignment with the project. Participation would remain fully on-chain and user-controlled.
+        <strong>Nothing happens automatically.</strong> If you do nothing, nothing moves.
+      </p>
+
+      <h3>What this is NOT</h3>
+      <ul class="feedback-list">
+        <li>• Not traditional staking</li>
+        <li>• No guaranteed returns</li>
+        <li>• No fixed APY</li>
+        <li>• No automatic payouts or compounding</li>
+        <li>• No team control over user funds</li>
+      </ul>
+
+      <h3>Why consider this?</h3>
+      <p>
+        As TBP utility expands, TBP is expected to be used to unlock platform features and tools.
+        A <strong>limited portion</strong> of TBP generated through <strong>real platform usage</strong> could flow back to long-term participants
+        over time. This is designed as a <strong>utility-based feedback loop</strong> — not a yield product.
+      </p>
+
+      <h3>How it would work (high-level)</h3>
+      <ul class="feedback-list">
+        <li>• Participation is optional and started by the user</li>
+        <li>• Withdrawals are always manual and user-initiated</li>
+        <li>• Early withdrawals reduce future exposure to utility flows</li>
+        <li>• Long-term commitment increases exposure to utility flows (if usage exists)</li>
+      </ul>
+
+      <div class="disclaimer-box">
+        ⚠️ This is <strong>not a promise</strong> and <strong>not a financial product</strong>. We are collecting community feedback only.
+        Design, figures, and timing are undecided and subject to evaluation.
+      </div>
+
+      <div class="vote-wrap">
+        <div class="vote-card">
+          <h4>Vote (simple)</h4>
+          <p class="mini-muted">
+            Based on the explanation above: should TBP explore a voluntary, utility-based commitment mechanism?
+          </p>
+          <div class="vote-row">
+            <button class="vote-btn primary" id="tbpVoteUp" type="button">👍 Sounds reasonable</button>
+            <button class="vote-btn" id="tbpVoteDown" type="button">👎 Not interested</button>
+          </div>
+          <div class="vote-status" id="tbpVoteStatus"></div>
+        </div>
+
+        <div class="vote-card">
+          <h4>Optional feedback</h4>
+          <p class="mini-muted">
+            If you have a reason (support or concerns), write it here. This is optional.
+          </p>
+          <textarea class="feedback-input" id="tbpVoteText" placeholder="Your feedback (optional)…"></textarea>
+          <div class="feedback-actions">
+            <button class="vote-btn" id="tbpVoteSend" type="button">📨 Save feedback</button>
+            <div class="mini-muted" id="tbpVoteTextStatus"></div>
+          </div>
+          <div class="mini-muted">
+            Note: This page currently stores votes/feedback locally in your browser (no server submission yet).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="status">
         <div class="section-inner">
           <h2 class="section-title">🧭 Project Status</h2>
           <div class="section-split">
