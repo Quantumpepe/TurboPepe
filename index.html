@@ -9,9 +9,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --accent: #38bdf8;      /* cyan/blau Akzent */
+      --accent: #38bdf8;
       --accent-soft: #0ea5e9;
-      --bg-deep: #020617;     /* sehr dunkles blau/schwarz */
+      --bg-deep: #020617;
       --bg-card: #020817;
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
@@ -443,9 +443,6 @@
       margin-top: 0.7rem;
     }
 
-    /* =========================
-       NFT PROMO BUTTON (GO TO NFTs)
-    ========================= */
     .nft-cta-row{
       display:flex;
       flex-wrap:wrap;
@@ -510,7 +507,6 @@
       }
     }
 
-    /* Runder AI-Logo-Button unten rechts – Bild füllt den Kreis */
     .aiq-fab {
       position: fixed;
       right: 20px;
@@ -519,14 +515,11 @@
       height: 72px;
       border-radius: 50%;
       border: 2px solid rgba(148,163,184,0.95);
-
-      /* kräftiger, ohne extra Verlauf */
       background-color: #020617;
       background-image: url("TBP-AI.png");
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 120% 120%; /* Bild so groß wie der Kreis */
-
+      background-size: 120% 120%;
       box-shadow:
         0 0 18px rgba(56,189,248,0.9),
         0 0 32px rgba(129,140,248,0.75);
@@ -542,7 +535,6 @@
         0 0 40px rgba(129,140,248,0.95);
     }
 
-    /* Mobile etwas kleiner */
     @media (max-width: 600px) {
       .aiq-fab {
         right: 14px;
@@ -551,15 +543,6 @@
         height: 62px;
         background-size: 100% 100%;
       }
-    }
-
-    .aiq-fab::before {
-      content: "";
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: url("TBP-AI.png") center/cover no-repeat;
-      box-shadow: 0 0 16px rgba(56,189,248,0.7);
     }
 
     #aiq-panel {
@@ -650,7 +633,213 @@
       margin-top: 8px;
     }
 
-    /* Mobile Tuning */
+    .logo-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+    }
+
+    .pwa-install{
+      text-decoration:none;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+    }
+
+    .pwa-title{
+      font-size:0.65rem;
+      letter-spacing:1px;
+      color:#e5e7eb;
+      opacity:.95;
+    }
+
+    .pwa-logo{
+      width:78px;
+      height:auto;
+      border-radius:14px;
+      filter: drop-shadow(0 0 14px rgba(56,189,248,.7));
+    }
+
+    .pwa-label{
+      font-size:0.75rem;
+      font-weight:700;
+      letter-spacing:2px;
+      color:var(--accent);
+      text-shadow:
+        0 0 6px rgba(56,189,248,.9),
+        0 0 12px rgba(56,189,248,.6);
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.55rem;
+    }
+
+    .link-pill{
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.85);
+      background: rgba(15,23,42,0.6);
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 0.6rem;
+      box-shadow: 0 0 14px rgba(15,23,42,0.9);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .link-pill:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(56,189,248,0.45);
+      filter: saturate(1.05);
+    }
+
+    .proof-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 1rem;
+      margin-top: .8rem;
+    }
+
+    @media (max-width: 900px){
+      .proof-grid{ grid-template-columns: 1fr; }
+    }
+
+    .proof-card{
+      position: relative;
+      background: rgba(0,0,0,0.72);
+      border-radius: 1rem;
+      padding: .9rem;
+      border: 1px solid rgba(148,163,184,0.85);
+      overflow: hidden;
+      box-shadow: 0 0 24px rgba(15,23,42,0.9);
+    }
+
+    .proof-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: conic-gradient(from 180deg, rgba(56,189,248,.85), rgba(167,139,250,.65), rgba(56,189,248,.85));
+      opacity:.22;
+      filter: blur(10px);
+      animation: proofSpin 7s linear infinite;
+      z-index:0;
+    }
+
+    @keyframes proofSpin{
+      0%{ transform: rotate(0deg); }
+      100%{ transform: rotate(360deg); }
+    }
+
+    .proof-card > *{ position: relative; z-index:1; }
+
+    .proof-title{
+      font-size: .82rem;
+      margin-bottom: .5rem;
+      color: #e5e7eb;
+      text-shadow: 0 0 8px rgba(56,189,248,0.55);
+    }
+
+    .proof-img{
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.55);
+      box-shadow: 0 0 24px rgba(2,6,23,0.85);
+      background: rgba(2,6,23,0.7);
+    }
+
+    .proof-caption{
+      margin-top: .6rem;
+      font-size: .62rem;
+      line-height: 1.65;
+      color: #dbeafe;
+      opacity: .95;
+    }
+
+    .contract-row{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-top: .35rem;
+    }
+
+    .copy-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+      padding:.5rem .8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.85);
+      background: rgba(15,23,42,0.75);
+      color: var(--accent);
+      cursor:pointer;
+      font-size:.6rem;
+      box-shadow: 0 0 14px rgba(15,23,42,0.9);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .copy-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(56,189,248,0.45);
+      filter: saturate(1.05);
+    }
+
+    .copy-badge{
+      font-size:.6rem;
+      color:#9ca3af;
+    }
+
+    .network-bar{
+      width:100%;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+      align-items:center;
+      justify-content:center;
+      margin-top: .8rem;
+    }
+
+    .network-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      padding:.55rem .9rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.85);
+      background: rgba(15,23,42,0.85);
+      color:#e5e7eb;
+      cursor:pointer;
+      font-size:.62rem;
+      box-shadow: 0 0 14px rgba(15,23,42,0.9);
+    }
+
+    .network-pill.active{
+      background: radial-gradient(circle at top, var(--accent), var(--accent-soft));
+      color:#020617;
+      border-color: rgba(56,189,248,0.95);
+    }
+
+    .network-note{
+      font-size:.58rem;
+      color:#cbd5f5;
+      opacity:.9;
+      text-align:center;
+      line-height:1.7;
+      margin-top:.35rem;
+    }
+
     @media (max-width: 600px) {
       .app-shell {
         padding: 0 0.5rem 2.4rem;
@@ -710,365 +899,148 @@
       }
     }
 
-    /* =========================
-       PWA DOWNLOAD LINK (SIMPLE)
-    ========================= */
-    .logo-row{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:18px;
+    #commitment-feedback .section-title{
+      font-size: 1.35rem;
+      line-height: 1.2;
     }
-
-    .pwa-install{
-      text-decoration:none;
-      cursor:pointer;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-    }
-
-    .pwa-title{
-      font-size:0.65rem;
-      letter-spacing:1px;
-      color:#e5e7eb;
-      opacity:.95;
-    }
-
-    .pwa-logo{
-      width:78px;
-      height:auto;
-      border-radius:14px;
-      filter: drop-shadow(0 0 14px rgba(56,189,248,.7));
-    }
-
-    .pwa-label{
-      font-size:0.75rem;
-      font-weight:700;
-      letter-spacing:2px;
-      color:var(--accent);
-      text-shadow:
-        0 0 6px rgba(56,189,248,.9),
-        0 0 12px rgba(56,189,248,.6);
-    }
-
-
-    .hero-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.55rem;
-    }
-
-    .link-pill{
-      display: inline-flex;
-      align-items: center;
-      gap: .35rem;
-      padding: .45rem .8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.85);
-      background: rgba(15,23,42,0.6);
-      color: #e5e7eb;
-      text-decoration: none;
-      font-size: 0.6rem;
-      box-shadow: 0 0 14px rgba(15,23,42,0.9);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-    }
-
-    .link-pill:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 0 20px rgba(56,189,248,0.45);
-      filter: saturate(1.05);
-    }
-
-  
-    /* =========================
-       PROOF / DEMO (WOW)
-    ========================= */
-    .proof-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 1rem;
-      margin-top: .8rem;
-    }
-    @media (max-width: 900px){
-      .proof-grid{ grid-template-columns: 1fr; }
-    }
-
-    .proof-card{
-      position: relative;
-      background: rgba(0,0,0,0.72);
-      border-radius: 1rem;
-      padding: .9rem;
-      border: 1px solid rgba(148,163,184,0.85);
-      overflow: hidden;
-      box-shadow: 0 0 24px rgba(15,23,42,0.9);
-    }
-    .proof-card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: conic-gradient(from 180deg, rgba(56,189,248,.85), rgba(167,139,250,.65), rgba(56,189,248,.85));
-      opacity:.22;
-      filter: blur(10px);
-      animation: proofSpin 7s linear infinite;
-      z-index:0;
-    }
-    @keyframes proofSpin{
-      0%{ transform: rotate(0deg); }
-      100%{ transform: rotate(360deg); }
-    }
-    .proof-card > *{ position: relative; z-index:1; }
-
-    .proof-title{
-      font-size: .82rem;
-      margin-bottom: .5rem;
-      color: #e5e7eb;
-      text-shadow: 0 0 8px rgba(56,189,248,0.55);
-    }
-    .proof-img{
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.55);
-      box-shadow: 0 0 24px rgba(2,6,23,0.85);
-      background: rgba(2,6,23,0.7);
-    }
-    .proof-caption{
-      margin-top: .6rem;
-      font-size: .62rem;
-      line-height: 1.65;
+    #commitment-feedback .feedback-lead{
+      font-size: .95rem;
+      line-height: 1.6;
       color: #dbeafe;
+      margin-top: .5rem;
       opacity: .95;
     }
-
-    /* Contract copy */
-    .contract-row{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: .6rem;
+    #commitment-feedback .feedback-block{
+      margin-top: 1rem;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(148,163,184,0.65);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 0 26px rgba(15,23,42,0.75);
+    }
+    #commitment-feedback .feedback-block h3{
+      font-size: 1.05rem;
+      color: #e5e7eb;
+      margin: 14px 0 8px;
+      text-shadow: 0 0 10px rgba(56,189,248,0.35);
+    }
+    #commitment-feedback .feedback-block p{
+      font-size: .95rem;
+      line-height: 1.65;
+      color: #e5e7eb;
+      margin: 0 0 10px;
+    }
+    #commitment-feedback .feedback-list{
+      margin: 6px 0 10px 18px;
+      padding: 0;
+      font-size: .93rem;
+      line-height: 1.6;
+      color: #dbeafe;
+    }
+    #commitment-feedback .feedback-list li{ margin: 6px 0; }
+    #commitment-feedback .disclaimer-box{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(2,6,23,0.68);
+      color: #cbd5f5;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    #commitment-feedback .vote-wrap{
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      #commitment-feedback .vote-wrap{ grid-template-columns: 1fr; }
+    }
+    #commitment-feedback .vote-card{
+      background: rgba(15,23,42,0.88);
+      border: 1px solid rgba(148,163,184,0.65);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    #commitment-feedback .vote-card h4{
+      margin: 0 0 10px;
+      font-size: 1.02rem;
+      color: #e5e7eb;
+      text-shadow: 0 0 10px rgba(56,189,248,0.25);
+    }
+    #commitment-feedback .mini-muted{
+      font-size: .9rem;
+      color: #9ca3af;
+      line-height: 1.55;
+    }
+    #commitment-feedback .vote-row{
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
       flex-wrap: wrap;
-      margin-top: .35rem;
     }
-    .copy-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:.35rem;
-      padding:.5rem .8rem;
+    #commitment-feedback .thumb-btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 170px;
+      padding: 12px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.85);
-      background: rgba(15,23,42,0.75);
-      color: var(--accent);
-      cursor:pointer;
-      font-size:.6rem;
-      box-shadow: 0 0 14px rgba(15,23,42,0.9);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      border: 1px solid rgba(148,163,184,0.65);
+      background: rgba(0,0,0,0.55);
+      color: #e5e7eb;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 0 18px rgba(15,23,42,0.7);
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
     }
-    .copy-btn:hover{
+    #commitment-feedback .thumb-btn:hover{
       transform: translateY(-1px);
-      box-shadow: 0 0 18px rgba(56,189,248,0.45);
-      filter: saturate(1.05);
+      box-shadow: 0 0 26px rgba(15,23,42,0.85);
+      filter: saturate(1.1);
     }
-    .copy-badge{
-      font-size:.6rem;
-      color:#9ca3af;
+    #commitment-feedback .thumb-btn.good{
+      border-color: rgba(34,197,94,0.9);
     }
-
-  
-/* =========================
-   COMMUNITY FEEDBACK SECTION
-========================= */
-#commitment-feedback .section-title{
-  /* keep consistent with existing headings */
-  font-size: 1.35rem;
-  line-height: 1.2;
-}
-#commitment-feedback .feedback-lead{
-  font-size: .95rem;
-  line-height: 1.6;
-  color: #dbeafe;
-  margin-top: .5rem;
-  opacity: .95;
-}
-#commitment-feedback .feedback-block{
-  margin-top: 1rem;
-  background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(148,163,184,0.65);
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow: 0 0 26px rgba(15,23,42,0.75);
-}
-#commitment-feedback .feedback-block h3{
-  font-size: 1.05rem;
-  color: #e5e7eb;
-  margin: 14px 0 8px;
-  text-shadow: 0 0 10px rgba(56,189,248,0.35);
-}
-#commitment-feedback .feedback-block p{
-  font-size: .95rem;
-  line-height: 1.65;
-  color: #e5e7eb;
-  margin: 0 0 10px;
-}
-#commitment-feedback .feedback-list{
-  margin: 6px 0 10px 18px;
-  padding: 0;
-  font-size: .93rem;
-  line-height: 1.6;
-  color: #dbeafe;
-}
-#commitment-feedback .feedback-list li{ margin: 6px 0; }
-#commitment-feedback .disclaimer-box{
-  margin-top: 12px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(148,163,184,0.6);
-  background: rgba(2,6,23,0.68);
-  color: #cbd5f5;
-  font-size: .9rem;
-  line-height: 1.55;
-}
-#commitment-feedback .vote-wrap{
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: 14px;
-}
-@media (max-width: 900px){
-  #commitment-feedback .vote-wrap{ grid-template-columns: 1fr; }
-}
-#commitment-feedback .vote-card{
-  background: rgba(15,23,42,0.88);
-  border: 1px solid rgba(148,163,184,0.65);
-  border-radius: 18px;
-  padding: 16px;
-}
-#commitment-feedback .vote-card h4{
-  margin: 0 0 10px;
-  font-size: 1.02rem;
-  color: #e5e7eb;
-  text-shadow: 0 0 10px rgba(56,189,248,0.25);
-}
-#commitment-feedback .mini-muted{
-  font-size: .9rem;
-  color: #9ca3af;
-  line-height: 1.55;
-}
-#commitment-feedback .vote-row{
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-#commitment-feedback .thumb-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 170px;
-  padding: 12px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(148,163,184,0.65);
-  background: rgba(0,0,0,0.55);
-  color: #e5e7eb;
-  cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 0 18px rgba(15,23,42,0.7);
-  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-}
-#commitment-feedback .thumb-btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 0 26px rgba(15,23,42,0.85);
-  filter: saturate(1.1);
-}
-#commitment-feedback .thumb-btn.good{
-  border-color: rgba(34,197,94,0.9);
-}
-#commitment-feedback .thumb-btn.bad{
-  border-color: rgba(239,68,68,0.9);
-}
-#commitment-feedback .thumb{
-  font-size: 1.15rem;
-  line-height: 1;
-}
-#commitment-feedback .count-pill{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 48px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(148,163,184,0.55);
-  background: rgba(2,6,23,0.65);
-  font-size: .9rem;
-  color: #e5e7eb;
-}
-#commitment-feedback .vote-status{
-  margin-top: 10px;
-  font-size: .9rem;
-  color: #9ca3af;
-  line-height: 1.55;
-}
-#commitment-feedback .feedback-input{
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 16px;
-  border: 1px solid rgba(148,163,184,0.65);
-  background: rgba(2,6,23,0.65);
-  color: #e5e7eb;
-  padding: 12px 12px;
-  font-size: .95rem;
-  line-height: 1.6;
-  resize: vertical;
-  min-height: 110px;
-  outline: none;
-}
-#commitment-feedback .feedback-input:focus{
-  border-color: rgba(56,189,248,0.8);
-  box-shadow: 0 0 18px rgba(56,189,248,0.22);
-}
-#commitment-feedback .feedback-actions{
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 10px;
-}
-#commitment-feedback .small-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(148,163,184,0.65);
-  background: rgba(0,0,0,0.55);
-  color: #e5e7eb;
-  cursor: pointer;
-  font-weight: 700;
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-#commitment-feedback .small-btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 0 22px rgba(15,23,42,0.85);
-}
-#commitment-feedback .note-line{
-  margin-top: 10px;
-  font-size: .9rem;
-  color: #9ca3af;
-  line-height: 1.55;
-}
-
-</style>
+    #commitment-feedback .thumb-btn.bad{
+      border-color: rgba(239,68,68,0.9);
+    }
+    #commitment-feedback .thumb{
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+    #commitment-feedback .count-pill{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: rgba(2,6,23,0.65);
+      font-size: .9rem;
+      color: #e5e7eb;
+    }
+    #commitment-feedback .vote-status{
+      margin-top: 10px;
+      font-size: .9rem;
+      color: #9ca3af;
+      line-height: 1.55;
+    }
+    #commitment-feedback .note-line{
+      margin-top: 10px;
+      font-size: .9rem;
+      color: #9ca3af;
+      line-height: 1.55;
+    }
+  </style>
 </head>
 <body>
 
-  <marquee behavior="scroll" direction="left" scrollamount="6">
+  <marquee behavior="scroll" direction="left" scrollamount="6" id="marqueeText">
     🐸 Building a crypto-native AI platform — Nexus Analyt is live. TBP unlocks advanced security, analysis & automation as we ship.
   </marquee>
 
@@ -1077,53 +1049,61 @@
       <div class="hero-inner">
         <div class="logo-wrap">
           <div class="logo-row">
-            <!-- DOWNLOAD-Logo (PWA Install Button) -->
             <a href="https://nexus-analyt-ui.onrender.com/"
                class="pwa-install"
-               aria-label="Download Nexus Analyt">
-              <span class="pwa-title">Nexus Analyt (Alpha)</span>
+               aria-label="Open Nexus Analyt"
+               id="appLinkMain"
+               target="_blank"
+               rel="noopener">
+              <span class="pwa-title">Nexus Analyt</span>
               <img src="Nexus.png" alt="Nexus Analyt App" class="pwa-logo">
-              <span class="pwa-label">OPEN ALPHA</span>
+              <span class="pwa-label" id="appCtaLabel">OPEN APP</span>
             </a>
 
-            <!-- Dein vorhandenes Logo -->
             <img src="turbopepe1.png" alt="TurboPepe Logo" class="logo">
           </div>
 
           <h1>Crypto-Native AI Intelligence Platform</h1>
           <p class="subtitle">
-  Nexus Analyt is live as a <strong>Public Alpha</strong>.<br>
-  We’re building a specialized AI for crypto security, market analysis & automation — and validating what works before <strong>Nexus Analyt Pro</strong> ships.<br>
-  The <strong>TBP token</strong> will unlock advanced features as the platform evolves.
-</p>
+            Nexus Analyt is live as a <strong>Public Alpha</strong>.<br>
+            We’re building a specialized AI for crypto security, market analysis & automation — and validating what works before <strong>Nexus Analyt Pro</strong> ships.<br>
+            The <strong>TBP token</strong> is the access and utility layer powering the ecosystem across supported chains.
+          </p>
+
           <div class="hero-chip-row">
-<div class="hero-chip-row">
-  <div class="chip"><span>🧪</span> Product-first: real tools, shipped weekly</div>
-  <div class="chip"><span>🤖</span> Live AI assistant (Website & Telegram)</div>
-  <div class="chip"><span>✅</span> 0% tax • LP burned • verifiable on-chain</div>
-</div>
-</div>
+            <div class="chip"><span>🧪</span> Product-first: real tools, shipped weekly</div>
+            <div class="chip"><span>🤖</span> Live AI assistant (Website & Telegram)</div>
+            <div class="chip"><span>✅</span> 0% tax • LP burned • verifiable on-chain</div>
+          </div>
+
+          <div class="network-bar">
+            <button class="network-pill active" data-network="polygon" id="btnPolygon">🟣 Polygon (Original)</button>
+            <button class="network-pill" data-network="base" id="btnBase">🔵 Base (Expansion)</button>
+          </div>
+          <div class="network-note" id="networkNote">
+            Current network: Polygon — original TBP home. Base support is prepared for expansion.
+          </div>
         </div>
 
         <div class="hero-right">
-  <h2>Start Here (Live Demo)</h2>
-  <p>
-    TurboPepe-AI is evolving from a meme into a <strong>crypto-native AI stack</strong>.
-    Nexus Analyt is the first live app. The AI assistant is already running on the website and Telegram.
-    Next up: contract risk checks, market intelligence and automation — with deeper tools unlocked through TBP utility.
-  </p>
+          <h2 id="heroPanelTitle">Start Here (Live Demo)</h2>
+          <p id="heroPanelText">
+            TurboPepe-AI is evolving from a meme into a <strong>crypto-native AI stack</strong>.
+            Nexus Analyt is the first live app. The AI assistant is already running on the website and Telegram.
+            Next up: contract risk checks, market intelligence and automation — with deeper tools unlocked through TBP utility.
+          </p>
 
           <div class="hero-buttons">
-  <a class="button" href="https://nexus-analyt-ui.onrender.com/" target="_blank" rel="noopener">
-    🧠 Try Nexus Analyt (Live App)
-  </a>
-  <a class="button secondary" href="javascript:void(0)" id="openAiBtn">🤖 Ask the Crypto AI</a>
-</div>
+            <a class="button" href="https://nexus-analyt-ui.onrender.com/" target="_blank" rel="noopener" id="appLinkSecondary">
+              🧠 Try Nexus Analyt
+            </a>
+            <a class="button secondary" href="javascript:void(0)" id="openAiBtn">🤖 Ask the Crypto AI</a>
+          </div>
 
-<div class="hero-links">
-  <a class="link-pill" href="https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2" target="_blank" rel="noopener">🛒 Buy TBP on SushiSwap</a>
-  <a class="link-pill" href="#whitepaper">📜 Whitepaper</a>
-</div>
+          <div class="hero-links">
+            <a class="link-pill" href="#" target="_blank" rel="noopener" id="buyLink">🛒 Buy TBP</a>
+            <a class="link-pill" href="#whitepaper">📜 Whitepaper</a>
+          </div>
 
           <div class="hero-stats">
             <div class="stat-card">
@@ -1147,84 +1127,81 @@
 
     <main>
 
-      
-<section class="section" id="commitment-feedback">
-  <div class="section-inner">
-    <h2 class="section-title">🗳️ Community Feedback — Utility Commitment Mechanism (Exploration)</h2>
+      <section class="section" id="commitment-feedback">
+        <div class="section-inner">
+          <h2 class="section-title">🗳️ Community Feedback — Utility Commitment Mechanism (Exploration)</h2>
 
-    <p class="feedback-lead">
-      We are exploring a voluntary mechanism for long-term TBP holders to participate more deeply in the ecosystem —
-      without introducing traditional staking, fixed yields, or automated reward systems.
-      This is not a launch announcement. It is an explanation of a concept so you can give informed feedback.
-    </p>
+          <p class="feedback-lead">
+            We are exploring a voluntary mechanism for long-term TBP holders to participate more deeply in the ecosystem —
+            without introducing traditional staking, fixed yields, or automated reward systems.
+            This is not a launch announcement. It is an explanation of a concept so you can give informed feedback.
+          </p>
 
-    <div class="feedback-block">
-      <h3>What is being explored?</h3>
-      <p>
-        A <strong>voluntary commitment mechanism</strong> where holders can choose to lock TBP for a longer period to signal
-        long-term alignment with the project. Participation would remain fully on-chain and user-controlled.
-        <strong>Nothing happens automatically.</strong> If you do nothing, nothing moves.
-      </p>
+          <div class="feedback-block">
+            <h3>What is being explored?</h3>
+            <p>
+              A <strong>voluntary commitment mechanism</strong> where holders can choose to lock TBP for a longer period to signal
+              long-term alignment with the project. Participation would remain fully on-chain and user-controlled.
+              <strong>Nothing happens automatically.</strong> If you do nothing, nothing moves.
+            </p>
 
-      <h3>What this is NOT</h3>
-      <ul class="feedback-list">
-        <li>• Not traditional staking</li>
-        <li>• No guaranteed returns</li>
-        <li>• No fixed APY</li>
-        <li>• No automatic payouts or compounding</li>
-        <li>• No team control over user funds</li>
-      </ul>
+            <h3>What this is NOT</h3>
+            <ul class="feedback-list">
+              <li>• Not traditional staking</li>
+              <li>• No guaranteed returns</li>
+              <li>• No fixed APY</li>
+              <li>• No automatic payouts or compounding</li>
+              <li>• No team control over user funds</li>
+            </ul>
 
-      <h3>Why consider this?</h3>
-      <p>
-        As TBP utility expands, TBP is expected to be used to unlock platform features and tools.
-        A <strong>limited portion</strong> of TBP generated through <strong>real platform usage</strong> could flow back to long-term participants
-        over time. This is designed as a <strong>utility-based feedback loop</strong> — not a yield product.
-      </p>
+            <h3>Why consider this?</h3>
+            <p>
+              As TBP utility expands, TBP is expected to be used to unlock platform features and tools.
+              A <strong>limited portion</strong> of TBP generated through <strong>real platform usage</strong> could flow back to long-term participants
+              over time. This is designed as a <strong>utility-based feedback loop</strong> — not a yield product.
+            </p>
 
-      <h3>How it would work (high-level)</h3>
-      <ul class="feedback-list">
-        <li>• Participation is optional and started by the user</li>
-        <li>• Withdrawals are always manual and user-initiated</li>
-        <li>• Early withdrawals reduce future exposure to utility flows</li>
-        <li>• Long-term commitment increases exposure to utility flows (if usage exists)</li>
-      </ul>
+            <h3>How it would work (high-level)</h3>
+            <ul class="feedback-list">
+              <li>• Participation is optional and started by the user</li>
+              <li>• Withdrawals are always manual and user-initiated</li>
+              <li>• Early withdrawals reduce future exposure to utility flows</li>
+              <li>• Long-term commitment increases exposure to utility flows (if usage exists)</li>
+            </ul>
 
-      <div class="disclaimer-box">
-        ⚠️ This is <strong>not a promise</strong> and <strong>not a financial product</strong>. We are collecting community feedback only.
-        Design, figures, and timing are undecided and subject to evaluation.
-      </div>
+            <div class="disclaimer-box">
+              ⚠️ This is <strong>not a promise</strong> and <strong>not a financial product</strong>. We are collecting community feedback only.
+              Design, figures, and timing are undecided and subject to evaluation.
+            </div>
 
-      <div class="vote-wrap">
-  <div class="vote-card">
-    <h4>Vote (simple)</h4>
-    <p class="mini-muted">Based on the explanation above: should TBP explore a voluntary, utility-based commitment mechanism?</p>
+            <div class="vote-wrap">
+              <div class="vote-card">
+                <h4>Vote (simple)</h4>
+                <p class="mini-muted">Based on the explanation above: should TBP explore a voluntary, utility-based commitment mechanism?</p>
 
-    <div class="vote-row">
-      <button class="thumb-btn good" id="tbpVoteUp" type="button" aria-label="Thumbs up vote">
-        <span class="thumb">👍</span>
-        <span>Yes</span>
-        <span class="count-pill" id="tbpUpCount">0</span>
-      </button>
+                <div class="vote-row">
+                  <button class="thumb-btn good" id="tbpVoteUp" type="button" aria-label="Thumbs up vote">
+                    <span class="thumb">👍</span>
+                    <span>Yes</span>
+                    <span class="count-pill" id="tbpUpCount">0</span>
+                  </button>
 
-      <button class="thumb-btn bad" id="tbpVoteDown" type="button" aria-label="Thumbs down vote">
-        <span class="thumb">👎</span>
-        <span>No</span>
-        <span class="count-pill" id="tbpDownCount">0</span>
-      </button>
-    </div>
+                  <button class="thumb-btn bad" id="tbpVoteDown" type="button" aria-label="Thumbs down vote">
+                    <span class="thumb">👎</span>
+                    <span>No</span>
+                    <span class="count-pill" id="tbpDownCount">0</span>
+                  </button>
+                </div>
 
-    <div class="vote-status" id="tbpVoteStatus" aria-live="polite"></div><div class="note-line">For detailed feedback or comments, please use the contact email listed at the end of the website.</div>
-  </div>
+                <div class="vote-status" id="tbpVoteStatus" aria-live="polite"></div>
+                <div class="note-line">For detailed feedback or comments, please use the contact email listed at the end of the website.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  </div>
-</div>
-</div>
-  </div>
-</section>
-
-
-<section class="section" id="status">
+      <section class="section" id="status">
         <div class="section-inner">
           <h2 class="section-title">🧭 Project Status</h2>
           <div class="section-split">
@@ -1234,6 +1211,7 @@
                 <li>• Nexus Analyt (Public Alpha) — prototype to test UX, features & grid logic</li>
                 <li>• Website + Telegram AI assistant (ask questions anytime)</li>
                 <li>• Transparent on-chain fundamentals (0% tax, LP burned)</li>
+                <li>• Multi-chain expansion architecture in progress</li>
               </ul>
               <p class="muted mt-05">
                 We build in public. No “relaunch hype” — just steady shipping and measurable progress.
@@ -1243,10 +1221,11 @@
             <div class="card">
               <p><strong>What’s coming next</strong></p>
               <ul class="mt-05">
-                <li>• Nexus Analyt Pro — in development (launch planned in the next months)</li>
+                <li>• Nexus Analyt Pro — in development</li>
                 <li>• Market intelligence (whales, liquidity health, early alerts)</li>
                 <li>• Multi-model crypto AI (specialized models, not generic chat)</li>
                 <li>• TBP utility activates step-by-step as products mature</li>
+                <li>• Cross-chain expansion: Polygon + Base</li>
               </ul>
               <p class="muted mt-05">
                 TBP is designed as an <strong>access layer</strong>: deeper tools unlock progressively as the platform evolves.
@@ -1255,33 +1234,32 @@
           </div>
 
           <div class="community-row mt-1" style="justify-content:flex-start;">
-            <a class="button" href="https://nexus-analyt-ui.onrender.com/" target="_blank" rel="noopener">🧠 Open Nexus Analyt (Alpha)</a>
+            <a class="button" href="https://nexus-analyt-ui.onrender.com/" target="_blank" rel="noopener" id="appLinkTertiary">🧠 Open Nexus Analyt</a>
             <a class="button secondary" href="javascript:void(0)" id="openAiBtn2">🤖 Open AI Assistant</a>
           </div>
 
           <p class="muted mt-05">
-            Tip: Start with the Alpha (Nexus Analyt) → then use the AI assistant for security & market questions. Your feedback helps shape Pro.
+            Tip: Start with the app → then use the AI assistant for security & market questions. Your feedback shapes the next release.
           </p>
         </div>
       </section>
-
 
       <section class="section" id="proof">
         <div class="section-inner">
           <h2 class="section-title">🧾 Live Proof (Not a Mockup)</h2>
           <p class="muted">
-            These are live parts you can verify right now — Nexus Analyt (Alpha), Telegram bot and the website AI assistant.
+            These are live parts you can verify right now — Nexus Analyt, Telegram bot and the website AI assistant.
           </p>
 
           <div class="proof-grid">
             <div class="proof-card">
-              <div class="proof-title">🧠 Nexus Analyt (Public Alpha)</div>
-              <img class="proof-img" src="NexusAnalyt.png" alt="Nexus Analyt (Alpha) screenshot">
+              <div class="proof-title">🧠 Nexus Analyt</div>
+              <img class="proof-img" src="NexusAnalyt.png" alt="Nexus Analyt screenshot">
               <div class="proof-caption">
-                Public Alpha used to validate UX, features &amp; grid logic before <strong>Nexus Analyt Pro</strong> ships.
+                Live app used to validate UX, features &amp; grid logic before <strong>Nexus Analyt Pro</strong> ships.
               </div>
               <div class="hero-buttons mt-05">
-                <a class="button" href="https://nexus-analyt-ui.onrender.com/" target="_blank" rel="noopener">Open Alpha</a>
+                <a class="button" href="https://nexus-analyt-ui.onrender.com/" target="_blank" rel="noopener" id="proofAppLink">Open App</a>
               </div>
             </div>
 
@@ -1310,14 +1288,12 @@
         </div>
       </section>
 
-
-
       <section class="section">
         <div class="section-inner section-split">
           <div class="card">
             <h2 class="section-title">🔥 Liquidity Burned Forever</h2>
-            <p>
-              TurboPepe's LP has been burned – it’s locked forever. No hidden games, no exit doors,
+            <p id="liquidityBurnText">
+              TBP’s original Polygon LP has been burned — locked forever. No hidden games, no exit doors,
               just clean on-chain proof.
             </p>
             <div class="burn-media mt-1">
@@ -1326,13 +1302,13 @@
                 href="https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a"
                 target="_blank"
                 class="burn-link"
+                id="burnProofLink"
               >
-                View Burn on PolygonScan
+                View Burn Proof
               </a>
             </div>
           </div>
 
-          <!-- ✅ REPLACED: STAKING WINDOW -> NFT PROMO WINDOW -->
           <div class="card">
             <h2 class="section-title">💎 TBP-AI NFTs — Gold & Silver Access Pass</h2>
             <p class="mt-05">
@@ -1355,10 +1331,9 @@
               >
                 💎 GO TO NFTs
               </a>
-              <div class="nft-note">Network: Polygon • Mint Gold or Silver</div>
+              <div class="nft-note" id="nftNote">Network: Polygon • Mint Gold or Silver</div>
             </div>
           </div>
-          <!-- ✅ END REPLACEMENT -->
         </div>
       </section>
 
@@ -1376,19 +1351,20 @@
               </div>
 
               <h2 class="section-title mt-15">📊 Tokenomics</h2>
-              <div class="tokenomics">
+              <div class="tokenomics" id="tokenomicsBox">
                 Total Supply: 190,000,000,000 TBP<br>
                 Burned: 10,000,000,000 TBP<br>
                 Circulating (est.): ~166,000,000,000 TBP<br>
                 Owner (transparent): ~14,000,000,000 TBP (for listings/ops)<br>
                 Majority of supply is in the liquidity pool (check live trackers).<br>
-                Fair launch – No presale, no tax. Chain: Polygon (POL)
+                Original Chain: Polygon • Expansion Chain: Base
               </div>
             </div>
 
             <div>
               <h2 class="section-title">📈 Live Chart</h2>
               <iframe
+                id="chartFrame"
                 src="https://www.geckoterminal.com/en/polygon_pos/pools/0x945c73101e11cc9e529c839d1d75648d04047b0b?embed=1"
                 height="400"
                 width="100%"
@@ -1399,22 +1375,26 @@
                 <a
                   href="https://www.dextools.io/app/en/polygon/pair-explorer/0x945c73101e11cc9e529c839d1d75648d04047b0b"
                   target="_blank"
+                  id="dextoolsLink"
                 >
                   Open in DEXTools
                 </a>
                 <a
                   href="https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b"
                   target="_blank"
+                  id="dexscreenerLink"
                 >
                   Open in DexScreener
                 </a>
               </div>
+              <p class="muted mt-05" id="chartHint">
+                Viewing Polygon data.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- NEW: AI SECURITY + MARKET INTELLIGENCE SECTION -->
       <section class="section">
         <div class="section-inner section-split">
           <div class="card">
@@ -1438,7 +1418,7 @@
           <div class="card">
             <h2 class="section-title">📊 AI Market Intelligence</h2>
             <p>
-              Beyond safety, TurboPepe-AI will track the market, looking for asymmetric opportunities
+              Beyond safety, TurboPepe-AI tracks the market, looking for asymmetric opportunities
               before the crowd notices them.
             </p>
             <ul>
@@ -1460,7 +1440,7 @@
           <h2>📜 Whitepaper</h2>
           <div class="whitepaper-body">
             <p>
-              <strong>TurboPepe (TBP)</strong> is a meme-born, AI-powered crypto intelligence token on Polygon.
+              <strong>TurboPepe (TBP)</strong> is a meme-born, AI-powered crypto intelligence token.
               TBP combines a fun identity with a serious mission: build an AI that understands crypto markets,
               protects users from obvious traps, and highlights opportunities on-chain.
             </p>
@@ -1480,9 +1460,9 @@
               <li><strong>Burned:</strong> 10,000,000,000 TBP</li>
               <li><strong>Circulating (est.):</strong> ~166,000,000,000 TBP</li>
               <li><strong>Owner (transparent):</strong> 14,000,000,000 TBP (listings/ops)</li>
-              <li><strong>Liquidity:</strong> Majority of supply in LP (see live trackers)</li>
               <li><strong>Taxes:</strong> 0% Buy/Sell</li>
-              <li><strong>Chain:</strong> Polygon (POL)</li>
+              <li><strong>Original Home:</strong> Polygon</li>
+              <li><strong>Expansion Path:</strong> Base + future cross-chain utility</li>
             </ul>
 
             <h3>🧠 AI Focus</h3>
@@ -1503,7 +1483,7 @@
             <h3>🛣️ Roadmap</h3>
             <p><strong>Phase 1: Foundation &amp; Live AI</strong></p>
             <ul>
-              <li>DEX presence (SushiSwap, analytics trackers)</li>
+              <li>DEX presence and analytics trackers</li>
               <li>AI assistant live on Website &amp; Telegram</li>
               <li>Public supply stats &amp; LP burn evidence</li>
             </ul>
@@ -1513,64 +1493,48 @@
               <li>Token &amp; contract scanner (risk scoring, honeypot checks)</li>
               <li>Basic market intelligence: whale, volume &amp; liquidity alerts</li>
               <li>Early access dashboards for TBP holders</li>
+              <li>Cross-chain access rollout</li>
             </ul>
 
             <p><strong>Phase 3: Infrastructure &amp; Scaling</strong></p>
             <ul>
-              <li>
-                Deployment of dedicated AI servers (multi-GPU, immersion-cooled) once
-                the ecosystem reaches a sustainable scale with strong liquidity and a
-                target market valuation around <strong>$10M</strong>.
-              </li>
-              <li>Rollout of pro AI dashboards &amp; developer APIs</li>
-              <li>Design of a community AI node model with staking-based access</li>
+              <li>Dedicated AI servers and pro dashboards</li>
+              <li>Developer APIs</li>
+              <li>Community AI node model with utility-based access</li>
             </ul>
 
             <h3>💰 AI Business Model</h3>
             <p>
               TBP aims to be a sustainable AI platform, not just a speculative meme.
-              Utility and revenue come from:
             </p>
             <ul>
-              <li>• Premium AI security tools (paid in TBP)</li>
-              <li>• Market intelligence &amp; pro signal access (unlocked by staking TBP)</li>
+              <li>• Premium AI security tools (paid or unlocked via TBP utility)</li>
+              <li>• Market intelligence &amp; pro signal access</li>
               <li>• APIs for projects, wallets &amp; platforms</li>
               <li>• Future node rewards for providing compute to the AI network</li>
-            </ul>
-            <p>
-              Revenue is intended to be reinvested into infrastructure: GPU clusters, immersion cooling,
-              data indexing and distributed AI nodes. Utility → Adoption → Revenue → Infrastructure → Better AI.
-            </p>
-
-            <h3>🔐 Security</h3>
-            <ul>
-              <li>Verified contracts</li>
-              <li>LP burned/locked (on-chain proof linked)</li>
-              <li>Transparent owner balance &amp; intent</li>
             </ul>
 
             <h3>✅ Final Note</h3>
             <p>
               TBP is not just another meme token — it is an <strong>AI-powered crypto intelligence token</strong>
-              that starts with memes and grows into a security &amp; analysis layer for DeFi.
+              growing into a security &amp; analysis layer for DeFi across supported chains.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- NEW: AI BUSINESS MODEL SECTION (SHORT + DETAIL) -->
       <section class="section">
         <div class="section-inner">
           <h2 class="section-title">💰 AI Business Model &amp; Infrastructure Scaling</h2>
           <p style="font-size:.72rem; line-height:1.7; text-align:left;">
             TurboPepe-AI is designed as a real AI product: TBP is the access key to the tools, not just a
-            speculative ticker. As adoption grows, the intelligence grows — and all infrastructure expansion
+            speculative ticker. As adoption grows, the intelligence grows — and infrastructure expansion
             is tied to real usage, not empty promises.
           </p>
           <div class="tokenomics mt-1">
             <strong>Short overview:</strong><br>
-            • Premium AI security tools &amp; reports paid in TBP<br>
-            • Market intelligence &amp; pro analytics unlocked by staking TBP<br>
+            • Premium AI security tools &amp; reports paid/unlocked via TBP<br>
+            • Market intelligence &amp; pro analytics via TBP utility<br>
             • Developer APIs for projects, wallets &amp; dashboards<br>
             • Future AI node rewards for providing compute<br><br>
 
@@ -1579,11 +1543,7 @@
             • Dedicated AI servers with multi-GPU setups<br>
             • Immersion-cooled hardware for 24/7 reliability<br>
             • Data indexing, storage &amp; model training<br>
-            • A distributed crypto intelligence node network<br><br>
-
-            As TBP reaches a sustainable ecosystem size — including strong liquidity and a
-            target market valuation around <strong>$10M</strong> — the project will be ready to move
-            from a single AI assistant into a full, self-hosted AI infrastructure cluster.
+            • A distributed crypto intelligence node network
           </div>
         </div>
       </section>
@@ -1593,11 +1553,10 @@
           <h2 class="section-title">🧠 What is TurboPepe?</h2>
           <p style="font-size:.75rem; line-height:1.7; text-align:left;">
             TurboPepe ($TBP) is a community-driven, meme-born token with a real AI core.<br><br>
-            The AI posts, explains, and keeps on-chain stats in check – but the long-term mission
+            The AI posts, explains, and keeps on-chain stats in check — but the long-term mission
             goes further: build a crypto-native intelligence engine that scans contracts, watches
             liquidity, tracks whales and helps users navigate the market smarter.<br><br>
-            No taxes. No hidden functions. Just verifiable tokenomics, burned LP and a clear focus on
-            turning a fun meme into a serious AI utility layer for DeFi. 🐸🧠
+            TBP starts on Polygon and is structured to expand its utility across additional chains as the ecosystem grows.
           </p>
         </div>
       </section>
@@ -1616,11 +1575,11 @@
       </section>
     </main>
 
-    <footer>
-      TurboPepe © 2025 – AI-powered crypto intelligence on Polygon • turbopepeai@gmail.com 🐸
+    <footer id="footerText">
+      TurboPepe © 2025 – AI-powered crypto intelligence • Original home: Polygon • Expansion path: Base • turbopepeai@gmail.com 🐸
     </footer>
   </div>
-  <!-- Futuristischer AI-Kopf -->
+
   <button id="aiq-fab" class="aiq-fab" aria-label="Ask TBP AI"></button>
 
   <div id="aiq-panel" role="dialog" aria-modal="true" aria-label="TBP Assistant">
@@ -1639,48 +1598,74 @@
   <script>
     'use strict';
 
-    var DEX_PAIR   = "0x945c73101e11cc9e529c839d1d75648d04047b0b";
-    var MAX_SUPPLY = 190000000000;
-    var BURNED     = 10000000000;
-    var OWNER      = 14000000000;
-    var CIRC_SUPPLY = (MAX_SUPPLY - BURNED - OWNER);
+    const CONFIG = {
+      polygon: {
+        key: "polygon",
+        label: "Polygon",
+        badge: "🟣 Polygon (Original)",
+        note: "Current network: Polygon — original TBP home.",
+        marquee: "🐸 Building a crypto-native AI platform — Nexus Analyt is live on Polygon. TBP unlocks advanced security, analysis & automation as we ship.",
+        chainText: "Original home: Polygon",
+        tokenAddress: "0x50c40e03552A42fbE41b2507d522F56d7325D1F2",
+        pairAddress: "0x945c73101e11cc9e529c839d1d75648d04047b0b",
+        geckoNetwork: "polygon_pos",
+        dexscreenerNetwork: "polygon",
+        chartEmbed: "https://www.geckoterminal.com/en/polygon_pos/pools/0x945c73101e11cc9e529c839d1d75648d04047b0b?embed=1",
+        dextools: "https://www.dextools.io/app/en/polygon/pair-explorer/0x945c73101e11cc9e529c839d1d75648d04047b0b",
+        dexscreener: "https://dexscreener.com/polygon/0x945c73101e11cc9e529c839d1d75648d04047b0b",
+        explorerToken: "https://polygonscan.com/token/0x50c40e03552A42fbE41b2507d522F56d7325D1F2",
+        burnProof: "https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a",
+        buyUrl: "https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2",
+        nftUrl: "https://quantumpepe.github.io/NFTs-WalletConnectV2/",
+        appUrl: "https://nexus-analyt-ui.onrender.com/",
+        chartHint: "Viewing Polygon data.",
+        nftNote: "Network: Polygon • Mint Gold or Silver",
+        liquidityText: "TBP’s original Polygon LP has been burned — locked forever. No hidden games, no exit doors, just clean on-chain proof.",
+        isLive: true
+      },
+      base: {
+        key: "base",
+        label: "Base",
+        badge: "🔵 Base (Expansion)",
+        note: "Current network: Base — expansion mode. Replace placeholders with your final Base deploy data.",
+        marquee: "🚀 TBP is expanding cross-chain — Base is prepared as the next growth layer for AI tools, access and utility.",
+        chainText: "Expansion path: Base",
+        tokenAddress: "BASE_TOKEN_ADDRESS",
+        pairAddress: "BASE_PAIR_ADDRESS",
+        geckoNetwork: "base",
+        dexscreenerNetwork: "base",
+        chartEmbed: "https://www.geckoterminal.com/en/base/pools/BASE_PAIR_ADDRESS?embed=1",
+        dextools: "https://www.dextools.io/app/en/base/pair-explorer/BASE_PAIR_ADDRESS",
+        dexscreener: "https://dexscreener.com/base/BASE_PAIR_ADDRESS",
+        explorerToken: "https://basescan.org/token/BASE_TOKEN_ADDRESS",
+        burnProof: "https://basescan.org/address/BASE_TOKEN_ADDRESS",
+        buyUrl: "BASE_BUY_URL",
+        nftUrl: "BASE_NFT_URL",
+        appUrl: "BASE_APP_URL",
+        chartHint: "Viewing Base data. Replace placeholders after launch.",
+        nftNote: "Network: Base • Update after NFT deploy",
+        liquidityText: "Base expansion is prepared. Update this section with the final Base LP / lock / deployment proof after launch.",
+        isLive: false
+      }
+    };
 
-    console.log("[TBP-AI] booting…");
+    const MAX_SUPPLY = 190000000000;
+    const BURNED = 10000000000;
+    const OWNER = 14000000000;
+    const CIRC_SUPPLY = MAX_SUPPLY - BURNED - OWNER;
 
-    const PAIR = DEX_PAIR;
+    let currentNetwork = "polygon";
 
     const fmtUSD = (n, opts={}) =>
-      (isFinite(n) ?
-        new Intl.NumberFormat(undefined, {
-          style: "currency",
-          currency: "USD",
-          notation: "compact",
-          maximumFractionDigits: 4,
-          ...opts
-        }).format(n)
+      (isFinite(n)
+        ? new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency: "USD",
+            notation: "compact",
+            maximumFractionDigits: 4,
+            ...opts
+          }).format(n)
         : "N/A");
-
-    async function fetchFromGecko() {
-      const url = `https://api.geckoterminal.com/api/v2/networks/polygon_pos/pools/${PAIR}`;
-      const r = await fetch(url, { headers: { "accept": "application/json" }});
-      if (!r.ok) throw new Error(`Gecko ${r.status}`);
-      const j = await r.json();
-      const attrs = j && j.data && j.data.attributes;
-      const price = attrs && attrs.base_token_price_usd ? Number(attrs.base_token_price_usd) : NaN;
-      if (!isFinite(price)) throw new Error("Gecko price missing");
-      return price;
-    }
-
-    async function fetchFromDexscreener() {
-      const url = `https://api.dexscreener.com/latest/dex/pairs/polygon/${PAIR}`;
-      const r = await fetch(url);
-      if (!r.ok) throw new Error(`Dex ${r.status}`);
-      const j = await r.json();
-      const pair = (j && j.pair) ? j.pair : (j && j.pairs && j.pairs[0]);
-      const price = pair && pair.priceUsd ? Number(pair.priceUsd) : NaN;
-      if (!isFinite(price)) throw new Error("Dex price missing");
-      return price;
-    }
 
     const fmtPriceUSD = (n) => {
       if (!isFinite(n)) return "N/A";
@@ -1695,41 +1680,136 @@
       return `$${s}`;
     };
 
-    async function fetchTBPPrice() {
-      const priceEl = document.getElementById("price");
-      const mcEl    = document.getElementById("marketcap");
-      try {
-        let price = await fetchFromGecko().catch(() => null);
-        if (!price) price = await fetchFromDexscreener();
+    function getConfig() {
+      return CONFIG[currentNetwork];
+    }
 
-        const fdv  = price * MAX_SUPPLY;
+    function updateActiveButtons() {
+      document.querySelectorAll('.network-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.network === currentNetwork);
+      });
+    }
+
+    function safeHref(el, href) {
+      if (!el) return;
+      el.setAttribute('href', href || '#');
+      if (!href || href.includes('BASE_')) {
+        el.setAttribute('href', 'javascript:void(0)');
+        el.style.opacity = '0.65';
+      } else {
+        el.style.opacity = '1';
+      }
+    }
+
+    function renderNetwork() {
+      const cfg = getConfig();
+
+      const marqueeText = document.getElementById('marqueeText');
+      const networkNote = document.getElementById('networkNote');
+      const contractAddr = document.getElementById('contractAddr');
+      const burnProofLink = document.getElementById('burnProofLink');
+      const buyLink = document.getElementById('buyLink');
+      const goToNftsBtn = document.getElementById('goToNftsBtn');
+      const nftNote = document.getElementById('nftNote');
+      const chartFrame = document.getElementById('chartFrame');
+      const dextoolsLink = document.getElementById('dextoolsLink');
+      const dexscreenerLink = document.getElementById('dexscreenerLink');
+      const chartHint = document.getElementById('chartHint');
+      const liquidityBurnText = document.getElementById('liquidityBurnText');
+      const footerText = document.getElementById('footerText');
+
+      const appLinkMain = document.getElementById('appLinkMain');
+      const appLinkSecondary = document.getElementById('appLinkSecondary');
+      const appLinkTertiary = document.getElementById('appLinkTertiary');
+      const proofAppLink = document.getElementById('proofAppLink');
+
+      if (marqueeText) marqueeText.textContent = cfg.marquee;
+      if (networkNote) networkNote.textContent = cfg.note;
+      if (contractAddr) contractAddr.textContent = cfg.tokenAddress;
+      if (nftNote) nftNote.textContent = cfg.nftNote;
+      if (chartHint) chartHint.textContent = cfg.chartHint;
+      if (liquidityBurnText) liquidityBurnText.textContent = cfg.liquidityText;
+      if (footerText) footerText.textContent = `TurboPepe © 2025 – AI-powered crypto intelligence • ${cfg.chainText} • turbopepeai@gmail.com 🐸`;
+
+      if (chartFrame) chartFrame.src = cfg.chartEmbed;
+
+      safeHref(burnProofLink, cfg.burnProof);
+      safeHref(buyLink, cfg.buyUrl);
+      safeHref(goToNftsBtn, cfg.nftUrl);
+      safeHref(dextoolsLink, cfg.dextools);
+      safeHref(dexscreenerLink, cfg.dexscreener);
+
+      safeHref(appLinkMain, cfg.appUrl);
+      safeHref(appLinkSecondary, cfg.appUrl);
+      safeHref(appLinkTertiary, cfg.appUrl);
+      safeHref(proofAppLink, cfg.appUrl);
+
+      updateActiveButtons();
+      fetchTBPPrice();
+    }
+
+    async function fetchFromGecko(cfg) {
+      if (!cfg.pairAddress || cfg.pairAddress.includes('BASE_')) throw new Error('Pair address missing');
+      const url = `https://api.geckoterminal.com/api/v2/networks/${cfg.geckoNetwork}/pools/${cfg.pairAddress}`;
+      const r = await fetch(url, { headers: { "accept": "application/json" }});
+      if (!r.ok) throw new Error(`Gecko ${r.status}`);
+      const j = await r.json();
+      const attrs = j && j.data && j.data.attributes;
+      const price = attrs && attrs.base_token_price_usd ? Number(attrs.base_token_price_usd) : NaN;
+      if (!isFinite(price)) throw new Error("Gecko price missing");
+      return price;
+    }
+
+    async function fetchFromDexscreener(cfg) {
+      if (!cfg.pairAddress || cfg.pairAddress.includes('BASE_')) throw new Error('Pair address missing');
+      const url = `https://api.dexscreener.com/latest/dex/pairs/${cfg.dexscreenerNetwork}/${cfg.pairAddress}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Dex ${r.status}`);
+      const j = await r.json();
+      const pair = (j && j.pair) ? j.pair : (j && j.pairs && j.pairs[0]);
+      const price = pair && pair.priceUsd ? Number(pair.priceUsd) : NaN;
+      if (!isFinite(price)) throw new Error("Dex price missing");
+      return price;
+    }
+
+    async function fetchTBPPrice() {
+      const cfg = getConfig();
+      const priceEl = document.getElementById("price");
+      const mcEl = document.getElementById("marketcap");
+
+      try {
+        let price = await fetchFromGecko(cfg).catch(() => null);
+        if (!price) price = await fetchFromDexscreener(cfg);
+
+        const fdv = price * MAX_SUPPLY;
         const circ = price * CIRC_SUPPLY;
 
         if (priceEl) {
           priceEl.innerHTML =
-            '💰 Current Price<span class="stat-num">' + fmtPriceUSD(price) + '</span>';
+            `💰 Current Price<span class="stat-num">${fmtPriceUSD(price)}</span>`;
         }
 
         if (mcEl) {
           mcEl.innerHTML =
-            '🧮 MC (circulating est.)' +
-            '<span class="stat-num">' + fmtUSD(circ) + '</span>' +
-            '<span class="stat-num">FDV: ' + fmtUSD(fdv) + '</span>';
+            `🧮 MC (circulating est.)<span class="stat-num">${fmtUSD(circ)}</span><span class="stat-num">FDV: ${fmtUSD(fdv)}</span>`;
         }
       } catch (e) {
-        console.error("[TBP-AI] price error:", e);
         if (priceEl) {
-          priceEl.innerHTML =
-            '💰 Current Price<span class="stat-num">Unavailable</span>';
+          priceEl.innerHTML = `💰 Current Price<span class="stat-num">${cfg.isLive ? 'Unavailable' : 'Pending Launch'}</span>`;
         }
         if (mcEl) {
-          mcEl.innerHTML =
-            '🧮 MC (circulating est.)<span class="stat-num">Error</span>';
+          mcEl.innerHTML = `🧮 MC (circulating est.)<span class="stat-num">${cfg.isLive ? 'Error' : 'Pending Launch'}</span>`;
         }
       }
     }
 
-    fetchTBPPrice();
+    document.querySelectorAll('.network-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentNetwork = btn.dataset.network;
+        renderNetwork();
+      });
+    });
+
     setInterval(fetchTBPPrice, 10000);
 
     var aiqCtx = [];
@@ -1767,35 +1847,35 @@
     }
 
     var FAQ = [
-
       { q:/nexus|nexus analyt|grid|pwa|app|trading app|nexus-analyt/i,
-        a:{ 
-          en:"Nexus Analyt is an installable PWA (Progressive Web App) for crypto analysis and grid trading simulation. It runs like a native app on your phone, installs directly from the website, and follows a non-custodial, analysis-first approach.",
-          de:"Nexus Analyt ist eine installierbare PWA (Progressive Web App) für Krypto-Analyse und Grid-Trading-Simulation. Sie läuft wie eine native App auf dem Smartphone, wird direkt über die Website installiert und ist non-custodial aufgebaut."
+        a:{
+          en:"Nexus Analyt is an installable crypto analysis app for monitoring, simulation and AI-assisted workflows.",
+          de:"Nexus Analyt ist eine installierbare Krypto-Analyse-App für Monitoring, Simulation und AI-gestützte Workflows."
         }
       },
-
       { q:/download|install|installation|android|iphone|ios|homescreen|home screen/i,
         a:{
-          en:"Open https://nexus-grid-ui.onrender.com/ on your phone. On Android/Chrome you can install the app directly. On iPhone use Share (⤴︎) → Add to Home Screen.",
-          de:"Öffne https://nexus-grid-ui.onrender.com/ auf deinem Handy. Auf Android/Chrome kannst du die App direkt installieren. Auf dem iPhone: Teilen (⤴︎) → Zum Home-Bildschirm."
+          en:"Use the app link on the website to open the current live version.",
+          de:"Nutze den App-Link auf der Website, um die aktuelle Live-Version zu öffnen."
         }
       },
-
-      { q:/what is nexus|was ist nexus|erklär nexus|explain nexus/i,
-        a:{
-          en:"Nexus Analyt focuses on monitoring, strategy testing and grid logic. Free mode is simulation and analytics, Nexus Analyt Pro will expand capabilities once the Alpha validates the core UX.",
-          de:"Nexus Analyt konzentriert sich auf Monitoring, Strategie-Tests und Grid-Logik. Der Free-Modus ist Simulation & Analyse, spätere Pro-Versionen können Wallets zunächst read-only anbinden."
-        }
+      { q:/price|chart|kurs/i,
+        a:"Live price & chart are shown for the currently selected network. 📊"
       },
-
-      { q:/price|chart|kurs/i,           a:"Live price & chart are in the GeckoTerminal widget below. 📊" },
-      { q:/buy|kauf|how .*buy/i,         a:"Connect wallet → open SushiSwap (Polygon) → select TBP → swap → confirm. ✅ Verify contract: 0x50c40e03552A42fbE41b2507d522F56d7325D1F2" },
-      { q:/tokenomics|supply|burn|owner|lp|umlauf/i, a:"Total ~190B; burned ~10B; circulating ~166B; owner ~14B (listings/ops). 0% tax. Polygon (POL)." },
-      { q:/ai|ki|what .*tbp|who .*you|wer bist du/i, a:"I’m TBP, an AI-powered crypto intelligence token on Polygon. I post & explain myself and keep on-chain stats visible. 🧠🐸" },
-      { q:/cmc|coingecko|listing|listung/i, a:"Goal: CoinGecko & CMC listing — focus on transparency, activity & community growth." },
-      { q:/nft|tbp gold/i,               a:"TBP Gold: 300 NFTs × 300 POL; proceeds fund promotion for TBP." }
+      { q:/buy|kauf|how .*buy/i,
+        a:"Use the active network buy link on the website and always verify the current contract address shown above."
+      },
+      { q:/tokenomics|supply|burn|owner|lp|umlauf/i,
+        a:"Total ~190B; burned ~10B; circulating ~166B; owner ~14B (listings/ops). 0% tax."
+      },
+      { q:/ai|ki|what .*tbp|who .*you|wer bist du/i,
+        a:"I’m TBP, the crypto-native AI layer behind the TurboPepe ecosystem. 🧠🐸"
+      },
+      { q:/nft|tbp gold/i,
+        a:"TBP NFTs are access-layer collectibles designed for future ecosystem utility."
+      }
     ];
+
     function detectLang(t){
       return /[äöüß]|\b(der|die|das|und|wie|warum|kann|preis|kurs|was)\b/i.test(t) ? "de" : "en";
     }
@@ -1815,7 +1895,11 @@
       const r = await fetch("https://tbp-advisor.onrender.com/ask", {
         method: "POST",
         headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ question: text, context: [], need_image: false })
+        body: JSON.stringify({
+          question: `[Network: ${currentNetwork}] ${text}`,
+          context: [],
+          need_image: false
+        })
       });
       let body;
       try { body = await r.json(); } catch { body = { error: await r.text() }; }
@@ -1850,18 +1934,17 @@
 
       var isDE = /[äöüß]|(?:\b(der|die|das|und|mit|wie|warum|kann|preis|kurs|tokenomics|listung)\b)/i.test(q);
       var msg = adv || (isDE
-        ? "Ich sammle gerade Daten… schau währenddessen ins Chart-Widget. 🐸"
-        : "Collecting data… check the chart widget meanwhile. 🐸");
+        ? "Ich sammle gerade Daten… schau währenddessen ins aktive Chart-Widget. 🐸"
+        : "Collecting data… check the active chart widget meanwhile. 🐸");
       addMsg('TBP', msg);
       aiqCtx.push("TBP: " + msg);
     }
 
-    var fab     = document.getElementById('aiq-fab');
-    var panel   = document.getElementById('aiq-panel');
-    var closeBtn= document.getElementById('aiq-close');
+    var fab = document.getElementById('aiq-fab');
+    var panel = document.getElementById('aiq-panel');
+    var closeBtn = document.getElementById('aiq-close');
     var sendBtn = document.getElementById('aiq-send');
-    var input   = document.getElementById('aiq-input');
-
+    var input = document.getElementById('aiq-input');
 
     function openAiPanel(){
       try{
@@ -1870,7 +1953,6 @@
       }catch(e){}
     }
 
-    // Wire up "Ask the Crypto AI" buttons (no URL hash needed)
     try{
       var b1 = document.getElementById("openAiBtn");
       var b2 = document.getElementById("openAiBtn2");
@@ -1884,9 +1966,7 @@
       });
     }catch(e){}
 
-    if (!fab || !panel || !closeBtn || !sendBtn || !input) {
-      console.error("[TBP-AI] Missing DOM elements for AI widget.");
-    } else {
+    if (fab && panel && closeBtn && sendBtn && input) {
       fab.addEventListener('click', function(){
         panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
         if (panel.style.display === 'block') input.focus();
@@ -1896,13 +1976,10 @@
       input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ aiSend(); }});
     }
 
-
-
-    // Copy contract address
     try {
       var copyBtn = document.getElementById("copyContract");
-      var addrEl  = document.getElementById("contractAddr");
-      var badge   = document.getElementById("copyBadge");
+      var addrEl = document.getElementById("contractAddr");
+      var badge = document.getElementById("copyBadge");
       if (copyBtn && addrEl) {
         copyBtn.addEventListener("click", async function(){
           var addr = (addrEl.textContent || "").trim();
@@ -1911,7 +1988,6 @@
             if (badge) badge.textContent = "Copied!";
             setTimeout(function(){ if (badge) badge.textContent = ""; }, 1500);
           } catch(e) {
-            // Fallback
             var ta = document.createElement("textarea");
             ta.value = addr;
             document.body.appendChild(ta);
@@ -1924,74 +2000,61 @@
         });
       }
     } catch(e) {}
-    
-// =========================
-// Community Feedback (local votes + counters)
-// =========================
-(function(){
-  try{
-    var upBtn   = document.getElementById("tbpVoteUp");
-    var dnBtn   = document.getElementById("tbpVoteDown");
-    var upCntEl = document.getElementById("tbpUpCount");
-    var dnCntEl = document.getElementById("tbpDownCount");
-    var status  = document.getElementById("tbpVoteStatus");
 
-    var txt     = document.getElementById("tbpVoteText");
-    var send    = document.getElementById("tbpVoteSend");
-    var email   = document.getElementById("tbpVoteEmail");
-    var copyBtn = document.getElementById("tbpVoteCopy");
-    var txtStat = document.getElementById("tbpVoteTextStatus");
+    (function(){
+      try{
+        var upBtn = document.getElementById("tbpVoteUp");
+        var dnBtn = document.getElementById("tbpVoteDown");
+        var upCntEl = document.getElementById("tbpUpCount");
+        var dnCntEl = document.getElementById("tbpDownCount");
+        var status = document.getElementById("tbpVoteStatus");
 
-    if(!upBtn || !dnBtn || !upCntEl || !dnCntEl || !status) return;
+        if(!upBtn || !dnBtn || !upCntEl || !dnCntEl || !status) return;
 
-    var KEY_UP   = "tbp_commitment_up_v1";
-    var KEY_DOWN = "tbp_commitment_down_v1";
-    var KEY_VOTE = "tbp_commitment_myvote_v1";
-    var KEY_TEXT = "tbp_commitment_text_v1";
+        var KEY_UP = "tbp_commitment_up_v1";
+        var KEY_DOWN = "tbp_commitment_down_v1";
+        var KEY_VOTE = "tbp_commitment_myvote_v1";
 
-    function getInt(k){ return parseInt(localStorage.getItem(k) || "0", 10) || 0; }
-    function setInt(k,v){ localStorage.setItem(k, String(v)); }
-    function setStatus(el, msg){ if(el) el.textContent = msg || ""; }
+        function getInt(k){ return parseInt(localStorage.getItem(k) || "0", 10) || 0; }
+        function setInt(k,v){ localStorage.setItem(k, String(v)); }
+        function setStatus(el, msg){ if(el) el.textContent = msg || ""; }
 
-    function render(){
-      var up = getInt(KEY_UP);
-      var dn = getInt(KEY_DOWN);
-      upCntEl.textContent = String(up);
-      dnCntEl.textContent = String(dn);
+        function render(){
+          var up = getInt(KEY_UP);
+          var dn = getInt(KEY_DOWN);
+          upCntEl.textContent = String(up);
+          dnCntEl.textContent = String(dn);
 
-      var v = localStorage.getItem(KEY_VOTE);
-      if(v === "up") setStatus(status, "You voted: 👍 Yes");
-      else if(v === "down") setStatus(status, "You voted: 👎 No");
-      else setStatus(status, "No vote submitted yet.");
-    }
+          var v = localStorage.getItem(KEY_VOTE);
+          if(v === "up") setStatus(status, "You voted: 👍 Yes");
+          else if(v === "down") setStatus(status, "You voted: 👎 No");
+          else setStatus(status, "No vote submitted yet.");
+        }
 
-    function vote(which){
-      var prev = localStorage.getItem(KEY_VOTE);
-      if(prev === which){
-        setStatus(status, "Vote unchanged.");
-        return;
-      }
-      // remove previous vote from counts
-      if(prev === "up") setInt(KEY_UP, Math.max(0, getInt(KEY_UP) - 1));
-      if(prev === "down") setInt(KEY_DOWN, Math.max(0, getInt(KEY_DOWN) - 1));
+        function vote(which){
+          var prev = localStorage.getItem(KEY_VOTE);
+          if(prev === which){
+            setStatus(status, "Vote unchanged.");
+            return;
+          }
+          if(prev === "up") setInt(KEY_UP, Math.max(0, getInt(KEY_UP) - 1));
+          if(prev === "down") setInt(KEY_DOWN, Math.max(0, getInt(KEY_DOWN) - 1));
+          if(which === "up") setInt(KEY_UP, getInt(KEY_UP) + 1);
+          if(which === "down") setInt(KEY_DOWN, getInt(KEY_DOWN) + 1);
 
-      // add new vote
-      if(which === "up") setInt(KEY_UP, getInt(KEY_UP) + 1);
-      if(which === "down") setInt(KEY_DOWN, getInt(KEY_DOWN) + 1);
+          localStorage.setItem(KEY_VOTE, which);
+          render();
+        }
 
-      localStorage.setItem(KEY_VOTE, which);
-      render();
-    }
+        upBtn.addEventListener("click", function(){ vote("up"); });
+        dnBtn.addEventListener("click", function(){ vote("down"); });
 
-    upBtn.addEventListener("click", function(){ vote("up"); });
-    dnBtn.addEventListener("click", function(){ vote("down"); });
+        render();
+      }catch(e){}
+    })();
 
-    render();
-  }catch(e){}
-})();
-
-console.log("[TBP-AI] ready.");
-</script>
-
+    renderNetwork();
+    console.log("[TBP-AI] multi-chain ready.");
+  </script>
 </body>
 </html>
