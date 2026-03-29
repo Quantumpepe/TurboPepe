@@ -16,6 +16,7 @@
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
       --border-soft: rgba(148, 163, 184, 0.7);
+      --warning: #f59e0b;
     }
 
     body {
@@ -197,7 +198,7 @@
       gap: 0.3rem;
       font-weight: 600;
       box-shadow: 0 0 20px rgba(56,189,248,0.6);
-      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease, opacity .2s ease;
     }
 
     .button:hover {
@@ -211,6 +212,17 @@
       color: var(--accent);
       border: 1px solid rgba(148,163,184,0.9);
       box-shadow: 0 0 16px rgba(15,23,42,0.9);
+    }
+
+    .button.disabled,
+    .link-pill.disabled,
+    .chart-links a.disabled,
+    .burn-link.disabled,
+    .copy-btn.disabled {
+      opacity: 0.45 !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      filter: grayscale(0.25);
     }
 
     .hero-stats {
@@ -369,6 +381,7 @@
       font-weight: bold;
       font-size: 0.65rem;
       box-shadow: 0 0 20px rgba(56,189,248,0.7);
+      transition: transform .18s ease, box-shadow .18s ease, opacity .2s ease;
     }
 
     .chart-links a:hover {
@@ -478,7 +491,7 @@
         0 0 34px rgba(56,189,248,.55),
         0 0 70px rgba(129,140,248,.30);
       animation: nftGlow 2.8s ease-in-out infinite alternate;
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, opacity .2s ease;
     }
 
     #goToNftsBtn:hover{
@@ -692,7 +705,7 @@
       text-decoration: none;
       font-size: 0.6rem;
       box-shadow: 0 0 14px rgba(15,23,42,0.9);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, opacity .2s ease;
     }
 
     .link-pill:hover{
@@ -787,7 +800,7 @@
       cursor:pointer;
       font-size:.6rem;
       box-shadow: 0 0 14px rgba(15,23,42,0.9);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, opacity .2s ease;
     }
 
     .copy-btn:hover{
@@ -823,12 +836,31 @@
       cursor:pointer;
       font-size:.62rem;
       box-shadow: 0 0 14px rgba(15,23,42,0.9);
+      transition: transform .18s ease, box-shadow .18s ease, opacity .2s ease;
+      position: relative;
     }
 
     .network-pill.active{
       background: radial-gradient(circle at top, var(--accent), var(--accent-soft));
       color:#020617;
       border-color: rgba(56,189,248,0.95);
+    }
+
+    .network-pill:hover{
+      transform: translateY(-1px);
+    }
+
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      margin-left: .35rem;
+      padding: .18rem .38rem;
+      border-radius: 999px;
+      background: rgba(245,158,11,.18);
+      color: #fcd34d;
+      border: 1px solid rgba(245,158,11,.45);
+      font-size: .48rem;
+      letter-spacing: .03em;
     }
 
     .network-note{
@@ -1041,7 +1073,7 @@
 <body>
 
   <marquee behavior="scroll" direction="left" scrollamount="6" id="marqueeText">
-    🐸 Building a crypto-native AI platform — Nexus Analyt is live. TBP unlocks advanced security, analysis & automation as we ship.
+    🐸 Building a crypto-native AI platform — Nexus Analyt is live on Polygon. TBP unlocks advanced security, analysis & automation as we ship.
   </marquee>
 
   <div class="app-shell">
@@ -1078,10 +1110,13 @@
 
           <div class="network-bar">
             <button class="network-pill active" data-network="polygon" id="btnPolygon">🟣 Polygon (Original)</button>
-            <button class="network-pill" data-network="base" id="btnBase">🔵 Base (Expansion)</button>
+            <button class="network-pill" data-network="base" id="btnBase">
+              🔵 Base
+              <span class="coming-soon-badge">COMING SOON</span>
+            </button>
           </div>
           <div class="network-note" id="networkNote">
-            Current network: Polygon — original TBP home. Base support is prepared for expansion.
+            Current network: Polygon — original TBP home.
           </div>
         </div>
 
@@ -1293,8 +1328,7 @@
           <div class="card">
             <h2 class="section-title">🔥 Liquidity Burned Forever</h2>
             <p id="liquidityBurnText">
-              TBP’s original Polygon LP has been burned — locked forever. No hidden games, no exit doors,
-              just clean on-chain proof.
+              TBP’s original Polygon LP has been burned — locked forever. No hidden games, no exit doors, just clean on-chain proof.
             </p>
             <div class="burn-media mt-1">
               <img src="LP-AI2.png" alt="TurboPepe burning LP">
@@ -1598,11 +1632,12 @@
   <script>
     'use strict';
 
+    const LIVE_APP_URL = "https://nexus-analyt-ui.onrender.com/";
+
     const CONFIG = {
       polygon: {
         key: "polygon",
         label: "Polygon",
-        badge: "🟣 Polygon (Original)",
         note: "Current network: Polygon — original TBP home.",
         marquee: "🐸 Building a crypto-native AI platform — Nexus Analyt is live on Polygon. TBP unlocks advanced security, analysis & automation as we ship.",
         chainText: "Original home: Polygon",
@@ -1617,7 +1652,7 @@
         burnProof: "https://polygonscan.com/tx/0x6cd24c5c4f8376961e21aa892b966329c09d4fa7490e699e1ce26765459ddf1a",
         buyUrl: "https://www.sushi.com/polygon/swap?token0=NATIVE&token1=0x50c40e03552A42fbE41b2507d522F56d7325D1F2",
         nftUrl: "https://quantumpepe.github.io/NFTs-WalletConnectV2/",
-        appUrl: "https://nexus-analyt-ui.onrender.com/",
+        appUrl: LIVE_APP_URL,
         chartHint: "Viewing Polygon data.",
         nftNote: "Network: Polygon • Mint Gold or Silver",
         liquidityText: "TBP’s original Polygon LP has been burned — locked forever. No hidden games, no exit doors, just clean on-chain proof.",
@@ -1626,25 +1661,24 @@
       base: {
         key: "base",
         label: "Base",
-        badge: "🔵 Base (Expansion)",
-        note: "Current network: Base — expansion mode. Replace placeholders with your final Base deploy data.",
-        marquee: "🚀 TBP is expanding cross-chain — Base is prepared as the next growth layer for AI tools, access and utility.",
+        note: "Current network: Base — coming soon. Final contract, pair and links will be added after launch.",
+        marquee: "🚀 TBP is preparing cross-chain expansion — Base is planned as the next growth layer for AI tools, access and utility.",
         chainText: "Expansion path: Base",
         tokenAddress: "BASE_TOKEN_ADDRESS",
         pairAddress: "BASE_PAIR_ADDRESS",
         geckoNetwork: "base",
         dexscreenerNetwork: "base",
-        chartEmbed: "https://www.geckoterminal.com/en/base/pools/BASE_PAIR_ADDRESS?embed=1",
-        dextools: "https://www.dextools.io/app/en/base/pair-explorer/BASE_PAIR_ADDRESS",
-        dexscreener: "https://dexscreener.com/base/BASE_PAIR_ADDRESS",
+        chartEmbed: "about:blank",
+        dextools: "BASE_DEXTOOLS_URL",
+        dexscreener: "BASE_DEXSCREENER_URL",
         explorerToken: "https://basescan.org/token/BASE_TOKEN_ADDRESS",
-        burnProof: "https://basescan.org/address/BASE_TOKEN_ADDRESS",
+        burnProof: "BASE_BURN_PROOF_URL",
         buyUrl: "BASE_BUY_URL",
         nftUrl: "BASE_NFT_URL",
-        appUrl: "BASE_APP_URL",
-        chartHint: "Viewing Base data. Replace placeholders after launch.",
-        nftNote: "Network: Base • Update after NFT deploy",
-        liquidityText: "Base expansion is prepared. Update this section with the final Base LP / lock / deployment proof after launch.",
+        appUrl: LIVE_APP_URL,
+        chartHint: "Base chart will appear after the Base pool is live.",
+        nftNote: "Network: Base • Coming soon",
+        liquidityText: "Base expansion is prepared. Final Base LP / lock / proof will be published after launch.",
         isLive: false
       }
     };
@@ -1684,20 +1718,53 @@
       return CONFIG[currentNetwork];
     }
 
+    function isPlaceholder(value) {
+      return !value || /BASE_|PLACEHOLDER|about:blank/.test(String(value));
+    }
+
+    function setDisabledState(el, disabled) {
+      if (!el) return;
+      el.classList.toggle('disabled', disabled);
+      if (disabled) {
+        el.setAttribute('aria-disabled', 'true');
+      } else {
+        el.removeAttribute('aria-disabled');
+      }
+    }
+
+    function safeHref(el, href) {
+      if (!el) return;
+
+      if (!href || isPlaceholder(href)) {
+        el.setAttribute('href', 'javascript:void(0)');
+        setDisabledState(el, true);
+        return;
+      }
+
+      el.setAttribute('href', href);
+      setDisabledState(el, false);
+    }
+
     function updateActiveButtons() {
       document.querySelectorAll('.network-pill').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.network === currentNetwork);
       });
     }
 
-    function safeHref(el, href) {
-      if (!el) return;
-      el.setAttribute('href', href || '#');
-      if (!href || href.includes('BASE_')) {
-        el.setAttribute('href', 'javascript:void(0)');
-        el.style.opacity = '0.65';
+    function updateCopyState(cfg) {
+      const copyBtn = document.getElementById("copyContract");
+      const badge = document.getElementById("copyBadge");
+
+      if (!copyBtn) return;
+
+      const disabled = isPlaceholder(cfg.tokenAddress);
+      copyBtn.disabled = disabled;
+      setDisabledState(copyBtn, disabled);
+
+      if (disabled) {
+        if (badge) badge.textContent = "Base contract not live yet";
       } else {
-        el.style.opacity = '1';
+        if (badge) badge.textContent = "";
       }
     }
 
@@ -1731,7 +1798,9 @@
       if (liquidityBurnText) liquidityBurnText.textContent = cfg.liquidityText;
       if (footerText) footerText.textContent = `TurboPepe © 2025 – AI-powered crypto intelligence • ${cfg.chainText} • turbopepeai@gmail.com 🐸`;
 
-      if (chartFrame) chartFrame.src = cfg.chartEmbed;
+      if (chartFrame) {
+        chartFrame.src = isPlaceholder(cfg.chartEmbed) ? 'about:blank' : cfg.chartEmbed;
+      }
 
       safeHref(burnProofLink, cfg.burnProof);
       safeHref(buyLink, cfg.buyUrl);
@@ -1739,17 +1808,18 @@
       safeHref(dextoolsLink, cfg.dextools);
       safeHref(dexscreenerLink, cfg.dexscreener);
 
-      safeHref(appLinkMain, cfg.appUrl);
-      safeHref(appLinkSecondary, cfg.appUrl);
-      safeHref(appLinkTertiary, cfg.appUrl);
-      safeHref(proofAppLink, cfg.appUrl);
+      safeHref(appLinkMain, LIVE_APP_URL);
+      safeHref(appLinkSecondary, LIVE_APP_URL);
+      safeHref(appLinkTertiary, LIVE_APP_URL);
+      safeHref(proofAppLink, LIVE_APP_URL);
 
+      updateCopyState(cfg);
       updateActiveButtons();
       fetchTBPPrice();
     }
 
     async function fetchFromGecko(cfg) {
-      if (!cfg.pairAddress || cfg.pairAddress.includes('BASE_')) throw new Error('Pair address missing');
+      if (isPlaceholder(cfg.pairAddress)) throw new Error('Pair address missing');
       const url = `https://api.geckoterminal.com/api/v2/networks/${cfg.geckoNetwork}/pools/${cfg.pairAddress}`;
       const r = await fetch(url, { headers: { "accept": "application/json" }});
       if (!r.ok) throw new Error(`Gecko ${r.status}`);
@@ -1761,7 +1831,7 @@
     }
 
     async function fetchFromDexscreener(cfg) {
-      if (!cfg.pairAddress || cfg.pairAddress.includes('BASE_')) throw new Error('Pair address missing');
+      if (isPlaceholder(cfg.pairAddress)) throw new Error('Pair address missing');
       const url = `https://api.dexscreener.com/latest/dex/pairs/${cfg.dexscreenerNetwork}/${cfg.pairAddress}`;
       const r = await fetch(url);
       if (!r.ok) throw new Error(`Dex ${r.status}`);
@@ -1795,10 +1865,10 @@
         }
       } catch (e) {
         if (priceEl) {
-          priceEl.innerHTML = `💰 Current Price<span class="stat-num">${cfg.isLive ? 'Unavailable' : 'Pending Launch'}</span>`;
+          priceEl.innerHTML = `💰 Current Price<span class="stat-num">${cfg.isLive ? 'Unavailable' : 'Coming Soon'}</span>`;
         }
         if (mcEl) {
-          mcEl.innerHTML = `🧮 MC (circulating est.)<span class="stat-num">${cfg.isLive ? 'Error' : 'Pending Launch'}</span>`;
+          mcEl.innerHTML = `🧮 MC (circulating est.)<span class="stat-num">${cfg.isLive ? 'Error' : 'Coming Soon'}</span>`;
         }
       }
     }
@@ -1983,6 +2053,13 @@
       if (copyBtn && addrEl) {
         copyBtn.addEventListener("click", async function(){
           var addr = (addrEl.textContent || "").trim();
+
+          if (isPlaceholder(addr)) {
+            if (badge) badge.textContent = "Contract not live yet";
+            setTimeout(function(){ if (badge) badge.textContent = "Base contract not live yet"; }, 1500);
+            return;
+          }
+
           try {
             await navigator.clipboard.writeText(addr);
             if (badge) badge.textContent = "Copied!";
